@@ -3,7 +3,7 @@
 import TypewriterText from "./TypewriterText";
 
 interface TerminalWindowProps {
-  lines: { text: string; type?: "input" | "output" | "info" | "error" }[];
+  lines: { text: string; type?: "input" | "output" | "info" | "error" | "warning" }[];
   title?: string;
   className?: string;
 }
@@ -44,6 +44,14 @@ export default function TerminalWindow({
               <div key={i} className="flex">
                 <span className="mr-2 shrink-0 text-[var(--danger)]">✗</span>
                 <span className="text-[var(--danger)]">{line.text}</span>
+              </div>
+            );
+          }
+          if (line.type === "warning") {
+            return (
+              <div key={i} className="flex">
+                <span className="mr-2 shrink-0 text-[var(--warning)]">⚠</span>
+                <span className="text-[var(--warning)]">{line.text}</span>
               </div>
             );
           }
