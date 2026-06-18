@@ -52,10 +52,10 @@ export default function WaitlistForm() {
       <button
         type="submit"
         disabled={loading}
-        className="cursor-pointer rounded bg-[var(--accent)] px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[var(--accent-hover)] disabled:opacity-60"
+        className="cursor-pointer rounded bg-[var(--accent)] px-5 py-2.5 text-sm font-heading font-bold text-white transition-colors duration-200 hover:bg-[var(--accent-hover)] disabled:opacity-60"
       >
         {loading ? (
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 font-mono">
             <Loader2 size={14} className="animate-spin" />
             joining...
           </span>

@@ -116,7 +116,7 @@ export default function DocsPage() {
                   skills/email_campaign_suspension.yaml
                 </span>
               </div>
-              <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-[var(--text-secondary)]">
+              <pre className="overflow-x-auto p-4 text-xs leading-relaxed text-[var(--text-secondary)] font-code">
 {skillFile}</pre>
             </div>
           </ScrollReveal>
@@ -186,7 +186,7 @@ export default function DocsPage() {
               Deploy CogniLogs in your environment:
             </p>
             <div className="rounded border border-[var(--border)] bg-[var(--bg-secondary)] p-4 text-xs text-[var(--text-secondary)]">
-              <pre className="leading-relaxed">{quickStart}</pre>
+              <pre className="leading-relaxed font-code">{quickStart}</pre>
             </div>
           </ScrollReveal>
 
@@ -195,7 +195,7 @@ export default function DocsPage() {
               Architecture
             </h2>
             <div className="rounded border border-[var(--border)] bg-[var(--bg-secondary)] p-4 text-xs text-[var(--text-secondary)]">
-              <pre className="leading-relaxed">{architecture}</pre>
+              <pre className="leading-relaxed font-code">{architecture}</pre>
             </div>
           </ScrollReveal>
         </div>

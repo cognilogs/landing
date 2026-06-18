@@ -21,11 +21,11 @@ export default function TerminalWindow({
         <span className="h-2.5 w-2.5 rounded-full bg-[var(--danger)] opacity-60" />
         <span className="h-2.5 w-2.5 rounded-full bg-[var(--warning)] opacity-60" />
         <span className="h-2.5 w-2.5 rounded-full bg-[var(--text-muted)] opacity-40" />
-        <span className="ml-2 text-[10px] text-[var(--text-muted)]">
+        <span className="ml-2 text-[10px] text-[var(--text-muted)] font-code">
           {title}
         </span>
       </div>
-      <div className="space-y-1.5 p-4 font-mono text-xs leading-relaxed sm:p-5 sm:text-sm">
+      <div className="space-y-1.5 p-4 font-code text-xs leading-relaxed sm:p-5 sm:text-sm">
         {lines.map((line, i) => {
           if (line.type === "input") {
             return (

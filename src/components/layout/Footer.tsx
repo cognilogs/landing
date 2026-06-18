@@ -16,7 +16,7 @@ export default function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="transition-colors duration-200 hover:text-[var(--text-secondary)]"
+              className="font-heading transition-colors duration-200 hover:text-[var(--text-secondary)]"
             >
               [{link.label}]
             </Link>

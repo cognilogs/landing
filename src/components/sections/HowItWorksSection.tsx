@@ -75,10 +75,10 @@ export default function HowItWorksSection() {
                   : "border-[var(--border)] bg-[var(--bg-card)] text-[var(--text-secondary)] hover:border-[var(--border-hover)]"
               }`}
             >
-              <span className="mb-0.5 block font-bold">
+              <span className="mb-0.5 block font-heading text-sm font-bold">
                 [{step.id}] {step.title}
               </span>
-              <span className="hidden text-[10px] text-[var(--text-muted)] sm:block">
+              <span className="hidden text-[10px] text-[var(--text-muted)] sm:block font-mono">
                 {step.subtitle}
               </span>
             </button>

@@ -27,11 +27,10 @@ export default function Nav() {
         <div className="flex items-center justify-between rounded border border-[var(--border)] bg-[var(--bg-primary)]/80 px-4 py-3 backdrop-blur-xl sm:px-6">
           <Link
             href="/"
-            className="flex items-center gap-2 text-sm font-bold tracking-tight text-[var(--text-primary)] transition-colors duration-200 hover:text-[var(--accent)]"
+            className="flex items-center gap-0 text-[var(--text-primary)] transition-colors duration-200 hover:text-[var(--accent)]"
           >
-            <span className="text-[var(--accent)]">~</span>
-            <span>/</span>
-            <span>cognilogs</span>
+            <span className="text-lg text-[var(--accent)]">~</span>
+            <span className="text-xl font-logo tracking-tight">/ cognilogs</span>
           </Link>
 
           <div className="hidden items-center gap-1 sm:flex">
@@ -39,7 +38,7 @@ export default function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative rounded px-3 py-1.5 text-xs transition-colors duration-200 ${
+                className={`relative rounded px-3 py-1.5 text-xs font-heading transition-colors duration-200 ${
                   isActive(link.href)
                     ? "text-[var(--accent)]"
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
@@ -80,11 +79,11 @@ export default function Nav() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`block rounded px-3 py-2 text-xs transition-colors duration-200 ${
-                    isActive(link.href)
-                      ? "text-[var(--accent)]"
-                      : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                  }`}
+                className={`block rounded px-3 py-2 text-xs font-heading transition-colors duration-200 ${
+                  isActive(link.href)
+                    ? "text-[var(--accent)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                }`}
                 >
                   {link.label}
                 </Link>
