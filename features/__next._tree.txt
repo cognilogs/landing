@@ -1,0 +1,3 @@
+:HL["/landing/_next/static/chunks/0lirchaiv06b-.css","style"]
+:HC["/",""]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"features","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"Ok13ZDcqx3YRbM-Q0Hz3E"}
