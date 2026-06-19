@@ -49,29 +49,6 @@ cognilogs skill init investigate_latency_spike
 # Run an investigation
 cognilogs run --skill investigate_latency_spike --service payment-api`;
 
-const architecture = `+----------------------------------------------------+
-|                   Your VPC                          |
-|                                                      |
-|  +----------+    +--------------+    +------------+  |
-|  |  Slack/  |    |  CogniLogs   |    |  On-Call   |  |
-|  |  Teams   |<-->|   Agent      |<-->|  PagerDuty |  |
-|  +----------+    +------+-------+    +------------+  |
-|                         |                              |
-|         +---------------+--------------+               |
-|         v               v              v               |
-|  +----------+    +----------+    +----------+          |
-|  | Database |    |   APIs   |    |  Infra   |          |
-|  |  (SQL)   |    | (REST)   |    | (SSH/K8s)|          |
-|  +----------+    +----------+    +----------+          |
-|                                                      |
-|  +----------------------------------------------+    |
-|  |         Skill Files (YAML)                    |    |
-|  |  skills/email_campaign_suspension.yaml         |    |
-|  |  skills/latency_spike.yaml                     |    |
-|  |  skills/cert_expiry_check.yaml                 |    |
-|  +----------------------------------------------+    |
-+----------------------------------------------------+`;
-
 export default function DocsPage() {
   return (
     <div className="pt-28 sm:pt-36">
@@ -190,14 +167,6 @@ export default function DocsPage() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.4}>
-            <h2 className="mb-4 mt-12 text-lg font-bold text-[var(--text-primary)]">
-              Architecture
-            </h2>
-            <div className="rounded border border-[var(--border)] bg-[var(--bg-secondary)] p-4 text-xs text-[var(--text-secondary)]">
-              <pre className="leading-relaxed font-code">{architecture}</pre>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
     </div>
