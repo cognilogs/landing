@@ -4,8 +4,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
 
+const SHEETS_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbwPOWaIFazVXrHnlL7a-KPb0bMBkxx5IcsV06E9Gg3F7JoFE57omc0Bt5-McHMC1gWO/exec";
+
 export default function WaitlistForm() {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -13,9 +17,26 @@ export default function WaitlistForm() {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
-    setSubmitted(true);
+    setError("");
+
+    try {
+      const params = new URLSearchParams({
+        email,
+        timestamp: new Date().toISOString(),
+        source: "cognilogs-website",
+      });
+
+      await fetch(SHEETS_WEBHOOK_URL, {
+        method: "POST",
+        body: params,
+      });
+
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -44,7 +65,10 @@ export default function WaitlistForm() {
           type="email"
           required
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setError("");
+          }}
           placeholder="your@email.com"
           className="w-full rounded border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none transition-colors duration-200 focus:border-[var(--accent)]"
         />
@@ -63,6 +87,9 @@ export default function WaitlistForm() {
           "[ join waitlist ]"
         )}
       </button>
+      {error && (
+        <p className="col-span-full text-xs text-[var(--danger)]">{error}</p>
+      )}
     </form>
   );
 }
