@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T00:00:00.000Z",
+  "title": "Design System: CogniLogs",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Signal Orange",
+        "canonical": "#f97316",
+        "tonalRamp": ["#3b1805", "#7a2e08", "#b8430b", "#e65c0f", "#f97316", "#fb9a55", "#fdc6a3", "#fff1e7"]
+      },
+      "accent-wordmark": {
+        "role": "primary",
+        "displayName": "Wordmark Orange",
+        "canonical": "#e2660a",
+        "tonalRamp": ["#3b1805", "#7a2e08", "#b8430b", "#e2660a", "#f97316", "#fb9a55", "#fdc6a3", "#fff1e7"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Cool Paper",
+        "canonical": "#f7f8f8",
+        "tonalRamp": ["#1c1f1e", "#3b403e", "#5c6360", "#858d89", "#b0b7b4", "#d2d7d5", "#eef1ef", "#f7f8f8"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0a0a0b",
+        "tonalRamp": ["#0a0a0b", "#252629", "#444951", "#5f6570", "#858b95", "#b0b5bc", "#d8dbde", "#f1f3f2"]
+      },
+      "console": {
+        "role": "neutral",
+        "displayName": "Console Black",
+        "canonical": "#090b0e",
+        "tonalRamp": ["#050607", "#090b0e", "#101419", "#171d23", "#2a333b", "#5f6872", "#89929c", "#f2f5f3"]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Loop Green",
+        "canonical": "#0a9767",
+        "tonalRamp": ["#043b2a", "#06714e", "#0a9767", "#2bbd87", "#4fe3a3", "#8ceec5", "#c7f8e2", "#e7f7f0"]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Evidence Blue",
+        "canonical": "#377fe6",
+        "tonalRamp": ["#0d2d5f", "#1f5fbf", "#377fe6", "#5b9aee", "#74aaff", "#a3c7ff", "#d3e3ff", "#eaf1ff"]
+      },
+      "pink": {
+        "role": "tertiary",
+        "displayName": "Handoff Pink",
+        "canonical": "#d84f8b",
+        "tonalRamp": ["#4a142c", "#a62b63", "#d84f8b", "#e777a5", "#f39bbd", "#f8bed3", "#fce0ea", "#fdeef5"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines and wordmark echo only." },
+      "headline": { "displayName": "Headline", "purpose": "Major section H2s, one or two lines." },
+      "title": { "displayName": "Title", "purpose": "Deep-dive headings and large card titles." },
+      "body": { "displayName": "Body", "purpose": "Default reading size; docs prose capped at 600px." },
+      "label": { "displayName": "Label", "purpose": "Shared chrome, legal metadata, and fine print at 13px or above." },
+      "mono": { "displayName": "Mono", "purpose": "Ticket IDs, terminal output, and run metadata only." }
+    },
+    "shadows": [
+      {
+        "name": "menu-lift",
+        "value": "0 24px 64px -24px rgba(10, 10, 11, 0.22)",
+        "purpose": "The mobile navigation dropdown only."
+      }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Default state transition." },
+      { "name": "marquee", "value": "48s linear infinite", "purpose": "Connector rail only; disabled under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "min", "value": "320px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main commitment action: ink pill, white label, optional arrow.",
+      "html": "<button class=\"ds-btn-primary\">Join the waitlist <span aria-hidden=\"true\">→</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 20px; border: 0; border-radius: 9999px; background: #0a0a0b; color: #ffffff; font: 500 14px/1 Inter, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background 160ms ease; } .ds-btn-primary:hover { background: #252629; } .ds-btn-primary:focus-visible { outline: 2px solid #c2410c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "The quieter second action: white pill with a hairline border.",
+      "html": "<button class=\"ds-btn-secondary\">Read the product guide</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 1px solid #e3e6e5; border-radius: 9999px; background: #ffffff; color: #0a0a0b; font: 500 14px/1 Inter, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background 160ms ease, border-color 160ms ease; } .ds-btn-secondary:hover { background: #f1f3f2; border-color: #d3d8d5; } .ds-btn-secondary:focus-visible { outline: 2px solid #c2410c; outline-offset: 3px; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "Orange commitment action for the waitlist surface.",
+      "html": "<button class=\"ds-btn-accent\">Build it with us</button>",
+      "css": ".ds-btn-accent { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 20px; border: 0; border-radius: 9999px; background: #f97316; color: #3b1805; font: 500 14px/1 Inter, ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background 160ms ease; } .ds-btn-accent:hover { background: #fb8a3d; } .ds-btn-accent:focus-visible { outline: 2px solid #3b1805; outline-offset: 3px; }"
+    },
+    {
+      "name": "Email Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "The waitlist field: 52px white pill, hairline border, orange focus.",
+      "html": "<label class=\"ds-input-label\" for=\"ds-email\">Work email</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"you@company.com\" />",
+      "css": ".ds-input-label { display: block; margin-bottom: 6px; color: #444951; font: 500 13px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; } .ds-input { width: 100%; height: 52px; padding: 0 20px; border: 1px solid #e3e6e5; border-radius: 9999px; background: #ffffff; color: #0a0a0b; font: 400 15px/1 Inter, ui-sans-serif, system-ui, sans-serif; outline: none; transition: border-color 160ms ease, box-shadow 160ms ease; } .ds-input::placeholder { color: #5f6570; } .ds-input:focus { border-color: #c2410c; box-shadow: 0 0 0 2px #c2410c; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "description": "13px muted navigation with an orange active dot.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-link\">Platform</a><a href=\"#\" class=\"ds-nav-link ds-nav-link-active\" aria-current=\"page\">Docs</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 22px; } .ds-nav-link { position: relative; color: #5f6570; font: 500 13px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; text-decoration: none; } .ds-nav-link:hover { color: #0a0a0b; } .ds-nav-link-active { color: #0a0a0b; } .ds-nav-link-active::after { content: \"\"; position: absolute; left: 50%; bottom: -9px; width: 6px; height: 6px; border-radius: 9999px; background: #f97316; transform: translateX(-50%); }"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "A quiet pill for status, tabs, and first/planned labels.",
+      "html": "<span class=\"ds-chip\"><span class=\"ds-chip-dot\"></span>Freshdesk <span class=\"ds-chip-meta\">First</span></span>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid #e3e6e5; border-radius: 9999px; background: #ffffff; color: #444951; font: 500 13px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; } .ds-chip-dot { width: 6px; height: 6px; border-radius: 9999px; background: #f97316; } .ds-chip-meta { color: #5f6570; font-weight: 400; }"
+    },
+    {
+      "name": "Sheet Card",
+      "kind": "card",
+      "description": "A flat white sheet on cool paper, separated by a hairline.",
+      "html": "<article class=\"ds-card\"><p class=\"ds-card-kicker\">Intake</p><h3 class=\"ds-card-title\">Ticket + thread</h3><p class=\"ds-card-body\">The Freshdesk event arrives with its customer, conversation, and SLA context.</p></article>",
+      "css": ".ds-card { padding: 24px; border: 1px solid #e3e6e5; border-radius: 24px; background: #ffffff; } .ds-card-kicker { margin: 0 0 12px; color: #5f6570; font: 500 13px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; } .ds-card-title { margin: 0; color: #0a0a0b; font: 600 24px/1.1 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.035em; } .ds-card-body { margin: 12px 0 0; color: #444951; font: 400 16px/1.6 Inter, ui-sans-serif, system-ui, sans-serif; }"
+    },
+    {
+      "name": "Console Evidence Panel",
+      "kind": "custom",
+      "description": "The one dark room: a run log or evidence card with machine-readable metadata.",
+      "html": "<section class=\"ds-console\"><div class=\"ds-console-head\"><span class=\"ds-console-live\"></span><span>Run · ticket 2189</span><span class=\"ds-console-score\">0.92</span></div><p class=\"ds-console-body\">Intent matched. Sources attached. Confidence above threshold.</p><div class=\"ds-console-foot\"><span>SLA watch · 15m</span><span>Child ticket linked</span></div></section>",
+      "css": ".ds-console { padding: 24px; border-radius: 24px; background: #090b0e; color: #f2f5f3; font-family: Inter, ui-sans-serif, system-ui, sans-serif; } .ds-console-head { display: flex; align-items: center; gap: 10px; color: #89929c; font-size: 13px; } .ds-console-live { width: 7px; height: 7px; border-radius: 9999px; background: #4fe3a3; } .ds-console-score { margin-left: auto; color: #4fe3a3; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; } .ds-console-body { margin: 18px 0; color: #f2f5f3; font-size: 16px; line-height: 1.6; } .ds-console-foot { display: flex; justify-content: space-between; gap: 12px; color: #89929c; font-size: 13px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Visible Loop",
+    "overview": "CogniLogs looks like an operations notebook that has been edited into a public argument: cool paper, black ink, orange signal, and real interface fragments. The system borrows the scale and confidence of editorial poster design, but every large gesture resolves into a support artifact. A ticket, a run, an evidence card, and an SLA watch are the vocabulary. The visitor should be able to see the loop close, not just read a promise that it does.\n\nThe visual world is paper-light and deliberately flat. White sheets sit on a cool paper ground, separated by hairlines and tonal tints rather than shadows. Orange appears as a signal: the wordmark, an active dot, a focus ring, the waitlist surface. Blue, green, and pink carry meaning about work types and confidence states. A near-black console is the one dark room, used where the product performs machine work. Nothing floats decoratively.\n\nLocal deployment is part of the visual argument. A dashed network boundary contains the app, ticket data, and the SLA worker; external services are named separately. Compliance copy describes control and review scope, never a certification that has not been issued.\n\nThe tone is confident, operational, and honest. Diagrams are built from HTML interface fragments and custom inline SVG line work. The page never pretends to show a production screenshot, a customer logo, or a benchmark. The reference grammar is MausBot's editorial structure, never its mascots, assets, or copy.",
+    "keyCharacteristics": [
+      "Cool paper ground and white sheets, with hairline separators.",
+      "Oversized Inter display type against dense, readable interface fragments.",
+      "Orange as a scarce signal color, not a decorative wash.",
+      "Colored nodes and dotted paths that explain support work.",
+      "One near-black console for machine output and evidence.",
+      "Rounded sheets, pills, and ticket cards with no ornamental shadows.",
+      "A deployment boundary that shows what stays inside the customer's network.",
+      "Motion that demonstrates state, then gets out of the way."
+    ],
+    "rules": [
+      { "name": "The Signal Orange Rule", "body": "Orange is a signal, not a background. Outside the waitlist hero and small tinted sheets, it should appear in dots, words, focus rings, and single actions. If orange covers a large surface, that surface must be the commitment itself.", "section": "colors" },
+      { "name": "The One Meaning Per Color Rule", "body": "Blue, green, and pink always describe work type or confidence state. Never use them as decorative variety in the same diagram.", "section": "colors" },
+      { "name": "The No Decorative Gradient Rule", "body": "Gradients and glows are not part of the visual world. The marquee fade is a functional edge mask, not decoration.", "section": "colors" },
+      { "name": "The Two-Font Rule", "body": "Inter runs the interface and the argument. JetBrains Mono is a costume for machine output, not a second brand voice.", "section": "typography" },
+      { "name": "The 13px Floor Rule", "body": "Shared chrome, legal fine print, and body-adjacent labels do not go below 13px. Smaller type is allowed only inside data-dense interface fragments and SVG microtype, where it is part of the artifact.", "section": "typography" },
+      { "name": "The 600px Prose Rule", "body": "Docs paragraphs and legal articles both max out at 600px. Do not use ch units for these measures with Inter.", "section": "typography" },
+      { "name": "The 320px Rule", "body": "Every route must survive 320px with no horizontal scroll. Decorative wordmark echoes and diagram paths are clipped by their own containers, not by the page root.", "section": "layout" },
+      { "name": "The Sidebar Rest Rule", "body": "Desktop docs and legal sidebars rest at 112px below the viewport top and stick there. Their columns must remain tall enough to scroll through the full article.", "section": "layout" },
+      { "name": "The Form First Rule", "body": "On mobile, the waitlist form comes before the supporting benefits. The primary action should be reachable in the first viewport whenever the copy allows it.", "section": "layout" },
+      { "name": "The Flat-By-Default Rule", "body": "If a surface needs separation, use a hairline, a tint, or a dark panel. Do not reach for a shadow.", "section": "elevation" },
+      { "name": "The One Dark Room Rule", "body": "The near-black console is the only large dark surface. Use it for machine work and evidence, not for arbitrary emphasis.", "section": "elevation" },
+      { "name": "The Sheet, Not Card Rule", "body": "A container should feel like a sheet of paper laid on the page, not a floating app card. Keep the radius generous, the border quiet, and the shadow absent.", "section": "shapes" },
+      { "name": "The Diagram Is an Interface Rule", "body": "Every diagram must contain a real support object: a ticket, a source, a confidence score, a run log, a child ticket, or an SLA clock. If it could be replaced by a generic icon, it is not a CogniLogs diagram.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep the paper ground, white sheets, and orange signal in that order of area.",
+      "Do use giant Inter headlines and let interface fragments carry the detail.",
+      "Do show the loop with tickets, sources, confidence scores, child tickets, and SLA watches.",
+      "Do label Freshdesk First and every planned connector Planned; there is no Next label.",
+      "Do keep shared chrome and legal fine print at 13px or above.",
+      "Do use Next Link for internal links and serve the site from the domain root. Do not reintroduce a basePath unless the deployment target requires one.",
+      "Do show the deployment boundary and name external dependencies before a pilot.",
+      "Do keep the confidence slider at a fixed 0.92 evidence score; only the threshold moves.",
+      "Do provide a static, wrapping trust-strip fallback under reduced motion and hide the pause control there.",
+      "Do keep docs prose and legal articles at 600px.",
+      "Do use CSS chevrons and colored dots instead of decorative arrow SVGs or icon medallions.",
+      "Do preserve the Google Sheets waitlist integration and its success/error states."
+    ],
+    "donts": [
+      "Don't use stock photography, raster screenshots, mascots, or AI-generated illustrations.",
+      "Don't invent customer logos, testimonials, benchmarks, pricing, production claims, or certifications.",
+      "Don't imply that local deployment guarantees compliance or that every workflow stays inside the customer's network.",
+      "Don't describe Slack, Jira, Linear, Notion, Confluence, GitHub, or Datadog as live integrations.",
+      "Don't use decorative gradients, glows, blurred halos, or ornamental shadows.",
+      "Don't put uppercase kickers above every section; the editorial hierarchy should come from scale and position.",
+      "Don't add stage numbers, icon medallions, or decorative arrows to the architecture map.",
+      "Don't reintroduce page-root overflow-hidden; use overflow-x: clip and clip decorations locally.",
+      "Don't use 68ch for docs prose; Inter makes it roughly 720px and produces 90-character lines.",
+      "Don't use the MausBot palette, mascots, assets, or verbatim copy. The structural grammar is the reference, not the identity.",
+      "Don't replace the waitlist webhook with a new backend without an explicit request."
+    ]
+  }
+}

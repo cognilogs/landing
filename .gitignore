@@ -43,3 +43,5 @@ next-env.d.ts
 # agent config
 .opencode/
 design-system/
+.playwright-cli/
+.taste-skill/

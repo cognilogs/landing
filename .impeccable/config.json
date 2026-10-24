@@ -1,0 +1,12 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "tiny-text",
+      "undersized-ui-text",
+      "marquee",
+      "nested-cards"
+    ],
+    "ignoreFiles": [],
+    "ignoreValues": []
+  }
+}

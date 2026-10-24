@@ -1,97 +1,167 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Menu, X } from "lucide-react";
+import Logo from "@/components/ui/Logo";
+import ButtonLink from "@/components/ui/ButtonLink";
 
 const navLinks = [
-  { href: "/", label: "home" },
-  { href: "/features", label: "features" },
-  { href: "/waitlist", label: "waitlist" },
-  { href: "/about", label: "about" },
-  { href: "/docs", label: "docs" },
+  { href: "/features", label: "Platform" },
+  { href: "/#how-it-works", label: "How it works" },
+  { href: "/#use-cases", label: "Use cases" },
+  { href: "/docs", label: "Docs" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const prefersReduced = useReducedMotion();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href.startsWith("/#")
+      ? false
+      : href === "/"
+        ? pathname === "/"
+        : pathname.startsWith(href);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-6 sm:pt-6">
-      <div className="mx-auto max-w-5xl">
-        <div className="flex items-center justify-between rounded border border-[var(--border)] bg-[var(--bg-primary)]/80 px-4 py-3 backdrop-blur-xl sm:px-6">
+    <>
+      <div className="bg-ink px-4 py-2.5 text-white">
+        <div className="mx-auto flex max-w-[1200px] items-center justify-center gap-2 text-center text-[13px] leading-5 sm:gap-3">
+          <span className="inline-flex h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+          <p className="text-white/70">
+            <span className="hidden sm:inline">
+              <span className="text-white">Early access.</span> CogniLogs is
+              onboarding its first Freshdesk design partners for local
+              deployment.
+            </span>
+            <span className="sm:hidden">Local deployment design partners.</span>
+          </p>
           <Link
-            href="/"
-            className="flex items-center gap-0 text-[var(--text-primary)] transition-colors duration-200 hover:text-[var(--accent)]"
+            href="/waitlist"
+            className="group inline-flex shrink-0 items-center gap-1 font-medium text-white transition-colors hover:text-accent"
           >
-            <span className="text-lg text-[var(--accent)]">~</span>
-            <span className="text-xl font-logo tracking-tight">/ cognilogs</span>
+            Join the waitlist
+            <ArrowRight
+              aria-hidden="true"
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+            />
           </Link>
+        </div>
+      </div>
 
-          <div className="hidden items-center gap-1 sm:flex">
+      <header
+        className={`sticky top-0 z-50 bg-paper transition-colors duration-300 ${
+          scrolled ? "border-b border-line/80" : "border-b border-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-[68px] max-w-[1200px] items-center justify-between px-5 sm:px-7 lg:px-9">
+          <Logo />
+
+          <nav
+            aria-label="Primary navigation"
+            className="hidden items-center gap-7 lg:flex"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative rounded px-3 py-1.5 text-xs font-heading transition-colors duration-200 ${
-                  isActive(link.href)
-                    ? "text-[var(--accent)]"
-                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`relative text-[14px] transition-colors duration-200 hover:text-ink ${
+                  isActive(link.href) ? "font-medium text-ink" : "text-muted"
                 }`}
               >
                 {link.label}
                 {isActive(link.href) && (
-                  <motion.span
-                    layoutId="nav-underline"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[var(--accent)]"
-                  />
+                  <span className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent" />
                 )}
               </Link>
             ))}
-          </div>
+          </nav>
 
-          <button
-            onClick={() => setOpen(!open)}
-            className="flex cursor-pointer items-center gap-1.5 rounded px-2 py-1.5 text-xs text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)] sm:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-          >
-            {open ? <X size={16} /> : <Menu size={16} />}
-            <span className="text-[10px]">[{open ? "close" : "menu"}]</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:block">
+              <ButtonLink href="/waitlist" size="sm" withArrow>
+                Join waitlist
+              </ButtonLink>
+            </div>
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
+              onClick={() => setOpen((current) => !current)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-muted lg:hidden"
+            >
+              {open ? (
+                <X aria-hidden="true" className="h-5 w-5" />
+              ) : (
+                <Menu aria-hidden="true" className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
 
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              id="mobile-navigation"
+              initial={prefersReduced ? false : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.15 }}
-              className="mt-1 rounded border border-[var(--border)] bg-[var(--bg-secondary)] p-2 backdrop-blur-xl sm:hidden"
+              exit={prefersReduced ? { opacity: 1 } : { opacity: 0, y: -8 }}
+              transition={{ duration: prefersReduced ? 0 : 0.18 }}
+              className="absolute left-0 right-0 top-full max-h-[calc(100dvh-108px)] overflow-y-auto overscroll-contain border-t border-line bg-paper px-5 pb-6 pt-4 shadow-[var(--shadow-menu)] sm:px-7 lg:hidden"
             >
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                className={`block rounded px-3 py-2 text-xs font-heading transition-colors duration-200 ${
-                  isActive(link.href)
-                    ? "text-[var(--accent)]"
-                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              <nav aria-label="Mobile navigation" className="grid">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between border-b border-line/70 py-4 text-[19px] font-medium tracking-[-0.02em] text-ink last:border-b-0"
+                  >
+                    {link.label}
+                    <ArrowRight aria-hidden="true" className="h-4 w-4 text-muted" />
+                  </Link>
+                ))}
+              </nav>
+              <ButtonLink
+                href="/waitlist"
+                size="lg"
+                className="mt-5 w-full"
+                onClick={() => setOpen(false)}
+                withArrow
+              >
+                Join the waitlist
+              </ButtonLink>
+              <p className="mt-3 text-center text-[13px] text-muted">
+                Freshdesk-first. Local-first. Human control.
+              </p>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </nav>
+      </header>
+    </>
   );
 }

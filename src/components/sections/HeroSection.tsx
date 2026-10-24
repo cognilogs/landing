@@ -1,50 +1,130 @@
-"use client";
+import type { CSSProperties } from "react";
+import {
+  MessageSquareText,
+  ShieldCheck,
+  Sparkles,
+  Ticket,
+  Timer,
+} from "lucide-react";
+import ButtonLink from "@/components/ui/ButtonLink";
+import ProductConsole from "@/components/sections/ProductConsole";
 
-import TerminalWindow from "@/components/ui/TerminalWindow";
-import WaitlistForm from "@/components/ui/WaitlistForm";
-
-const heroLines = [
-  { text: "cognilogs troubleshoot --campaign-id CAM-8472", type: "input" as const },
-  { text: "Loading skill: email_campaign_suspension...", type: "output" as const },
-  { text: "→ Checking campaign status across providers", type: "info" as const },
-  { text: "→ Querying SMTP logs for recent failures", type: "info" as const },
-  { text: "→ Analyzing bounce rate patterns", type: "info" as const },
-  { text: "Result: Campaign suspended due to >5% hard bounce rate", type: "output" as const },
-  { text: "→ Remediation: Review recipient list, remove invalid addresses", type: "info" as const },
-  { text: "→ Remediation: Re-submit campaign after list cleanup", type: "info" as const },
+const orbs = [
+  {
+    icon: Ticket,
+    className: "left-[5%] top-[22%] sm:left-[9%]",
+    color: "bg-accent-soft text-accent-strong",
+    rotate: "-8deg",
+    delay: "0s",
+  },
+  {
+    icon: MessageSquareText,
+    className: "right-[4%] top-[18%] sm:right-[10%]",
+    color: "bg-blue-soft text-blue-strong",
+    rotate: "7deg",
+    delay: "-2.2s",
+  },
+  {
+    icon: Timer,
+    className: "bottom-[13%] left-[13%] hidden sm:grid",
+    color: "bg-green-soft text-green-strong",
+    rotate: "6deg",
+    delay: "-4s",
+  },
+  {
+    icon: ShieldCheck,
+    className: "bottom-[10%] right-[14%] hidden sm:grid",
+    color: "bg-pink-soft text-pink-strong",
+    rotate: "-5deg",
+    delay: "-1.2s",
+  },
+  {
+    icon: Sparkles,
+    className: "right-[30%] top-[10%] hidden md:grid",
+    color: "bg-violet-soft text-violet",
+    rotate: "11deg",
+    delay: "-3.1s",
+  },
 ];
 
 export default function HeroSection() {
   return (
-    <section className="px-4 pt-28 sm:px-6 sm:pt-36">
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-8 text-center">
-          <p className="mb-2 text-xs uppercase tracking-[0.2em] text-[var(--text-muted)]">
-            Autonomous Backend Investigation Platform
-          </p>
-          <h1 className="mb-4 text-2xl font-bold leading-tight text-[var(--text-primary)] sm:text-3xl md:text-4xl">
-            Automate every backend investigation.
-            <br />
-            <span className="text-[var(--accent)]">
-              From escalation to root cause — in minutes.
+    <section className="relative overflow-hidden pb-16 pt-8 sm:pt-10">
+      <div className="shell">
+        <div className="hero-stage" aria-hidden="true">
+          {[-2, -1, 1, 2].map((row) => (
+            <span
+              key={row}
+              className="hero-echo"
+              style={{ "--row": row } as CSSProperties}
+            />
+          ))}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center"
+          >
+            <span className="hero-wordmark inline-block text-accent-wordmark">
+              cognilogs
             </span>
-          </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed text-[var(--text-secondary)]">
-            CogniLogs agents run predefined skill files against your backend
-            systems — connecting to databases, APIs, and infrastructure to
-            troubleshoot issues autonomously. Output: a complete investigation
-            log with root cause and remediation steps.
-          </p>
-          <div className="mx-auto mb-12 max-w-md">
-            <WaitlistForm />
-          </div>
+          </span>
+
+          {orbs.map(({ icon: Icon, className, color, rotate, delay }) => (
+            <span
+              key={className}
+              className={`orb absolute z-20 grid h-10 w-10 place-items-center rounded-full border border-black/[0.05] sm:h-12 sm:w-12 ${color} ${className}`}
+              style={
+                {
+                  "--rotate": rotate,
+                  "--delay": delay,
+                } as CSSProperties
+              }
+            >
+              <Icon
+                aria-hidden="true"
+                className="h-[18px] w-[18px] sm:h-5 sm:w-5"
+                strokeWidth={1.8}
+              />
+            </span>
+          ))}
         </div>
 
-        <TerminalWindow
-          lines={heroLines}
-          title="cognilogs-agent — investigation #8472"
-          className="mx-auto max-w-3xl shadow-2xl"
-        />
+        <div className="mx-auto -mt-2 max-w-[900px] text-center sm:-mt-4">
+          <h1 className="display-1 mx-auto max-w-[880px]">
+            Your support,
+            <br />
+            <span className="squiggle">on autopilot.</span>
+          </h1>
+          <p className="lede measure mx-auto mt-6 text-balance sm:mt-7">
+            CogniLogs reads every Freshdesk ticket, runs the next step, and
+            either resolves it or gives your team a case with the evidence
+            already assembled. It runs on your servers or inside your network.
+          </p>
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
+            <ButtonLink href="/waitlist" size="lg" withArrow>
+              Join the waitlist
+            </ButtonLink>
+            <ButtonLink href="/#how-it-works" variant="secondary" size="lg">
+              See the loop
+            </ButtonLink>
+          </div>
+          <p className="mt-5 text-[13px] text-muted">
+            Built for local deployment. Freshdesk-first. A person can still take
+            over.
+          </p>
+        </div>
+      </div>
+
+      <div className="shell mt-12 sm:mt-16">
+        <div className="mb-3 flex items-center justify-between px-1">
+          <p className="text-[13px] text-muted">
+            A preview of the support console
+          </p>
+          <p className="hidden items-center gap-2 text-[12px] text-muted sm:flex">
+            <span className="h-1.5 w-1.5 rounded-full bg-green" />
+            Evidence, confidence, and next action in one place
+          </p>
+        </div>
+        <ProductConsole />
       </div>
     </section>
   );
