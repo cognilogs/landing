@@ -295,7 +295,7 @@ Diagrams use dotted or dashed paths, small colored nodes, and CSS chevrons. They
 - **Do** show the loop with tickets, sources, confidence scores, child tickets, and SLA watches.
 - **Do** label Freshdesk "First" and every planned connector "Planned"; "Next" means intended, not shipped.
 - **Do** keep shared chrome and legal fine print at 13px or above.
-- **Do** use Next `Link` for internal links and serve the site from the domain root. Do not reintroduce a `basePath` unless the deployment target requires one.
+- **Do** use Next `Link` for internal links and serve local builds from the domain root. The GitHub Pages project build sets `GITHUB_PAGES=true` and uses `/landing` as its base path. Do not hard-code a base path into local development.
 - **Do** describe local deployment and data control accurately, and keep the deployment boundary visible on the homepage and platform page.
 - **Do** keep the confidence slider at a fixed 0.92 evidence score; only the threshold moves.
 - **Do** provide a static, wrapping trust-strip fallback under reduced motion and hide the pause control there.

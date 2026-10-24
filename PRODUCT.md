@@ -71,7 +71,7 @@ Constraints and undecided facts:
 - No live integration catalog has been verified. Slack, Jira, Linear, Notion, Confluence, GitHub, and Datadog may be described only as planned or intended workflow surfaces, not as shipped integrations, unless evidence is added.
 - No pricing, packaging, customer count, benchmark, or production deployment claim has been verified. Local deployment is the first target, not a claim of a live production deployment.
 - The public site is open for early access; the existing Google Sheets waitlist form is the current conversion mechanism.
-- The waitlist and legal pages exist at `/waitlist`, `/privacy`, and `/terms`. The site is served from the domain root, without a base path.
+- The waitlist and legal pages exist at `/waitlist`, `/privacy`, and `/terms`. Local builds serve from the domain root. The GitHub Pages project build uses `/landing` as its base path.
 
 ## Brand Commitments
 
