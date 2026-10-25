@@ -1,3 +1,5 @@
+"use client";
+
 import type { CSSProperties } from "react";
 import {
   MessageSquareText,
@@ -6,6 +8,7 @@ import {
   Ticket,
   Timer,
 } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ProductConsole from "@/components/sections/ProductConsole";
 
@@ -48,6 +51,8 @@ const orbs = [
 ];
 
 export default function HeroSection() {
+  const prefersReduced = useReducedMotion();
+
   return (
     <section className="relative overflow-hidden pb-16 pt-8 sm:pt-10">
       <div className="shell">
@@ -59,32 +64,41 @@ export default function HeroSection() {
               style={{ "--row": row } as CSSProperties}
             />
           ))}
-          <span
+          <motion.span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center"
+            initial={prefersReduced ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none absolute inset-x-0 top-1/2 z-10 block -translate-y-1/2 text-center"
           >
             <span className="hero-wordmark inline-block text-accent-wordmark">
               cognilogs
             </span>
-          </span>
+          </motion.span>
 
-          {orbs.map(({ icon: Icon, className, color, rotate, delay }) => (
-            <span
+          {orbs.map(({ icon: Icon, className, color, rotate }, index) => (
+            <motion.span
               key={className}
-              className={`orb absolute z-20 grid h-10 w-10 place-items-center rounded-full border border-black/[0.05] sm:h-12 sm:w-12 ${color} ${className}`}
-              style={
-                {
-                  "--rotate": rotate,
-                  "--delay": delay,
-                } as CSSProperties
+              className={`absolute z-20 grid h-10 w-10 place-items-center rounded-full border border-black/[0.05] sm:h-12 sm:w-12 ${color} ${className}`}
+              style={{ rotate }}
+              animate={
+                prefersReduced
+                  ? undefined
+                  : { y: [0, -9, 0], opacity: [0.92, 1, 0.92] }
               }
+              transition={{
+                duration: 7 + index * 0.7,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: index * 0.25,
+              }}
             >
               <Icon
                 aria-hidden="true"
                 className="h-[18px] w-[18px] sm:h-5 sm:w-5"
                 strokeWidth={1.8}
               />
-            </span>
+            </motion.span>
           ))}
         </div>
 
@@ -95,21 +109,21 @@ export default function HeroSection() {
             <span className="squiggle">on autopilot.</span>
           </h1>
           <p className="lede measure mx-auto mt-6 text-balance sm:mt-7">
-            CogniLogs reads every Freshdesk ticket, runs the next step, and
-            either resolves it or gives your team a case with the evidence
-            already assembled. It runs on your servers or inside your network.
+            cognilogs reads every ticket from your ticketing system, does the
+            work behind it, and either resolves it or gives your team a case
+            with the evidence already assembled. It runs on your servers or
+            inside your network, with the local model you choose.
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row">
             <ButtonLink href="/waitlist" size="lg" withArrow>
               Join the waitlist
             </ButtonLink>
-            <ButtonLink href="/#how-it-works" variant="secondary" size="lg">
+            <ButtonLink href="/how-it-works" variant="secondary" size="lg">
               See the loop
             </ButtonLink>
           </div>
           <p className="mt-5 text-[13px] text-muted">
-            Built for local deployment. Freshdesk-first. A person can still take
-            over.
+            Any ticketing system. Any local model. A person can still take over.
           </p>
         </div>
       </div>
@@ -117,7 +131,7 @@ export default function HeroSection() {
       <div className="shell mt-12 sm:mt-16">
         <div className="mb-3 flex items-center justify-between px-1">
           <p className="text-[13px] text-muted">
-            A preview of the support console
+            A preview of the support chat
           </p>
           <p className="hidden items-center gap-2 text-[12px] text-muted sm:flex">
             <span className="h-1.5 w-1.5 rounded-full bg-green" />

@@ -87,10 +87,10 @@ export default function LegalShell({
                 <p className="mt-2 text-[13px] leading-5 text-muted">
                   Email us at{" "}
                   <a
-                    href="mailto:privacy@cognilogs.ai"
+                    href="mailto:team@cognilogs.com"
                     className="font-medium text-ink underline decoration-line-strong underline-offset-2 transition-colors hover:text-accent-strong"
                   >
-                    privacy@cognilogs.ai
+                    team@cognilogs.com
                   </a>
                   .
                 </p>

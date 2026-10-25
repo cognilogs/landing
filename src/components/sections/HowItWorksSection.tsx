@@ -9,59 +9,83 @@ import {
 
 const steps = [
   {
-    title: "First, read the request.",
-    body: "Every new or replied Freshdesk ticket is classified as a query, an issue, or a feature request. CogniLogs pulls out the details it needs and asks for anything missing before it takes action.",
+    title: "Pick up the ticket.",
+    body: "A scheduler polls your ticketing system on the interval you set, from every five minutes to every hour. New and replied tickets arrive with the thread, customer, and SLA context attached. The content is sanitized before the model sees it.",
     points: [
-      "Intent and entities come before action.",
-      "One clear question beats a missing-information form.",
-      "A ticket does not move until the request is clear.",
+      "Any ticketing system, not a single vendor.",
+      "Configurable polling interval.",
+      "Sanitization and context assembly before action.",
     ],
     scene: <IntakeScene />,
     tone: "bg-accent-soft text-accent-strong",
-    link: "/docs#ticket-lifecycle",
-    linkLabel: "Read the ticket lifecycle",
+    link: "/pricing",
+    linkLabel: "See the deployment model",
   },
   {
-    title: "Then, do the work.",
-    body: "Queries draw from your knowledge base. Issues run a scenario-specific playbook against logs and admin APIs. Feature requests are checked and routed. The run leaves a source or a result behind.",
+    title: "Classify the request.",
+    body: "The agent separates a query, an issue, and a feature enablement request before it chooses a path. It checks whether the details it needs are present. If something is missing, the customer gets one clear question.",
     points: [
-      "Diagnostics run against real logs and APIs.",
-      "Confidence decides the next move.",
-      "A high score resolves the ticket. A low score hands it to a person.",
+      "Three request types, one workflow.",
+      "Prerequisite checks before any tool runs.",
+      "The ticket waits in the right state, not a queue.",
+    ],
+    tone: "bg-blue-soft text-blue-strong",
+    link: "/features#request-types",
+    linkLabel: "See the three paths",
+  },
+  {
+    title: "Do the work.",
+    body: "Queries use the knowledge base: official docs, internal notes, and how agents answered before. Issues check audit logs, the codebase, databases, Kibana, Sentry, or Datadog. Feature requests can be enabled through an API or browser automation, with approval where it is required.",
+    points: [
+      "Evidence from the systems your team already checks.",
+      "Automated fixes trained on resolution steps.",
+      "RCA drafts stay with a person before they go out.",
     ],
     scene: <ResolutionScene />,
     tone: "bg-green-soft text-green-strong",
-    link: "/features#resolution",
-    linkLabel: "See the resolution paths",
+    link: "/features#investigation",
+    linkLabel: "See the investigation layer",
   },
   {
-    title: "Keep watching until it closes.",
-    body: "When a case needs a person, CogniLogs opens a linked child ticket, records severity, and keeps checking. Updates sync to the parent. Reminders and breach escalations run on a schedule instead of on memory.",
+    title: "Decide and hand off.",
+    body: "Confidence decides whether the customer sees a reply. Above the line, the reply and resolution go out with sources attached. Below it, the case becomes a private note with the run, evidence, and suggested next step.",
     points: [
-      "Parent and child tickets stay linked.",
-      "The SLA worker checks every 15 minutes.",
-      "Reminders escalate to a manager when the limit is hit.",
+      "The default threshold is 0.85.",
+      "RCAs always receive human review.",
+      "A linked child ticket carries the context to another team.",
+    ],
+    tone: "bg-pink-soft text-pink-strong",
+    link: "/docs#confidence",
+    linkLabel: "Read the decision rules",
+  },
+  {
+    title: "Watch until it closes.",
+    body: "Every child ticket enters an SLA tracker by severity and priority. The agent who owns it is notified by Slack or email. After three notifications without movement, their manager is brought in. When the child is resolved, cognilogs checks whether the answer can go to the customer and drafts the reply. A CSAT request can follow.",
+    points: [
+      "SLA checks every 15 minutes.",
+      "Three notifications, then the manager.",
+      "Child resolution can become the customer reply.",
     ],
     scene: <SlaScene />,
-    tone: "bg-pink-soft text-pink-strong",
-    link: "/docs#sla-monitoring",
-    linkLabel: "See how SLA watch works",
+    tone: "bg-yellow-soft text-[#8a5a09]",
+    link: "/features#sla",
+    linkLabel: "See the SLA watch",
   },
 ];
 
 export default function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="scroll-mt-24 py-20 sm:py-28">
+    <section id="how-it-works" className="scroll-mt-24 pb-20 pt-12 sm:pb-28 sm:pt-16">
       <div className="shell">
         <ScrollReveal>
           <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-end">
-            <h2 className="display-2 max-w-[560px]">
-              A ticket, handled end to end.
+            <h2 className="display-2 max-w-[620px]">
+              From ticket to close.
             </h2>
             <p className="lede measure-tight md:justify-self-end">
-              One Freshdesk event starts a chain of work. It keeps going until
-              the customer has an answer or a person has everything needed to
-              finish the job.
+              A ticket enters from your ticketing system. The loop keeps going
+              until the customer has an answer or a person has everything needed
+              to finish the job.
             </p>
           </div>
         </ScrollReveal>
@@ -78,7 +102,10 @@ export default function HowItWorksSection() {
                       reversed ? "lg:order-2 lg:col-start-8" : ""
                     }`}
                   >
-                    <h3 className="display-3 max-w-[420px]">{step.title}</h3>
+                    <p className="text-[12px] font-medium uppercase tracking-[0.14em] text-muted">
+                      0{index + 1}
+                    </p>
+                    <h3 className="display-3 mt-3 max-w-[420px]">{step.title}</h3>
                     <p className="mt-5 max-w-[460px] text-[16px] leading-7 text-muted-strong sm:text-[17px]">
                       {step.body}
                     </p>
@@ -113,7 +140,43 @@ export default function HowItWorksSection() {
                       reversed ? "lg:order-1 lg:col-start-1" : ""
                     }`}
                   >
-                    {step.scene}
+                    {step.scene ?? (
+                      <div
+                        data-ui
+                        className="rounded-[24px] bg-surface p-5 sm:p-6"
+                      >
+                        <div className="flex items-center justify-between text-[11px] text-muted">
+                          <span>Queue state</span>
+                          <span className="inline-flex items-center gap-1.5 text-green-strong">
+                            <span className="h-1.5 w-1.5 rounded-full bg-green" />
+                            in progress
+                          </span>
+                        </div>
+                        <div className="mt-4 space-y-2">
+                          {[
+                            ["Query", "Knowledge base · cited answer"],
+                            ["Issue", "Audit log → codebase → database"],
+                            ["Feature", "API or browser automation · approval"],
+                          ].map(([label, meta]) => (
+                            <div
+                              key={label}
+                              className="flex items-center justify-between gap-3 rounded-xl bg-paper px-3 py-3"
+                            >
+                              <span className="text-[12px] font-medium text-ink">
+                                {label}
+                              </span>
+                              <span className="text-right text-[10px] text-muted">
+                                {meta}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="mt-4 text-[10px] leading-5 text-muted">
+                          The agent handles five to ten tickets at a time,
+                          depending on complexity and the checks each one needs.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </article>
               </ScrollReveal>

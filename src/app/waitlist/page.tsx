@@ -4,72 +4,76 @@ import FAQ from "@/components/ui/FAQ";
 import WaitlistForm from "@/components/ui/WaitlistForm";
 
 export const metadata: Metadata = {
-  title: "Early access | CogniLogs",
+  title: "Early access | cognilogs",
   description:
-    "Join the early-access list for CogniLogs, the local-first support automation layer for Freshdesk teams. Design-partner spots are opening in small groups.",
+    "Join the early-access list for cognilogs, the local-first support agent for any ticketing system. Local deployment, any local model, and design-partner spots opening in small groups.",
 };
 
 const faqItems = [
   {
     question: "Who is early access for?",
     answer:
-      "Freshdesk teams with repeatable support work: questions that already have answers, issues that follow a diagnostic pattern, and feature requests that deserve a real next step. Support leaders and support-ops teams are the primary design partners.",
+      "Teams with support work that crosses systems: identity and provisioning failures, payment or order mismatches, migration mistakes, access requests, and feature enablement. You can run any ticketing system and host cognilogs on your own infrastructure.",
   },
   {
     question: "What does a design partner get?",
     answer:
-      "A local deployment pilot, a direct feedback loop with the team building it, and influence over the paths, thresholds, and handoffs that matter most to your queue. We are not promising discounts or launch dates.",
+      "A local deployment pilot, a direct feedback loop with the team building it, and influence over the paths, approvals, and handoffs that matter most to your queue. We are not promising discounts or launch dates.",
   },
   {
     question: "What does local deployment involve?",
     answer:
-      "CogniLogs runs on your servers or inside your network. We will agree on the host, network access, and support model with your team before the pilot. Ticket content and run history stay in your environment, and we document any external service a workflow uses.",
+      "cognilogs runs on your servers or inside your network. We agree on the host, network access, model, and support model before the pilot. Ticket content and run history stay in your environment.",
   },
   {
-    question: "What about compliance?",
+    question: "Which models can we use?",
     answer:
-      "Local deployment can reduce the number of data transfers and third-party processors your team has to review. We do not claim certifications we have not earned. We will provide deployment documentation and answer your security questions.",
+      "Any local model your infrastructure can serve, including open-weight models. Stronger models produce better work. The evidence, approval, and audit rules stay the same.",
+  },
+  {
+    question: "What about security?",
+    answer:
+      "Local deployment keeps ticket data and run history inside your environment. We provide deployment documentation, answer security questionnaires, and record model actions, tool calls, approvals, and replies. Certification work is in progress.",
   },
   {
     question: "What does it cost?",
     answer:
-      "Pricing is not public yet. Early partners will see clear terms before making any commitment. The preview is not a paid production contract.",
+      "Early customers can get a ticket resolved for as low as ₹10. The final price depends on the local model, infrastructure, and depth of each resolution. You own the model and infrastructure costs.",
   },
   {
     question: "What do you need from us?",
     answer:
-      "A conversation about the workflows that hurt, a few real ticket patterns to design against, and feedback as the loop takes shape. If a sandboxed test makes sense, we will define that access with you first.",
+      "A conversation about the workflows that hurt, a few real ticket patterns to design against, and feedback as the loop takes shape. If a sandboxed test makes sense, we define that access with you first.",
   },
   {
-    question: "When will CogniLogs launch?",
+    question: "When will cognilogs launch?",
     answer:
-      "We are not announcing a general-availability date. We are onboarding in small groups so each support loop is proven before the next one. The product guide describes the workflow, not a committed release date.",
+      "We are onboarding in small groups so each support loop is proven before the next one. The product guide describes the workflow, not a committed release date.",
   },
   {
     question: "Which integrations are supported?",
     answer:
-      "Freshdesk is the first and only confirmed integration. Slack, Jira, Linear, Notion, Confluence, GitHub, and Datadog are planned surfaces, not live yet.",
+      "Any ticketing system can be polled. The evidence layer reads audit logs, codebases, databases, Kibana, Sentry, and Datadog. Slack and email carry SLA notifications. Feature enablement can use an API or browser automation.",
   },
   {
     question: "What happens after I join?",
     answer:
-      "We review requests as spots open. If there is a fit, we will reach out to learn about your queue and the workflows you want to close. No newsletter, no drip sequence.",
+      "We review requests as spots open. If there is a fit, we reach out from team@cognilogs.com to learn about your queue and the workflows you want to close. No newsletter, no drip sequence.",
   },
 ];
 
 const goodFit = [
-  "You run support in Freshdesk.",
-  "Your queue has repeatable questions, issues, or feature requests.",
+  "You run support in any ticketing system.",
+  "Your queue has tickets that cross identity, code, data, or billing systems.",
   "You want to see the evidence and keep a person in control.",
-  "You can host CogniLogs on your own servers or inside your network.",
+  "You can host cognilogs on your own servers or inside your network.",
   "You can partner on a preview and tell us when it is wrong.",
 ];
 
 const notYet = [
-  "You need a broad live connector catalog today.",
-  "You are looking for a customer-facing chatbot.",
-  "Your support system is not Freshdesk.",
-  "You need certifications or a production SLA today.",
+  "You need a customer-facing chatbot.",
+  "You only need simple macros for repeated questions.",
+  "You need a fully hosted cloud deployment today.",
 ];
 
 export default function WaitlistPage() {
@@ -80,14 +84,17 @@ export default function WaitlistPage() {
           <div className="rounded-[32px] bg-accent px-6 py-10 text-accent-ink sm:px-10 sm:py-12 lg:px-12 lg:py-14">
             <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
               <div className="lg:col-span-7 lg:row-start-1">
-                <h1 className="display-1 max-w-[620px]">
+                <p className="inline-flex items-center gap-2 rounded-full bg-accent-ink/10 px-3 py-1.5 text-[11px] font-medium">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent-ink" />
+                  Early access · local deployment
+                </p>
+                <h1 className="display-1 mt-5 max-w-[620px]">
                   Be first in the <span className="squiggle squiggle-ink">loop.</span>
                 </h1>
                 <p className="mt-6 max-w-[520px] text-[17px] leading-7 text-accent-ink sm:text-[18px]">
-                  CogniLogs is opening early access to a small group of
-                  Freshdesk teams. The first deployments run inside your network.
-                  If your queue is full of work that should be resolvable, we
-                  want to build the loop with you.
+                  cognilogs is opening early access to a small group of teams
+                  with tickets that need real investigation. Any ticketing
+                  system, any local model, and a person in control.
                 </p>
               </div>
 
@@ -97,10 +104,10 @@ export default function WaitlistPage() {
                     Request a design-partner spot
                   </p>
                   <p className="mt-1 text-[13px] leading-5 text-accent-ink">
-                    One email. We review requests as spots open.
+                    One email. We reply from team@cognilogs.com.
                   </p>
                   <div className="mt-5">
-                    <WaitlistForm />
+                    <WaitlistForm idPrefix="waitlist-page" />
                   </div>
                   <p className="mt-3 text-[13px] leading-5 text-accent-ink">
                     No newsletter. No spam. If it is not a fit, we will say so.
@@ -112,7 +119,7 @@ export default function WaitlistPage() {
                 <div className="space-y-3">
                   {[
                     "A local deployment pilot",
-                    "Shape the paths, thresholds, and handoffs",
+                    "Shape the paths, approvals, and handoffs",
                     "A direct line to the team building it",
                   ].map((item) => (
                     <p
@@ -141,9 +148,7 @@ export default function WaitlistPage() {
         <div className="shell">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-4">
-              <h2 className="display-2 max-w-[360px]">
-                Who this is for.
-              </h2>
+              <h2 className="display-2 max-w-[360px]">Who this is for.</h2>
               <p className="mt-5 max-w-[360px] text-[16px] leading-7 text-muted-strong">
                 We would rather find the right five teams than the first fifty.
                 Here is the short version.

@@ -5,17 +5,17 @@ import ButtonLink from "@/components/ui/ButtonLink";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
-  title: "About | CogniLogs",
+  title: "About | cognilogs",
   description:
-    "CogniLogs is building local-first support automation for Freshdesk teams. It closes the loop from first reply to final resolution, with human control built in.",
+    "cognilogs started with a migration ticket that needed six systems and a day of reconstruction. We built a local-first support agent to do the work behind the reply.",
 };
 
 const loopSteps = [
-  { label: "Intake", meta: "Ticket + thread", tone: "bg-accent-soft" },
+  { label: "Intake", meta: "Any ticketing system", tone: "bg-accent-soft" },
   { label: "Understand", meta: "Intent + gaps", tone: "bg-blue-soft" },
-  { label: "Act", meta: "Answer or run", tone: "bg-green-soft" },
-  { label: "Decide", meta: "Confidence gate", tone: "bg-pink-soft" },
-  { label: "Watch", meta: "Close the loop", tone: "bg-console text-white" },
+  { label: "Act", meta: "Check, fix, enable", tone: "bg-green-soft" },
+  { label: "Decide", meta: "Confidence + review", tone: "bg-pink-soft" },
+  { label: "Watch", meta: "SLA + CSAT", tone: "bg-console text-white" },
 ];
 
 const principles = [
@@ -26,27 +26,27 @@ const principles = [
   },
   {
     title: "Show the evidence.",
-    body: "Every answer and every escalation should carry the context, sources, and confidence behind it.",
+    body: "Every answer and every escalation carries the context, sources, and confidence behind it.",
     tone: "bg-blue",
   },
   {
     title: "Keep judgment human.",
-    body: "Automation can act, but a person can inspect, override, and take over at any point.",
+    body: "Automation can act, but a person can inspect, override, and sign off on the critical work.",
     tone: "bg-green",
   },
   {
     title: "Close the loop.",
-    body: "A reply is one step. Ownership continues until the case is closed.",
+    body: "A reply is one step. Ownership continues through the child ticket, the SLA, and the CSAT.",
     tone: "bg-pink",
   },
   {
     title: "Keep data close.",
-    body: "The first deployments run inside the customer's network, so ticket content and run history stay under the team's control.",
+    body: "Local deployment puts ticket content, run history, and the model inside the environment you control.",
     tone: "bg-cyan",
   },
   {
     title: "Go deep before wide.",
-    body: "Freshdesk and the core support paths come first. Integration breadth follows proven depth.",
+    body: "Any ticketing system can be polled. The depth of the investigation matters more than the length of the connector list.",
     tone: "bg-violet",
   },
 ];
@@ -58,25 +58,30 @@ export default function AboutPage() {
         <div className="shell">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-14">
             <div className="lg:col-span-7">
-              <h1 className="display-1 max-w-[760px]">
-                Support is not a queue.
+              <p className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-[11px] font-medium text-muted">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                Why we built cognilogs
+              </p>
+              <h1 className="display-1 mt-5 max-w-[820px]">
+                The reply was easy. The answer took a day.
               </h1>
               <p className="lede measure mt-6">
-                CogniLogs exists to close the distance between a customer&apos;s
-                first message and the moment the work is done. The first
-                deployments run inside your network, close to the data they need.
+                We kept meeting the same ticket: a migration went out to the
+                wrong cohort, a certificate rotated before the metadata was live,
+                and a customer was locked out. The reply took five minutes. The
+                work behind it took six systems.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-4">
                 <ButtonLink href="/waitlist" size="lg" withArrow>
                   Join the waitlist
                 </ButtonLink>
-                <Link
-                  href="/docs"
-                  className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-accent-strong"
+                <a
+                  href="mailto:team@cognilogs.com"
+                  className="inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-accent-strong"
                 >
-                  Read the product guide
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
+                  team@cognilogs.com
+                  <ArrowRight className="h-4 w-4" />
+                </a>
               </div>
             </div>
             <div className="lg:col-span-5">
@@ -92,15 +97,26 @@ export default function AboutPage() {
                   className="mt-6 rounded-[16px] bg-white/[0.06] p-3"
                 >
                   <div className="flex items-center justify-between gap-3 text-[13px]">
-                    <span className="text-white/55">Freshdesk · #2189</span>
+                    <span className="text-white/55">Ticket · #2189</span>
                     <span className="inline-flex items-center gap-1.5 text-console-green">
                       <span className="h-1.5 w-1.5 rounded-full bg-green" />
-                      Watching
+                      Investigating
                     </span>
                   </div>
                   <p className="mt-1.5 text-[13px] font-medium text-white">
-                    Refund not reflecting on invoice
+                    SSO loop after certificate rotation
                   </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5 text-[9px] text-white/45">
+                    <span className="rounded bg-white/[0.05] px-1.5 py-0.5">
+                      audit log
+                    </span>
+                    <span className="rounded bg-white/[0.05] px-1.5 py-0.5">
+                      cohort query
+                    </span>
+                    <span className="rounded bg-white/[0.05] px-1.5 py-0.5">
+                      RCA review
+                    </span>
+                  </div>
                 </div>
                 <div className="mt-5 flex items-center gap-2 text-[13px] text-white/55">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -121,27 +137,37 @@ export default function AboutPage() {
             <div className="lg:col-span-8">
               <div className="max-w-[680px] space-y-5 text-[16px] leading-8 text-muted-strong sm:text-[17px]">
                 <p>
-                  Support teams are asked to be faster and more consistent every
-                  quarter. Most tools have made the reply easier to write.
-                  Fewer have made the work easier to finish.
+                  The first version of this idea came from a support team we
+                  worked with during a messy migration. A rollout email had gone
+                  to a cohort that was not in the pilot. Some customers could
+                  sign in to the new workspace; some could not. The support lead
+                  had a queue full of angry tickets and no single place that
+                  showed what had actually happened.
                 </p>
                 <p>
-                  The hard part is the middle: understanding the request,
-                  finding the source that proves it, running the check that
-                  changes the answer, and knowing when the evidence is too thin
-                  to send.
+                  The answer was spread across an identity provider, a rollout
+                  job, a database, a feature flag, and a code path. The team spent
+                  a day reconstructing the timeline while customers waited. The
+                  reply itself was the smallest part of the job.
                 </p>
                 <p>
-                  CogniLogs is built around that middle. It is a support
-                  automation layer for Freshdesk teams, a loop that reads,
-                  verifies, decides, and stays accountable until the case closes.
-                  It runs inside your network.
+                  We built cognilogs around that middle. It polls any ticketing
+                  system, reads the request, checks the places an engineer would
+                  check, and either resolves the work or hands it over with the
+                  evidence attached. It can enable features through an API or a
+                  browser, draft an RCA for human review, and watch the child
+                  ticket until it closes.
+                </p>
+                <p>
+                  We run it locally because support data is sensitive and model
+                  choice matters. You choose the model and the infrastructure.
+                  Stronger models produce better work; the evidence, approval,
+                  and audit rules stay the same.
                 </p>
               </div>
               <p className="mt-6 text-[14px] leading-6 text-muted">
-                CogniLogs is early. We are building with a small group of
-                Freshdesk design partners and will publish real outcomes when
-                they exist.
+                cognilogs is early. We are building with a small group of teams
+                and will publish real outcomes when they exist.
               </p>
             </div>
           </div>
@@ -153,7 +179,7 @@ export default function AboutPage() {
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                   One ticket, one loop
                 </span>
-                <span>Freshdesk event → close</span>
+                <span>Ticketing event → close</span>
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-5">
                 {loopSteps.map((step, index) => (
@@ -184,20 +210,6 @@ export default function AboutPage() {
                     </p>
                   </div>
                 ))}
-              </div>
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-muted">
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-1 w-1 rounded-full bg-green" />
-                  Source attached
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-1 w-1 rounded-full bg-blue" />
-                  Human override
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-1 w-1 rounded-full bg-accent" />
-                  SLA watch
-                </span>
               </div>
             </div>
           </ScrollReveal>
@@ -233,12 +245,10 @@ export default function AboutPage() {
         <div className="shell">
           <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <h2 className="display-2 max-w-[460px]">
-                Where we are now.
-              </h2>
+              <h2 className="display-2 max-w-[460px]">Where we are now.</h2>
               <p className="mt-5 max-w-[400px] text-[16px] leading-7 text-muted-strong">
                 The product is in preview. Here is what is built, what is next,
-                and what we are not claiming yet.
+                and what we are still working through.
               </p>
               <ButtonLink
                 href="/docs"
@@ -258,26 +268,26 @@ export default function AboutPage() {
                   <span className="text-white/55">Run · ticket 2189</span>
                   <span className="inline-flex items-center gap-1.5 text-console-green">
                     <Check className="h-3.5 w-3.5" />
-                    0.92
+                    0.93
                   </span>
                 </div>
                 <div className="mt-3 space-y-2 text-[13px] leading-5">
                   <div className="flex justify-between gap-4">
                     <span className="text-white/55">Intent</span>
-                    <span>Issue · billing</span>
+                    <span>Issue · identity</span>
                   </div>
                   <div className="flex justify-between gap-4">
                     <span className="text-white/55">Evidence</span>
-                    <span>Duplicate charge · Oct 18</span>
+                    <span>Audit + code + cohort</span>
                   </div>
                   <div className="flex justify-between gap-4">
                     <span className="text-white/55">Action</span>
-                    <span>Credit note · CN-8821</span>
+                    <span>Metadata restored</span>
                   </div>
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1.5 text-[13px] text-console-green">
                   <Check className="h-3.5 w-3.5" />
-                  Above threshold · ready to send
+                  Above threshold · RCA in review
                 </div>
                 <div className="mt-3 flex items-center justify-between gap-3 text-[13px] text-white/55">
                   <span>SLA watch · 15m</span>
@@ -295,10 +305,10 @@ export default function AboutPage() {
                       In the loop
                     </h3>
                     <ul className="mt-4 space-y-2.5 text-[14px] leading-6 text-muted-strong">
-                      <li>Local deployment design</li>
-                      <li>Freshdesk event intake</li>
+                      <li>Any ticketing system</li>
                       <li>Intent + prerequisite checks</li>
-                      <li>Knowledge and diagnostic paths</li>
+                      <li>Audit, code, and database checks</li>
+                      <li>Feature enablement with approval</li>
                       <li>Confidence gate</li>
                       <li>Child ticket + SLA watch</li>
                     </ul>
@@ -309,24 +319,24 @@ export default function AboutPage() {
                       Next
                     </h3>
                     <ul className="mt-4 space-y-2.5 text-[14px] leading-6 text-[#3f5377]">
-                      <li>Deployment pack for security review</li>
-                      <li>More design-partner paths</li>
-                      <li>Per-queue thresholds</li>
+                      <li>More local model profiles</li>
                       <li>Deeper admin actions</li>
-                      <li>More connectors</li>
+                      <li>More approval paths</li>
+                      <li>Broader connector coverage</li>
+                      <li>More design-partner playbooks</li>
                     </ul>
                   </div>
                   <div>
                     <h3 className="inline-flex items-center gap-1.5 text-[13px] font-medium text-accent-strong">
                       <Minus className="h-4 w-4" />
-                      Not claiming yet
+                      In progress
                     </h3>
                     <ul className="mt-4 space-y-2.5 text-[14px] leading-6 text-[#7a3f24]">
-                      <li>A hosted cloud option</li>
-                      <li>A broad live connector catalog</li>
+                      <li>Security review pack</li>
+                      <li>Certification program</li>
                       <li>Outcome benchmarks</li>
-                      <li>Public pricing</li>
-                      <li>Certifications we have not earned</li>
+                      <li>Public pricing detail</li>
+                      <li>More deployment guides</li>
                     </ul>
                   </div>
                 </div>

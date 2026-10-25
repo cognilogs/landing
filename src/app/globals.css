@@ -291,8 +291,9 @@ summary {
 }
 
 .footer-watermark {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(10, 10, 11, 0.12);
+  color: #fff1e7;
+  -webkit-text-stroke: 1.5px rgba(249, 115, 22, 0.75);
+  text-stroke: 1.5px rgba(249, 115, 22, 0.75);
 }
 
 .squiggle {

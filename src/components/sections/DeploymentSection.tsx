@@ -1,21 +1,22 @@
 import Link from "next/link";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, Cpu, ShieldCheck } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { BrandMark, modelBrands } from "@/components/ui/BrandLogos";
 
 const copy = {
   home: {
     heading: "Runs inside your network.",
-    lede: "The first CogniLogs deployments are local. The app and the SLA worker run on your servers or inside your network, so ticket content, credentials, and run history stay in the environment you control.",
+    lede: "The first cognilogs deployments are local. The app, the SLA worker, and the run history stay on your servers or inside your network. You choose the local model; stronger models produce better work.",
     cta: "Ask about a local pilot",
     compliance:
-      "Local deployment puts the host, network, credentials, and retention policy under your team's control. It can reduce the number of data transfers and third-party processors in scope for your review. It does not make an organization compliant by itself.",
+      "Local deployment puts the host, network, credentials, and retention policy under your team's control. Your security team gets deployment documentation and review support.",
   },
   platform: {
     heading: "Local deployment, on your terms.",
-    lede: "The first deployment target is local. CogniLogs runs on your servers or inside your network, with the app and SLA worker under your control. We document every external dependency before a pilot.",
+    lede: "The first deployment target is local. cognilogs runs on your servers or inside your network, with the app and SLA worker under your control. You choose the local model; stronger models produce better work.",
     cta: "Plan a local pilot",
     compliance:
-      "Your team controls the host, network, credentials, backups, and retention policy. Local deployment can reduce the number of data transfers and third-party processors in scope. It does not make an organization compliant by itself.",
+      "Your team controls the host, network, credentials, backups, and retention policy. Your security team gets deployment documentation and review support.",
   },
 };
 
@@ -40,10 +41,10 @@ export default function DeploymentSection({
                 Local-first
               </span>
               <span className="rounded-full bg-surface px-3 py-1.5 text-[12px] font-medium text-muted">
-                Freshdesk-first
+                Any ticketing system
               </span>
               <span className="rounded-full bg-surface px-3 py-1.5 text-[12px] font-medium text-muted">
-                Human control
+                Any local model
               </span>
             </div>
           </div>
@@ -63,11 +64,12 @@ export default function DeploymentSection({
                   </span>
                 </div>
 
-                <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
                   {[
-                    ["CogniLogs app", "Runs on your host"],
-                    ["Ticket data", "Stays in your environment"],
+                    ["cognilogs app", "Runs on your host"],
+                    ["Ticket + run data", "Stays in your environment"],
                     ["SLA worker", "Checks every 15 minutes"],
+                    ["Local model", "Your choice of model"],
                   ].map(([title, body]) => (
                     <div key={title} className="rounded-xl bg-surface p-3">
                       <p className="text-[12px] font-medium text-ink">{title}</p>
@@ -81,18 +83,24 @@ export default function DeploymentSection({
                 <div className="mt-3 flex flex-col gap-2 rounded-xl bg-surface px-3 py-2.5 text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between">
                   <span className="inline-flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                    Freshdesk connection
+                    Ticketing connection
                   </span>
-                  <span>Freshdesk stays your system of record</span>
+                  <span>Your ticketing system stays the system of record</span>
                 </div>
               </div>
 
-              <div className="mt-auto flex items-start gap-2.5 rounded-xl bg-paper px-3 py-3 pt-4 text-[12px] leading-5 text-muted">
-                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" />
-                <p>
-                  We document any external service a workflow uses before a
-                  pilot, including where it runs and what data it receives.
-                </p>
+              <div className="mt-auto flex flex-wrap items-center gap-2.5 rounded-xl bg-paper px-3 py-3 pt-4 text-[12px] leading-5 text-muted">
+                <Cpu className="h-4 w-4 shrink-0 text-accent-strong" />
+                <span className="mr-1">Works with the local model you choose:</span>
+                {modelBrands.map((brand) => (
+                  <span
+                    key={brand.name}
+                    title={brand.name}
+                    className="grid h-7 w-7 place-items-center rounded-lg border border-line/80 bg-surface"
+                  >
+                    <BrandMark brand={brand} className="h-4 w-4" />
+                  </span>
+                ))}
               </div>
             </div>
           </ScrollReveal>
@@ -100,7 +108,7 @@ export default function DeploymentSection({
           <ScrollReveal className="min-w-0 lg:col-span-5" delay={0.04}>
             <div className="flex h-full flex-col rounded-[28px] bg-console p-5 text-white sm:p-6">
               <p className="text-[12px] font-medium text-white/55">
-                Compliance review
+                Security review
               </p>
               <h3 className="mt-3 text-[24px] font-semibold tracking-[-0.035em] text-white">
                 What local deployment changes.
@@ -112,8 +120,8 @@ export default function DeploymentSection({
               <ul className="mt-5 space-y-3">
                 {[
                   "Ticket content and run evidence stay close.",
-                  "Your security team gets deployment documentation, not a badge wall.",
-                  "Certifications are listed only after they are issued.",
+                  "Your security team gets deployment documentation and a direct review.",
+                  "Audit logs cover model actions, tool calls, and approvals.",
                 ].map((item) => (
                   <li
                     key={item}
@@ -124,6 +132,11 @@ export default function DeploymentSection({
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-5 flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2.5 text-[11px] text-white/55">
+                <ShieldCheck className="h-3.5 w-3.5 text-console-green" />
+                Certification work is in progress.
+              </div>
 
               <Link
                 href="/waitlist"

@@ -1,3 +1,7 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+
 const sceneClass = "h-auto w-full font-sans";
 
 const ink = "#0A0A0B";
@@ -13,6 +17,8 @@ function SceneShell({
   label: string;
   children: React.ReactNode;
 }) {
+  const prefersReduced = useReducedMotion();
+
   return (
     <div className="overflow-hidden rounded-[24px] bg-surface">
       <svg
@@ -23,7 +29,13 @@ function SceneShell({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {children}
+        <motion.g
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {children}
+        </motion.g>
       </svg>
     </div>
   );
@@ -81,11 +93,16 @@ function Tag({
 }
 
 export function IntakeScene() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <SceneShell label="A Freshdesk ticket is classified into query, issue, or feature request, with a loop back to the customer when information is missing.">
+    <SceneShell label="A ticket from any ticketing system is classified into a query, an issue, or a feature request, with a loop back to the customer when information is missing.">
       <DotField id="intake-dots" />
 
-      <g className="scene-float">
+      <motion.g
+        animate={prefersReduced ? undefined : { y: [0, -6, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      >
         <rect
           x="34"
           y="84"
@@ -97,30 +114,30 @@ export function IntakeScene() {
         />
         <circle cx="54" cy="106" r="4" fill="#F97316" />
         <text x="66" y="110" fontSize="11.5" fontWeight="600" fill={ink}>
-          Freshdesk
+          Ticketing system
         </text>
         <text x="210" y="110" textAnchor="end" fontSize="10.5" fill={faint}>
           #4821
         </text>
         <text x="54" y="138" fontSize="14.5" fontWeight="600" fill={ink}>
-          Refund not reflecting
+          SSO loop after
         </text>
         <text x="54" y="156" fontSize="14.5" fontWeight="600" fill={ink}>
-          on next invoice
+          certificate rotation
         </text>
         <Tag
           x={54}
           y={172}
-          w={54}
-          label="Billing"
+          w={78}
+          label="Enterprise"
           fill="#FFF1E7"
           color="#C2410C"
         />
         <Tag
-          x={114}
+          x={138}
           y={172}
-          w={68}
-          label="Priority"
+          w={40}
+          label="P1"
           fill="#F1F3F2"
           color={muted}
         />
@@ -139,69 +156,63 @@ export function IntakeScene() {
           Maya Chen
         </text>
         <text x="78" y="224" fontSize="9.5" fill={faint}>
-          Growth plan · 2 seats
+          Northwind · finance
         </text>
-      </g>
+      </motion.g>
 
-      <text x="300" y="151" textAnchor="middle" fontSize="11" fill={muted}>
+      <text x="318" y="151" textAnchor="middle" fontSize="11" fill={muted}>
         Understands the request
       </text>
       <path
         className="scene-line"
-        d="M232 170C255 170 255 197 278 197"
+        d="M232 170C252 170 252 197 270 197"
         stroke="#F97316"
         strokeWidth="1.6"
       />
 
       <g>
         <rect
-          x="278"
+          x="270"
           y="168"
-          width="80"
+          width="96"
           height="80"
-          rx="25"
+          rx="26"
           fill={ink}
         />
         <circle
-          cx="344"
-          cy="180"
+          cx="354"
+          cy="181"
           r="3"
           fill="#F97316"
           className="scene-pulse"
         />
         <path
-          d="M304 196a9 9 0 1 0 0 18M304 196h2.2M304 214h2.2"
+          d="M297 197a9 9 0 1 0 0 18M297 197h2.2M297 215h2.2"
           stroke="#F97316"
           strokeWidth="3.2"
           strokeLinecap="round"
         />
-        <circle cx="309" cy="205" r="2.1" fill="#F97316" />
-        <text
-          x="316"
-          y="209"
-          fontSize="10.5"
-          fontWeight="500"
-          fill="#FFFFFF"
-        >
-          Cogni
+        <circle cx="302" cy="206" r="2.1" fill="#F97316" />
+        <text x="309" y="210" fontSize="8.5" fontWeight="500" fill="#FFFFFF">
+          cognilogs
         </text>
       </g>
 
       <path
         className="scene-line"
-        d="M358 190C390 190 386 91 416 91"
+        d="M366 190C396 190 388 91 416 91"
         stroke="#377FE6"
         strokeWidth="1.5"
       />
       <path
         className="scene-line scene-line-slow"
-        d="M358 208C390 208 386 209 416 209"
+        d="M366 208C396 208 388 209 416 209"
         stroke="#0A9767"
         strokeWidth="1.5"
       />
       <path
         className="scene-line"
-        d="M358 226C390 226 386 327 416 327"
+        d="M366 226C396 226 388 327 416 327"
         stroke="#D84F8B"
         strokeWidth="1.5"
       />
@@ -253,7 +264,7 @@ export function IntakeScene() {
           Issue
         </text>
         <text x="454" y="212" fontSize="9.5" fill={muted}>
-          Run diagnostics
+          Investigate and fix
         </text>
       </g>
 
@@ -278,7 +289,7 @@ export function IntakeScene() {
           Feature
         </text>
         <text x="454" y="330" fontSize="9.5" fill={muted}>
-          Route to product
+          Enable + approval
         </text>
       </g>
 
@@ -309,10 +320,10 @@ export function IntakeScene() {
           Need one more detail
         </text>
         <text x="54" y="339" fontSize="11" fill={muted}>
-          Asked for the order ID
+          Asked which cohort
         </text>
         <text x="54" y="357" fontSize="11" fill={muted}>
-          before running the playbook.
+          was in the rollout.
         </text>
         <Tag
           x={54}
@@ -329,16 +340,18 @@ export function IntakeScene() {
         Ticket arrives
       </text>
       <circle cx="27" cy="48" r="3" fill="#F97316" />
-      <text x="472" y="420" textAnchor="end" fontSize="9.5" fill={faint}>
-        Freshdesk event / intent / path
+      <text x="486" y="420" textAnchor="end" fontSize="9.5" fill={faint}>
+        Ticketing event / intent / path
       </text>
     </SceneShell>
   );
 }
 
 export function ResolutionScene() {
+  const prefersReduced = useReducedMotion();
+
   return (
-    <SceneShell label="Knowledge retrieval, diagnostics, and admin APIs produce evidence that a confidence evaluator turns into an auto-reply or human review.">
+    <SceneShell label="The agent checks audit logs, the codebase, databases, and observability tools before a confidence evaluator chooses an auto-reply or human review.">
       <DotField id="resolution-dots" />
 
       <g>
@@ -359,10 +372,10 @@ export function ResolutionScene() {
           strokeLinecap="round"
         />
         <text x="72" y="69" fontSize="13" fontWeight="600" fill={ink}>
-          Knowledge
+          Audit log
         </text>
         <text x="72" y="84" fontSize="9.5" fill={muted}>
-          3 sources matched
+          certificate rotated
         </text>
         <rect x="46" y="100" width="84" height="6" rx="3" fill="#E7EDF9" />
         <rect x="46" y="112" width="112" height="6" rx="3" fill="#EEF2F0" />
@@ -379,22 +392,22 @@ export function ResolutionScene() {
         />
         <circle cx="220" cy="50" r="3" fill="#F97316" />
         <text x="229" y="54" fontSize="10" fontWeight="500" fill="#FFFFFF">
-          Diagnostics
+          Investigation
         </text>
         <text x="343" y="54" textAnchor="end" fontSize="8.5" fill="#8B949E">
           run #184
         </text>
-        <text x="219" y="79" fontFamily="JetBrains Mono" fontSize="8.5" fill="#4FE3A3">
-          $ check billing.credit
+        <text x="219" y="79" fontFamily="JetBrains Mono" fontSize="8" fill="#4FE3A3">
+          $ audit.events --svc-sso
         </text>
-        <text x="219" y="95" fontFamily="JetBrains Mono" fontSize="8.5" fill="#D7DEE7">
-          charge.duplicate  ok
+        <text x="219" y="95" fontFamily="JetBrains Mono" fontSize="8" fill="#D7DEE7">
+          codebase.search metadata
         </text>
-        <text x="219" y="111" fontFamily="JetBrains Mono" fontSize="8.5" fill="#D7DEE7">
-          refund.settled  ok
+        <text x="219" y="111" fontFamily="JetBrains Mono" fontSize="8" fill="#D7DEE7">
+          db.query cohort_members
         </text>
-        <text x="219" y="127" fontFamily="JetBrains Mono" fontSize="8.5" fill="#FF9B5C">
-          ledger.credit  ok
+        <text x="219" y="127" fontFamily="JetBrains Mono" fontSize="8" fill="#FF9B5C">
+          sentry.issue login.loop
         </text>
       </g>
 
@@ -416,10 +429,10 @@ export function ResolutionScene() {
           strokeLinecap="round"
         />
         <text x="422" y="69" fontSize="13" fontWeight="600" fill={ink}>
-          Admin API
+          Codebase
         </text>
         <text x="422" y="84" fontSize="9.5" fill={muted}>
-          Flag state verified
+          metadata.publish · v8.4
         </text>
         <rect x="396" y="100" width="80" height="20" rx="10" fill="#F2EDFC" />
         <text x="436" y="114" textAnchor="middle" fontSize="9" fill="#6D43B5">
@@ -463,7 +476,7 @@ export function ResolutionScene() {
           evidence complete
         </text>
         <text x="164" y="238" fontSize="32" fontWeight="600" fill={ink} letterSpacing="-1">
-          0.94
+          0.93
         </text>
         <Tag
           x={240}
@@ -474,14 +487,17 @@ export function ResolutionScene() {
           color="#06714E"
         />
         <rect x="164" y="255" width="224" height="8" rx="4" fill="#EDF1EE" />
-        <rect
+        <motion.rect
           x="164"
           y="255"
-          width="211"
+          width="209"
           height="8"
           rx="4"
           fill="#0A9767"
-          className="scene-meter"
+          initial={prefersReduced ? false : { scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.4, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          style={{ transformBox: "fill-box", transformOrigin: "left center" }}
         />
         <text x="164" y="284" fontSize="9.5" fill={muted}>
           threshold 0.85
@@ -523,10 +539,10 @@ export function ResolutionScene() {
           strokeLinejoin="round"
         />
         <text x="90" y="369" fontSize="12.5" fontWeight="600" fill="#065F45">
-          Auto-reply + resolve
+          Reply + resolve
         </text>
         <text x="90" y="386" fontSize="9.5" fill="#3D7A64">
-          confidence above 0.85
+          evidence above 0.85
         </text>
       </g>
 
@@ -551,12 +567,12 @@ export function ResolutionScene() {
           Human review
         </text>
         <text x="340" y="386" fontSize="9.5" fill="#A95832">
-          private note + queue
+          RCA + private note
         </text>
       </g>
 
       <text x="280" y="425" textAnchor="middle" fontSize="9.5" fill={faint}>
-        Every action leaves evidence behind
+        Every check leaves a trace
       </text>
     </SceneShell>
   );
@@ -585,16 +601,16 @@ export function SlaScene() {
           #4821
         </text>
         <text x="54" y="94" fontSize="13" fontWeight="600" fill={ink}>
-          Refund not reflecting
+          SSO loop blocking
         </text>
-        <text x="54" y="110" fontSize="10" fill={muted}>
-          Maya Chen · Billing
+        <text x="54" y="110" fontSize="13" fontWeight="600" fill={ink}>
+          finance
         </text>
         <Tag
           x={54}
           y={120}
           w={58}
-          label="Linking"
+          label="Linked"
           fill="#FFF1E7"
           color="#C2410C"
         />
@@ -618,10 +634,10 @@ export function SlaScene() {
           #4910
         </text>
         <text x="372" y="94" fontSize="13" fontWeight="600" fill={ink}>
-          Billing credit check
+          Verify IdP metadata
         </text>
         <text x="372" y="110" fontSize="10" fill={muted}>
-          P1 · internal team
+          identity team · P1
         </text>
         <Tag
           x={372}
@@ -688,7 +704,7 @@ export function SlaScene() {
           SLA watch
         </text>
         <text x="208" y="216" fontSize="10" fill={muted}>
-          Checks open child tickets
+          Checks every 15 minutes
         </text>
         <rect x="208" y="228" width="224" height="6" rx="3" fill="#EDF1EE" />
         <rect x="208" y="228" width="142" height="6" rx="3" fill="#F97316" />
@@ -786,13 +802,13 @@ export function SlaScene() {
           strokeLinecap="round"
         />
         <text x="244" y="352" fontSize="11.5" fontWeight="600" fill="#8A5A09">
-          Reminder posted
+          3 reminders sent
         </text>
         <text x="244" y="378" fontSize="9.5" fill="#8A6C33">
-          Follow-up counter
+          Slack + email
         </text>
         <text x="244" y="392" fontSize="9.5" fill="#8A6C33">
-          updates on child
+          before breach
         </text>
       </g>
 
@@ -817,10 +833,10 @@ export function SlaScene() {
           Manager alerted
         </text>
         <text x="414" y="378" fontSize="9.5" fill="#9D4B4F">
-          Max follow-ups hit
+          No change after
         </text>
         <text x="414" y="392" fontSize="9.5" fill="#9D4B4F">
-          breach escalation sent
+          3 notifications
         </text>
       </g>
 

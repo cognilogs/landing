@@ -43,7 +43,7 @@ export default function Logo({
   return (
     <Link
       href="/"
-      aria-label="CogniLogs home"
+      aria-label="cognilogs home"
       className={`inline-flex items-center gap-2.5 ${className}`}
     >
       <LogoMark className="h-8 w-8 shrink-0" />

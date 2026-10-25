@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -16,6 +17,7 @@ const EVIDENCE_SCORE = 0.92;
 
 export default function ConfidenceSection() {
   const [threshold, setThreshold] = useState(0.85);
+  const prefersReduced = useReducedMotion();
   const autoReply = EVIDENCE_SCORE >= threshold;
   const fill = ((threshold - 0.5) / (0.99 - 0.5)) * 100;
 
@@ -30,7 +32,7 @@ export default function ConfidenceSection() {
             <h2 className="display-2 text-white">Know when to stop.</h2>
             <p className="mt-5 max-w-[460px] text-[16px] leading-7 text-white/55 sm:text-[17px]">
               A confident answer is useful. A confident guess can cost more than
-              a slow one. The confidence gate decides whether CogniLogs replies
+              a slow one. The confidence gate decides whether cognilogs replies
               or sends the case to a person with a private note.
             </p>
 
@@ -69,7 +71,7 @@ export default function ConfidenceSection() {
             </div>
 
             <Link
-              href="/docs#confidence-and-handoff"
+              href="/docs#confidence"
               className="group mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium text-white/75 transition-colors hover:text-accent"
             >
               Read how the decision is made
@@ -112,9 +114,14 @@ export default function ConfidenceSection() {
                 </label>
                 <div className="relative">
                   <div className="absolute left-0 right-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-white/10" />
-                  <div
+                  <motion.div
                     className="absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-accent"
-                    style={{ width: `${fill}%` }}
+                    animate={{ width: `${fill}%` }}
+                    transition={
+                      prefersReduced
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 140, damping: 22 }
+                    }
                   />
                   <input
                     id="confidence-threshold"
@@ -153,13 +160,13 @@ export default function ConfidenceSection() {
                     </span>
                   </div>
                   <p className="mt-3 text-[13px] font-medium leading-5 text-ink">
-                    Refund not reflecting on invoice
+                    SSO loop after certificate rotation
                   </p>
                   <div className="mt-3 space-y-1.5">
                     {[
-                      "Duplicate charge matched",
-                      "Refund settled Oct 20",
-                      "Credit note applied",
+                      "Audit event matched",
+                      "Cohort query verified",
+                      "Metadata fix checked",
                     ].map((item) => (
                       <p
                         key={item}
@@ -219,8 +226,8 @@ export default function ConfidenceSection() {
                     }`}
                   >
                     {autoReply
-                      ? "The evidence clears the line. CogniLogs sends the reply and moves the ticket to resolved."
-                      : "The case is below the line. CogniLogs posts a private note and assigns it to the human queue with the full run attached."}
+                      ? "The evidence clears the line. cognilogs sends the reply and moves the ticket to resolved."
+                      : "The case is below the line. cognilogs posts a private note and assigns it to the human queue with the full run attached."}
                   </p>
                   <div className="mt-4 flex items-center justify-between text-[9.5px]">
                     <span

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-10-24T00:00:00.000Z",
-  "title": "Design System: CogniLogs",
+  "title": "Design System: cognilogs",
   "extensions": {
     "colorMeta": {
       "accent": {
@@ -123,14 +123,14 @@
       "kind": "chip",
       "refersTo": "chip",
       "description": "A quiet pill for status, tabs, and first/planned labels.",
-      "html": "<span class=\"ds-chip\"><span class=\"ds-chip-dot\"></span>Freshdesk <span class=\"ds-chip-meta\">First</span></span>",
+      "html": "<span class=\"ds-chip\"><span class=\"ds-chip-dot\"></span>Any ticketing system <span class=\"ds-chip-meta\">Connected</span></span>",
       "css": ".ds-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border: 1px solid #e3e6e5; border-radius: 9999px; background: #ffffff; color: #444951; font: 500 13px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; } .ds-chip-dot { width: 6px; height: 6px; border-radius: 9999px; background: #f97316; } .ds-chip-meta { color: #5f6570; font-weight: 400; }"
     },
     {
       "name": "Sheet Card",
       "kind": "card",
       "description": "A flat white sheet on cool paper, separated by a hairline.",
-      "html": "<article class=\"ds-card\"><p class=\"ds-card-kicker\">Intake</p><h3 class=\"ds-card-title\">Ticket + thread</h3><p class=\"ds-card-body\">The Freshdesk event arrives with its customer, conversation, and SLA context.</p></article>",
+      "html": "<article class=\"ds-card\"><p class=\"ds-card-kicker\">Intake</p><h3 class=\"ds-card-title\">Ticket + thread</h3><p class=\"ds-card-body\">A ticket event arrives with its customer, conversation, and SLA context.</p></article>",
       "css": ".ds-card { padding: 24px; border: 1px solid #e3e6e5; border-radius: 24px; background: #ffffff; } .ds-card-kicker { margin: 0 0 12px; color: #5f6570; font: 500 13px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; } .ds-card-title { margin: 0; color: #0a0a0b; font: 600 24px/1.1 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.035em; } .ds-card-body { margin: 12px 0 0; color: #444951; font: 400 16px/1.6 Inter, ui-sans-serif, system-ui, sans-serif; }"
     },
     {
@@ -143,7 +143,7 @@
   ],
   "narrative": {
     "northStar": "The Visible Loop",
-    "overview": "CogniLogs looks like an operations notebook that has been edited into a public argument: cool paper, black ink, orange signal, and real interface fragments. The system borrows the scale and confidence of editorial poster design, but every large gesture resolves into a support artifact. A ticket, a run, an evidence card, and an SLA watch are the vocabulary. The visitor should be able to see the loop close, not just read a promise that it does.\n\nThe visual world is paper-light and deliberately flat. White sheets sit on a cool paper ground, separated by hairlines and tonal tints rather than shadows. Orange appears as a signal: the wordmark, an active dot, a focus ring, the waitlist surface. Blue, green, and pink carry meaning about work types and confidence states. A near-black console is the one dark room, used where the product performs machine work. Nothing floats decoratively.\n\nLocal deployment is part of the visual argument. A dashed network boundary contains the app, ticket data, and the SLA worker; external services are named separately. Compliance copy describes control and review scope, never a certification that has not been issued.\n\nThe tone is confident, operational, and honest. Diagrams are built from HTML interface fragments and custom inline SVG line work. The page never pretends to show a production screenshot, a customer logo, or a benchmark. The reference grammar is MausBot's editorial structure, never its mascots, assets, or copy.",
+    "overview": "cognilogs looks like an operations notebook that has been edited into a public argument: cool paper, black ink, orange signal, and real interface fragments. The system borrows the scale and confidence of editorial poster design, but every large gesture resolves into a support artifact. A ticket, a run, an evidence card, and an SLA watch are the vocabulary. The visitor should be able to see the loop close, not just read a promise that it does.\n\nThe visual world is paper-light and deliberately flat. White sheets sit on a cool paper ground, separated by hairlines and tonal tints rather than shadows. Orange appears as a signal: the wordmark, an active dot, a focus ring, the waitlist surface. Blue, green, and pink carry meaning about work types and confidence states. A near-black console is the one dark room, used where the product performs machine work. Nothing floats decoratively.\n\nLocal deployment is part of the visual argument. A dashed network boundary contains the app, ticket data, and the SLA worker; external services are named separately. Compliance copy describes control and review scope, never a certification that has not been issued.\n\nThe tone is confident, operational, and honest. Diagrams are built from HTML interface fragments and custom inline SVG line work. The page never pretends to show a production screenshot, a customer logo, or a benchmark. The reference grammar is MausBot's editorial structure, never its mascots, assets, or copy.",
     "keyCharacteristics": [
       "Cool paper ground and white sheets, with hairline separators.",
       "Oversized Inter display type against dense, readable interface fragments.",
@@ -167,13 +167,13 @@
       { "name": "The Flat-By-Default Rule", "body": "If a surface needs separation, use a hairline, a tint, or a dark panel. Do not reach for a shadow.", "section": "elevation" },
       { "name": "The One Dark Room Rule", "body": "The near-black console is the only large dark surface. Use it for machine work and evidence, not for arbitrary emphasis.", "section": "elevation" },
       { "name": "The Sheet, Not Card Rule", "body": "A container should feel like a sheet of paper laid on the page, not a floating app card. Keep the radius generous, the border quiet, and the shadow absent.", "section": "shapes" },
-      { "name": "The Diagram Is an Interface Rule", "body": "Every diagram must contain a real support object: a ticket, a source, a confidence score, a run log, a child ticket, or an SLA clock. If it could be replaced by a generic icon, it is not a CogniLogs diagram.", "section": "shapes" }
+      { "name": "The Diagram Is an Interface Rule", "body": "Every diagram must contain a real support object: a ticket, a source, a confidence score, a run log, a child ticket, or an SLA clock. If it could be replaced by a generic icon, it is not a cognilogs diagram.", "section": "shapes" }
     ],
     "dos": [
       "Do keep the paper ground, white sheets, and orange signal in that order of area.",
       "Do use giant Inter headlines and let interface fragments carry the detail.",
       "Do show the loop with tickets, sources, confidence scores, child tickets, and SLA watches.",
-      "Do label Freshdesk First and every planned connector Planned; there is no Next label.",
+      "Do label official brand marks in the trust rail and keep ticketing systems generic; there is no First/Planned connector ladder.",
       "Do keep shared chrome and legal fine print at 13px or above.",
       "Do use Next Link for internal links and serve local builds from the domain root. The GitHub Pages project build sets GITHUB_PAGES=true and uses /landing as its base path. Do not hard-code a base path into local development.",
       "Do show the deployment boundary and name external dependencies before a pilot.",
@@ -186,8 +186,8 @@
     "donts": [
       "Don't use stock photography, raster screenshots, mascots, or AI-generated illustrations.",
       "Don't invent customer logos, testimonials, benchmarks, pricing, production claims, or certifications.",
-      "Don't imply that local deployment guarantees compliance or that every workflow stays inside the customer's network.",
-      "Don't describe Slack, Jira, Linear, Notion, Confluence, GitHub, or Datadog as live integrations.",
+      "Don't imply that local deployment guarantees compliance. Certification work is in progress; keep the language positive and limited.",
+      "Don't describe any connector as live unless the deployment confirms it.",
       "Don't use decorative gradients, glows, blurred halos, or ornamental shadows.",
       "Don't put uppercase kickers above every section; the editorial hierarchy should come from scale and position.",
       "Don't add stage numbers, icon medallions, or decorative arrows to the architecture map.",

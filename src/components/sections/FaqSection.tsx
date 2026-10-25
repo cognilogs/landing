@@ -4,54 +4,54 @@ import FAQ from "@/components/ui/FAQ";
 
 const faqItems = [
   {
-    question: "What does CogniLogs automate?",
+    question: "What does cognilogs automate?",
     answer:
-      "The work between a Freshdesk ticket and a resolution: classification, missing-information requests, knowledge retrieval, diagnostic runs, feature-request routing, confidence gating, escalation, and SLA monitoring. It runs the support process, from the first ticket event to the SLA watch.",
+      "The work around a support ticket: polling your ticketing system, sanitizing the content, classifying the request, retrieving knowledge, investigating issues across logs, code, databases, and observability tools, enabling features with approval, drafting RCAs, watching child-ticket SLAs, and following up with CSAT.",
   },
   {
-    question: "Do we have to leave Freshdesk?",
+    question: "Which ticketing systems does it support?",
     answer:
-      "No. Freshdesk stays the system of record. CogniLogs reads ticket events and writes the result back: replies, private notes, statuses, and linked child tickets.",
+      "cognilogs is built to poll any ticketing system. Zendesk, Intercom, Jira Service Management, HubSpot, and Salesforce are examples. Your ticketing system stays the system of record.",
   },
   {
-    question: "Where does CogniLogs run?",
+    question: "Do we have to replace our support team?",
     answer:
-      "The first deployments are local. CogniLogs runs on your servers or inside your network, and ticket content, credentials, and run history stay in the environment you control. We document any external service a workflow depends on before a pilot.",
+      "No. The agent takes the work that can be verified and leaves the judgment calls to a person. A person can review, override, or take over at any point. RCAs always receive human review before they are sent.",
   },
   {
-    question: "What about compliance?",
+    question: "Where does it run?",
     answer:
-      "Local deployment can reduce the number of data transfers and third-party processors your security team has to review. We do not claim certifications we have not earned. We will provide deployment documentation, answer questionnaires, and list certifications only after they are issued.",
+      "The first deployments are local. The app, the SLA worker, and the run history run on your servers or inside your network. You choose the model, including local and open-weight models. Stronger models produce better work; the evidence and approval rules stay the same.",
   },
   {
     question: "What happens when confidence is low?",
     answer:
-      "The customer does not get an automated reply. CogniLogs posts a private note with the run and evidence, and assigns the case to a human queue. The default threshold is 0.85.",
+      "The customer does not get an automated reply. cognilogs posts a private note with the run, evidence, and suggested next step, and assigns the case to a human queue. The default threshold is 0.85.",
   },
   {
-    question: "Can we change the confidence threshold?",
+    question: "How does it investigate an issue?",
     answer:
-      "The default is 0.85. Teams should be able to make the line stricter for sensitive queues. The exact controls and per-queue rules are part of the early-access design, not a shipped promise yet.",
+      "It reads audit logs, searches the codebase, runs read-only database queries, and checks Kibana, Sentry, or Datadog. If the fix is in scope, it verifies the change before replying. If it is not, it opens a child ticket with the evidence attached.",
   },
   {
-    question: "Does it replace our support team?",
+    question: "Can it enable a feature for a customer?",
     answer:
-      "No. It takes repeatable work off the queue and makes handoffs more complete. A person can review, override, or take over at any point.",
+      "Yes, when the workflow allows it. It can use an admin API or browser automation to enable a feature on your internal panel or the customer portal. Sensitive changes can wait for an approver before the agent acts and replies.",
   },
   {
     question: "How does SLA monitoring work?",
     answer:
-      "Escalated cases create a linked child ticket and register with the SLA database. A background worker checks open children every 15 minutes, syncs activity to the parent, posts reminders, and escalates a breach to a manager. Slack escalation is planned, not live.",
+      "Every child ticket enters an SLA tracker by severity and priority. The owner is notified by Slack or email, and a manager is brought in after three notifications without movement. When the child is resolved, cognilogs checks whether the answer can be shared with the customer and drafts the reply.",
   },
   {
-    question: "Which integrations are available?",
+    question: "What does it cost?",
     answer:
-      "Freshdesk is the first and only confirmed integration. Slack, Jira, Linear, Notion, Confluence, GitHub, and Datadog are planned surfaces, not shipped integrations.",
+      "Early customers can get a ticket resolved for as low as ₹10. The final price depends on the local model, infrastructure, and the depth of each resolution. You own the model and infrastructure costs.",
   },
   {
     question: "How do we get early access?",
     answer:
-      "The waitlist is open for Freshdesk teams. Early design partners help shape the paths, thresholds, deployment, and operating model before the product opens more broadly.",
+      "Join the waitlist or email team@cognilogs.com. We are opening local deployments in small groups so each loop is proven before the next one.",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function FaqSection() {
             <div className="lg:sticky lg:top-28">
               <h2 className="display-2">Questions, answered.</h2>
               <p className="mt-5 max-w-[340px] text-[16px] leading-7 text-muted-strong">
-                The short version of how the loop works, what it needs, and
+                The short version of how the loop works, what it checks, and
                 where a person stays in charge.
               </p>
               <Link

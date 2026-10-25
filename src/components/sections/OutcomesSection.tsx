@@ -1,19 +1,19 @@
 import Link from "next/link";
-import { ArrowRight, Check, Minus } from "lucide-react";
+import {
+  ArrowRight,
+  Code2,
+  Database,
+  FileCode2,
+  MessageSquareText,
+  ShieldCheck,
+} from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-const oldLoop = [
-  "Ticket waits for triage.",
-  "Six tabs for the whole story.",
-  "Customer repeats the details.",
-  "SLA discovered late.",
-];
-
-const closedLoop = [
-  "Intent is known on arrival.",
-  "Evidence lives in one run.",
-  "One clear question, with context.",
-  "The watch continues until close.",
+const work = [
+  { icon: FileCode2, label: "Audit log", meta: "what changed" },
+  { icon: Code2, label: "Codebase", meta: "why it broke" },
+  { icon: Database, label: "Database", meta: "what is true now" },
+  { icon: ShieldCheck, label: "Approval", meta: "who signed off" },
 ];
 
 export default function OutcomesSection() {
@@ -22,66 +22,88 @@ export default function OutcomesSection() {
       <div className="shell">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <ScrollReveal className="lg:col-span-5">
-            <h2 className="display-2 max-w-[500px]">
+            <h2 className="display-2 max-w-[520px]">
               The reply is the visible part.
             </h2>
             <p className="lede mt-5 max-w-[430px]">
-              The work that happens before and after the reply is what closes a
-              ticket: the evidence, the judgment, and the ownership of the case.
+              The answer is what the customer sees. The work that makes it true
+              happens in the logs, the code, the database, and the approval
+              trail behind it.
             </p>
-            <p className="mt-9 max-w-[360px] text-[13px] leading-5 text-muted">
-              CogniLogs is being built with early Freshdesk teams. We&apos;ll
-              publish real outcomes when we have them. We won&apos;t invent them
-              in the meantime.
+            <p className="mt-9 max-w-[380px] text-[13px] leading-5 text-muted">
+              cognilogs is being built with early teams who care about the
+              tickets that need a real investigation, not another draft.
             </p>
-            <Link
-              href="/about"
-              className="group mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-accent-strong"
-            >
-              What we believe
-              <ArrowRight
-                aria-hidden="true"
-                className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-              />
-            </Link>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link
+                href="/features"
+                className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-accent-strong"
+              >
+                See the product
+                <ArrowRight
+                  aria-hidden="true"
+                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="group inline-flex items-center gap-1.5 text-[14px] font-medium text-muted transition-colors hover:text-ink"
+              >
+                See the loop
+                <ArrowRight
+                  aria-hidden="true"
+                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
           </ScrollReveal>
 
           <ScrollReveal className="lg:col-span-7" delay={0.05}>
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-[26px] bg-surface p-6">
-                <p className="text-[13px] font-medium text-muted">The old loop</p>
-                <ul className="mt-6 space-y-4">
-                  {oldLoop.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-[15px] leading-6 text-muted-strong"
-                    >
-                      <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-paper">
-                        <Minus className="h-2.5 w-2.5 text-line-strong" />
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              <div className="flex h-full flex-col rounded-[26px] bg-surface p-6">
+                <p className="text-[13px] font-medium text-muted">
+                  What the customer sees
+                </p>
+                <div className="mt-5 rounded-[18px] bg-paper p-4">
+                  <div className="flex items-center gap-2 text-[11px] text-muted">
+                    <MessageSquareText className="h-3.5 w-3.5" />
+                    Reply · ticket #4821
+                  </div>
+                  <p className="mt-3 text-[15px] leading-6 text-ink">
+                    “The certificate had rotated before the new metadata was
+                    published. I restored it, paused the rollout, and corrected
+                    the cohort. Your finance team can sign in again. The RCA is
+                    attached.”
+                  </p>
+                </div>
+                <p className="mt-auto pt-5 text-[13px] leading-5 text-muted">
+                  Clear, specific, and backed by the checks behind it.
+                </p>
               </div>
 
-              <div className="rounded-[26px] bg-accent p-6 text-accent-ink">
+              <div className="flex h-full flex-col rounded-[26px] bg-accent p-6 text-accent-ink">
                 <p className="text-[13px] font-medium text-accent-ink">
-                  The closed loop
+                  What it takes to get there
                 </p>
-                <ul className="mt-6 space-y-4">
-                  {closedLoop.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2.5 text-[15px] font-medium leading-6 text-accent-ink"
+                <div className="mt-5 space-y-2">
+                  {work.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center gap-2.5 rounded-xl bg-white/20 px-3 py-2.5"
                     >
-                      <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-accent-ink/10">
-                        <Check className="h-2.5 w-2.5" />
+                      <item.icon className="h-4 w-4 shrink-0 text-accent-ink/65" />
+                      <span className="min-w-0 flex-1 text-[13px] font-medium text-accent-ink">
+                        {item.label}
                       </span>
-                      {item}
-                    </li>
+                      <span className="text-[10px] text-accent-ink/60">
+                        {item.meta}
+                      </span>
+                    </div>
                   ))}
-                </ul>
+                </div>
+                <p className="mt-auto pt-5 text-[13px] leading-5 text-accent-ink/80">
+                  Evidence, judgment, and a person who can sign off.
+                </p>
               </div>
             </div>
 
@@ -90,7 +112,7 @@ export default function OutcomesSection() {
                 “Zero avoidable handoffs.”
               </p>
               <footer className="mt-3 text-[12px] text-muted">
-                The CogniLogs product principle
+                The cognilogs product principle
               </footer>
             </blockquote>
           </ScrollReveal>

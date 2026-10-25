@@ -3,31 +3,33 @@ import "./globals.css";
 import Layout from "@/components/layout/Layout";
 
 export const metadata: Metadata = {
-  title: "CogniLogs | Support automation that runs in your network",
+  title: "cognilogs | Support automation that runs in your network",
   description:
-    "CogniLogs runs inside your network and resolves Freshdesk tickets end to end. It reads the request, runs the diagnostics, checks its confidence, and hands off with full context when a person should decide.",
-  applicationName: "CogniLogs",
+    "cognilogs is a local-first support agent for any ticketing system. It resolves queries, investigates issues, enables features with approval, and keeps a human in control.",
+  applicationName: "cognilogs",
   keywords: [
     "support automation",
-    "Freshdesk",
+    "ticketing system",
     "AI support agent",
     "local deployment",
+    "local models",
     "customer support automation",
     "ticket triage",
+    "RCA automation",
     "SLA monitoring",
   ],
   openGraph: {
-    title: "CogniLogs | Support automation that runs in your network",
+    title: "cognilogs | Support automation that runs in your network",
     description:
-      "Local-first support automation that closes the loop from first reply to resolution.",
+      "Local-first support automation that closes the loop from first ticket event to resolution.",
     type: "website",
-    siteName: "CogniLogs",
+    siteName: "cognilogs",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CogniLogs | Support automation that runs in your network",
+    title: "cognilogs | Support automation that runs in your network",
     description:
-      "Local-first support automation that closes the loop from first reply to resolution.",
+      "Local-first support automation that closes the loop from first ticket event to resolution.",
   },
 };
 

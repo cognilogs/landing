@@ -5,9 +5,9 @@ import LegalShell, {
 } from "@/components/layout/LegalShell";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | CogniLogs",
+  title: "Privacy Policy | cognilogs",
   description:
-    "How CogniLogs handles waitlist information and data during local deployments and the Freshdesk support-automation preview.",
+    "How cognilogs handles waitlist information and data during local deployments and the ticketing support-automation preview.",
 };
 
 export default function PrivacyPage() {
@@ -21,22 +21,21 @@ export default function PrivacyPage() {
     >
       <LegalSection title="Scope">
         <p>
-          This policy explains how CogniLogs handles personal information on
+          This policy explains how cognilogs handles personal information on
           this website and during the early-access preview. It does not cover
-          your organization&apos;s Freshdesk workspace or any third-party
-          service that has its own privacy policy.
+          your organization&apos;s ticketing system or any third-party service
+          that has its own privacy policy.
         </p>
       </LegalSection>
 
       <LegalSection title="Local deployments">
         <p>
           For a local deployment, your organization controls the host, network,
-          credentials, backups, and retention policy. CogniLogs may receive
+          credentials, backups, and retention policy. cognilogs may receive
           deployment and support information you choose to share. Ticket
           content, replies, private notes, and run evidence stay in your
-          environment unless you give us access for support. Any external
-          service a workflow uses will be named in the deployment terms before
-          the pilot.
+          environment unless you give us access for support. Your security team
+          can review the deployment scope and data flows before the pilot.
         </p>
       </LegalSection>
 
@@ -83,12 +82,12 @@ export default function PrivacyPage() {
           For local deployments, your organization controls the environment and
           the ticket data inside it. We may receive limited deployment and
           support information. If a workflow depends on an external model,
-          knowledge, or communication service, we will name it in the deployment
-          terms before the pilot. We limit what those providers may do with the
-          data through contractual and technical controls.
+          knowledge, or communication service, your team approves the scope
+          before the pilot. We limit what those providers may do with the data
+          through contractual and technical controls.
         </p>
         <p>
-          If CogniLogs is involved in a merger, acquisition, or sale of assets,
+          If cognilogs is involved in a merger, acquisition, or sale of assets,
           information may be transferred as part of that transaction. We will
           tell you if that happens and the new owner is bound by this policy.
         </p>
@@ -130,10 +129,10 @@ export default function PrivacyPage() {
           delete, or restrict the use of your personal information, or to object
           to certain processing. To make a request, email{" "}
           <a
-            href="mailto:privacy@cognilogs.ai"
+            href="mailto:team@cognilogs.com"
             className="font-medium text-ink underline decoration-line-strong underline-offset-2 transition-colors hover:text-accent-strong"
           >
-            privacy@cognilogs.ai
+            team@cognilogs.com
           </a>
           . We may need to verify your identity before acting on a request.
         </p>
@@ -184,10 +183,10 @@ export default function PrivacyPage() {
         <p>
           Questions about this policy or your information can be sent to{" "}
           <a
-            href="mailto:privacy@cognilogs.ai"
+            href="mailto:team@cognilogs.com"
             className="font-medium text-ink underline decoration-line-strong underline-offset-2 transition-colors hover:text-accent-strong"
           >
-            privacy@cognilogs.ai
+            team@cognilogs.com
           </a>
           .
         </p>

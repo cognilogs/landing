@@ -1,303 +1,183 @@
-"use client";
-
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import useHydrated from "@/hooks/useHydrated";
 import {
   ArrowRight,
-  BookOpen,
+  BadgeCheck,
   Check,
-  FileText,
-  GitBranch,
-  MessageSquareText,
-  Sparkles,
-  Terminal,
+  Database,
+  FileCode2,
+  ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
-type CaseKey = "query" | "issue" | "feature";
-
-const cases: {
-  key: CaseKey;
-  tab: string;
-  shortTab: string;
-  title: string;
-  body: string;
-  ticket: string;
-  customer: string;
-  reply: string;
-  steps: { label: string; meta: string }[];
-  tone: string;
-  dot: string;
-  outcome: string;
-}[] = [
+const cases = [
   {
-    key: "query",
-    tab: "A question",
-    shortTab: "Question",
-    title: "Answer without the hunt.",
-    body: "When the answer already lives in your docs, CogniLogs retrieves the closest passages, drafts the response, attaches the sources, and scores its confidence.",
-    ticket: "Can we get a copy of our data processing agreement?",
-    customer: "Elena · Acme",
-    reply:
-      "Yes. Here is the latest DPA, plus our current subprocessor list. I've also saved the signed copy to your account.",
-    steps: [
-      { label: "Retrieved the DPA and subprocessor policy", meta: "3 sources" },
-      { label: "Drafted an answer with citations", meta: "0.96 confidence" },
-      { label: "Reply is ready to send", meta: "above threshold" },
-    ],
+    kicker: "B2B SaaS",
+    title: "SSO and provisioning failures",
+    ticket:
+      "“Contractor SCIM provisioning failed for 38 users after we changed plans. Payroll starts Monday.”",
+    body: "The agent reads the identity provider audit trail, checks the entitlement record, and searches the provisioning code path. It fixes what it can, opens a child ticket for the rest, and tells the customer what changed.",
+    checks: ["IdP audit log", "Entitlement database", "Provisioning code"],
     tone: "bg-blue-soft",
-    dot: "bg-blue",
-    outcome: "Resolved · sources attached",
+    accent: "bg-blue",
   },
   {
-    key: "issue",
-    tab: "Something broke",
-    shortTab: "Issue",
-    title: "Find what broke. Prove the fix.",
-    body: "A failed export opens a diagnostic run: logs, API state, and the customer’s exact object. The reply explains what changed and what happens next.",
-    ticket: "Exports are timing out for our whole workspace.",
-    customer: "Marcus · Northstar",
-    reply:
-      "Your export was blocked by a storage permission that changed during last night's migration. I've restored access and verified a clean retry. Your next export should complete normally.",
-    steps: [
-      { label: "Traced export queue and worker logs", meta: "timeout 30s" },
-      { label: "Found changed storage permission", meta: "admin API" },
-      { label: "Verified a clean retry", meta: "run #187" },
-    ],
+    kicker: "Fintech",
+    title: "Payments that disagree",
+    ticket:
+      "“The payout batch says failed, but the ledger shows settled for 12 customers. Finance is asking for a reconciliation.”",
+    body: "The agent queries the payment and ledger tables, checks the provider webhook trail, and verifies the settlement state. A human reviews the RCA before the customer sees it.",
+    checks: ["Ledger query", "Webhook events", "RCA review"],
     tone: "bg-green-soft",
-    dot: "bg-green",
-    outcome: "Fixed and verified · reply drafted",
+    accent: "bg-green",
   },
   {
-    key: "feature",
-    tab: "A missing feature",
-    shortTab: "Feature",
-    title: "Turn a wish into a tracked ask.",
-    body: "CogniLogs verifies the feature state, groups the demand, and gives the customer a real next step instead of a vague promise.",
-    ticket: "Can we require SSO for contractors?",
-    customer: "Priya · Loom Labs",
-    reply:
-      "Not yet. SAML is available on your plan, but contractor enforcement is still in product review. I've added your workspace to the request and linked the four similar asks.",
-    steps: [
-      { label: "Checked feature state", meta: "SAML not enabled" },
-      { label: "Grouped 4 linked requests", meta: "product demand" },
-      { label: "Routed to product review", meta: "customer acknowledged" },
-    ],
+    kicker: "Enterprise migrations",
+    title: "The wrong cohort got the message",
+    ticket:
+      "“A migration email went to 1,200 accounts outside the pilot. Some users now see the new workspace and cannot get back.”",
+    body: "The agent checks the rollout job, the cohort query, and the feature flag state. It pauses the job, drafts the correction, and routes the access exceptions to the right team.",
+    checks: ["Rollout audit", "Cohort query", "Feature flag"],
+    tone: "bg-accent-soft",
+    accent: "bg-accent",
+  },
+  {
+    kicker: "Internal IT",
+    title: "Access on day one",
+    ticket:
+      "“Our new hires cannot get into payroll. The ticket says access was granted, but the app still shows pending.”",
+    body: "The agent checks the identity provider, the approval record, and the admin panel. When a click is required, it can use browser automation to finish the enablement and reply with the result.",
+    checks: ["Identity provider", "Approval record", "Browser action"],
     tone: "bg-pink-soft",
-    dot: "bg-pink",
-    outcome: "Feature request created · customer updated",
+    accent: "bg-pink",
+  },
+  {
+    kicker: "E-commerce",
+    title: "Order, payment, and delivery disagree",
+    ticket:
+      "“The order says delivered, the payment says refunded, and the customer has neither the product nor the money.”",
+    body: "The agent reads the order database, the payment provider, and the fulfillment events. It finds the handoff that failed, opens the right internal ticket, and gives the customer a clear next step.",
+    checks: ["Order database", "Payment provider", "Fulfillment events"],
+    tone: "bg-violet-soft",
+    accent: "bg-violet",
   },
 ];
 
 export default function UseCasesSection() {
-  const [active, setActive] = useState<CaseKey>("query");
-  const hydrated = useHydrated();
-  const prefersReduced = useReducedMotion();
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const current = cases.find((item) => item.key === active) ?? cases[0];
-  const reduceMotion = hydrated && prefersReduced;
-
-  const selectTab = (index: number) => {
-    const next = cases[index];
-    setActive(next.key);
-    tabRefs.current[index]?.focus();
-  };
-
-  const onKeyDown = (
-    event: React.KeyboardEvent<HTMLButtonElement>,
-    index: number,
-  ) => {
-    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-      event.preventDefault();
-      selectTab((index + 1) % cases.length);
-    }
-    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-      event.preventDefault();
-      selectTab((index - 1 + cases.length) % cases.length);
-    }
-  };
-
   return (
-    <section id="use-cases" className="scroll-mt-24 py-20 sm:py-28">
+    <section id="use-cases" className="scroll-mt-24 pb-20 pt-12 sm:pb-28 sm:pt-16">
       <div className="shell">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <h2 className="display-2 max-w-[660px]">
-            Three request types. One workflow.
-          </h2>
-          <p className="lede max-w-[420px] md:text-right">
-            Each request follows a different path. The evidence standard stays
-            the same.
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr] md:items-end">
+            <h2 className="display-2 max-w-[700px]">
+              For the tickets that take a team.
+            </h2>
+            <p className="lede measure-tight md:justify-self-end">
+              The easy questions are already handled by macros. cognilogs is
+              built for the work that needs a log, a database, a code path, and
+              a person who can approve the outcome.
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div
-            role="tablist"
-            aria-label="Support request types"
-            className="flex w-fit flex-wrap gap-1 rounded-full bg-surface p-1 sm:inline-flex"
-          >
-            {cases.map((item, index) => (
-              <button
-                key={item.key}
-                ref={(element) => {
-                  tabRefs.current[index] = element;
-                }}
-                type="button"
-                role="tab"
-                id={`case-tab-${item.key}`}
-                aria-label={item.tab}
-                aria-selected={active === item.key}
-                aria-controls={`case-panel-${item.key}`}
-                tabIndex={active === item.key ? 0 : -1}
-                onClick={() => setActive(item.key)}
-                onKeyDown={(event) => onKeyDown(event, index)}
-                className={`flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2 py-2.5 text-[11.5px] font-medium transition-colors sm:gap-2 sm:px-4 sm:text-[13px] ${
-                  active === item.key
-                    ? "bg-ink text-white"
-                    : "text-muted hover:text-ink"
+        <div className="mt-12 grid gap-3 lg:grid-cols-2">
+          {cases.map((useCase, index) => (
+            <ScrollReveal
+              key={useCase.title}
+              delay={index * 0.03}
+              className={index === 0 ? "lg:col-span-2" : ""}
+            >
+              <article
+                className={`h-full rounded-[26px] p-6 sm:p-7 ${useCase.tone} ${
+                  index === 0 ? "lg:grid lg:grid-cols-12 lg:gap-10" : ""
                 }`}
               >
-                <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${item.dot}`} />
-                <span className="truncate sm:hidden">{item.shortTab}</span>
-                <span className="hidden truncate sm:inline">{item.tab}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div
-          role="tabpanel"
-          id={`case-panel-${current.key}`}
-          aria-labelledby={`case-tab-${current.key}`}
-          className="mt-4"
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.key}
-              data-scroll-reveal
-              initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -6 }}
-              transition={{ duration: reduceMotion ? 0 : 0.22 }}
-              className={`grid gap-8 rounded-[28px] p-5 sm:p-8 lg:grid-cols-12 lg:gap-14 lg:p-10 ${current.tone}`}
-            >
-              <div className="lg:col-span-5 lg:py-4">
-                <h3 className="text-[32px] font-semibold tracking-[-0.045em] text-ink sm:text-[40px]">
-                  {current.title}
-                </h3>
-                <p className="mt-4 max-w-[440px] text-[16px] leading-7 text-muted-strong">
-                  {current.body}
-                </p>
-
-                <div className="mt-7 rounded-2xl bg-white/70 p-4">
-                  <div className="flex items-center gap-2 text-[11px] text-muted">
-                    <MessageSquareText className="h-3.5 w-3.5" />
-                    Example ticket
-                    <span className="text-line-strong">/</span>
-                    {current.customer}
-                  </div>
-                  <p className="mt-2 text-[14px] font-medium leading-6 text-ink">
-                    “{current.ticket}”
+                <div className={index === 0 ? "lg:col-span-5" : ""}>
+                  <p className="inline-flex items-center gap-2 text-[12px] font-medium text-muted-strong">
+                    <span className={`h-1.5 w-1.5 rounded-full ${useCase.accent}`} />
+                    {useCase.kicker}
                   </p>
+                  <h3 className="mt-4 text-[28px] font-semibold leading-[1.08] tracking-[-0.04em] text-ink sm:text-[32px]">
+                    {useCase.title}
+                  </h3>
+                  <p className="mt-4 text-[15px] leading-7 text-muted-strong">
+                    {useCase.body}
+                  </p>
+                  <Link
+                    href="/waitlist"
+                    className="group mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-ink transition-colors hover:text-accent-strong"
+                  >
+                    Bring this to your queue
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
                 </div>
 
-                <Link
-                  href="/docs#ticket-lifecycle"
-                  className="group mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-accent-strong"
-                >
-                  See the full path
-                  <ArrowRight
-                    aria-hidden="true"
-                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                  />
-                </Link>
-              </div>
-
-              <div className="lg:col-span-7">
-                <div
-                  data-ui
-                  className="overflow-hidden rounded-[20px] bg-surface"
-                >
-                  <div className="flex items-center justify-between gap-3 border-b border-line/80 px-4 py-3">
-                    <div className="flex min-w-0 items-center gap-2">
-                      <span className={`h-1.5 w-1.5 rounded-full ${current.dot}`} />
-                      <span className="truncate text-[11px] text-muted">
-                        Freshdesk · {current.customer}
-                      </span>
+                <div className={index === 0 ? "mt-6 lg:col-span-7 lg:mt-0" : "mt-6"}>
+                  <div
+                    data-ui
+                    className="rounded-[20px] border border-white/60 bg-white/65 p-4"
+                  >
+                    <div className="flex items-center gap-2 text-[10px] text-muted">
+                      <span className={`h-1.5 w-1.5 rounded-full ${useCase.accent}`} />
+                      Example ticket
                     </div>
-                    <span className="shrink-0 rounded-full bg-green-soft px-2 py-1 text-[9px] font-medium text-green-strong">
-                      Agent run
-                    </span>
-                  </div>
-
-                  <div className="px-4 py-4 sm:px-5">
-                    <p className="text-[13px] font-medium leading-6 text-ink">
-                      {current.ticket}
+                    <p className="mt-2 text-[13px] font-medium leading-6 text-ink">
+                      {useCase.ticket}
                     </p>
-                    <div className="mt-4 space-y-2">
-                      {current.steps.map((step) => (
-                        <div
-                          key={step.label}
-                          className="flex items-start gap-2.5 rounded-lg bg-paper px-3 py-2.5"
-                        >
-                          <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-green-soft">
-                            <Check className="h-2.5 w-2.5 text-green-strong" />
-                          </span>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-[11px] leading-5 text-ink">
-                              {step.label}
-                            </p>
-                            <p className="text-[9.5px] text-muted">{step.meta}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                  </div>
 
-                    <div className="mt-4 rounded-xl bg-accent-soft p-3.5">
-                      <div className="flex items-center gap-1.5 text-[10px] font-medium text-accent-strong">
-                        <Sparkles className="h-3 w-3" />
-                        Customer reply drafted
+                  <div className="mt-2 grid gap-2 sm:grid-cols-3">
+                    {useCase.checks.map((check) => (
+                      <div
+                        key={check}
+                        className="flex items-center gap-2 rounded-xl bg-white/55 px-3 py-2.5 text-[11px] text-ink"
+                      >
+                        <Check className="h-3 w-3 shrink-0 text-green-strong" />
+                        {check}
                       </div>
-                      <p className="mt-2 text-[11.5px] leading-5 text-ink/75">
-                        {current.reply}
-                      </p>
+                    ))}
+                  </div>
+
+                  {index === 0 && (
+                    <div className="mt-2 flex items-center gap-3 rounded-xl bg-console px-3 py-2.5 text-[10px] text-console-muted">
+                      <FileCode2 className="h-3.5 w-3.5 text-console-orange" />
+                      <span className="min-w-0 flex-1 truncate">
+                        codebase.search onboarding.provision
+                      </span>
+                      <Database className="h-3.5 w-3.5 text-console-green" />
+                      <span className="truncate">db.query entitlements</span>
+                      <ShieldCheck className="h-3.5 w-3.5 text-console-green" />
                     </div>
-                  </div>
-
-                  <div className="flex items-center justify-between gap-3 border-t border-line/80 px-4 py-3">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] text-muted">
-                      <Check className="h-3 w-3 text-green-strong" />
-                      {current.outcome}
-                    </span>
-                    <span className="rounded-md bg-ink px-2.5 py-1.5 text-[9px] font-medium text-white">
-                      Send reply
-                    </span>
-                  </div>
+                  )}
                 </div>
-
-                <div className="mt-3 flex items-center gap-4 px-1 text-[10px] text-muted">
-                  <span className="inline-flex items-center gap-1.5">
-                    <BookOpen className="h-3 w-3" />
-                    Knowledge
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <Terminal className="h-3 w-3" />
-                    Diagnostics
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <GitBranch className="h-3 w-3" />
-                    Routing
-                  </span>
-                  <span className="ml-auto hidden items-center gap-1.5 sm:inline-flex">
-                    <FileText className="h-3 w-3" />
-                    Evidence attached
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              </article>
+            </ScrollReveal>
+          ))}
         </div>
+
+        <ScrollReveal>
+          <div className="mt-8 flex flex-col gap-5 rounded-[24px] border border-line/80 bg-surface p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <div className="flex items-start gap-3">
+              <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" />
+              <div>
+                <p className="text-[15px] font-medium text-ink">
+                  Simple questions still get handled.
+                </p>
+                <p className="mt-1 max-w-[620px] text-[14px] leading-6 text-muted">
+                  Repetitive questions are the easy part. The product earns its
+                  place on the tickets that need investigation, a safe action,
+                  and a clean handoff.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/features"
+              className="group inline-flex shrink-0 items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-accent-strong"
+            >
+              See the product
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
