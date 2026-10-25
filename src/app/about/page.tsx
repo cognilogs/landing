@@ -349,7 +349,7 @@ export default function AboutPage() {
       <section className="py-16 sm:py-20">
         <div className="shell">
           <div className="rounded-[32px] bg-accent px-6 py-12 text-accent-ink sm:px-10 sm:py-14 lg:px-14">
-            <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
               <div className="lg:col-span-8">
                 <h2 className="max-w-[720px] text-[34px] font-semibold leading-[1.05] tracking-[-0.05em] sm:text-[46px]">
                   Zero avoidable handoffs.

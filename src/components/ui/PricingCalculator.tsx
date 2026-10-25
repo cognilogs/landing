@@ -8,6 +8,9 @@ const FLOOR = 10;
 export default function PricingCalculator() {
   const [tickets, setTickets] = useState(500);
   const estimate = tickets * FLOOR;
+  const ratio = (tickets - 100) / (5000 - 100);
+  // Match the range thumb's inset so the fill ends exactly at the circle.
+  const thumbPosition = `calc(${(ratio * 100).toFixed(3)}% + ${(12 - 24 * ratio).toFixed(3)}px)`;
 
   return (
     <div data-ui className="rounded-[26px] bg-surface p-5 sm:p-6">
@@ -31,11 +34,11 @@ export default function PricingCalculator() {
               {tickets.toLocaleString("en-IN")}
             </span>
           </div>
-          <div className="relative mt-3">
+          <div className="relative mt-3 h-7">
             <div className="absolute left-0 right-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-line/70" />
             <div
-              className="absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-accent"
-              style={{ width: `${((tickets - 100) / (5000 - 100)) * 100}%` }}
+              className="absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-accent transition-[width] duration-150 ease-out"
+              style={{ width: thumbPosition }}
             />
             <input
               id="tickets-per-month"
@@ -46,6 +49,11 @@ export default function PricingCalculator() {
               value={tickets}
               onChange={(event) => setTickets(Number(event.target.value))}
               className="threshold-range relative z-10 w-full"
+            />
+            <span
+              aria-hidden="true"
+              className="threshold-thumb pointer-events-none absolute top-1/2 z-20 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-accent bg-white shadow-[0_0_0_4px_rgba(249,115,22,0.16)] transition-[left] duration-150 ease-out"
+              style={{ left: thumbPosition }}
             />
           </div>
           <div className="mt-1 flex justify-between text-[10px] text-muted">
