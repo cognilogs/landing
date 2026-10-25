@@ -32,7 +32,11 @@ export default function OutcomesSection() {
             </p>
             <p className="mt-9 max-w-[380px] text-[13px] leading-5 text-muted">
               cognilogs is being built with early teams who care about the
-              tickets that need a real investigation, not another draft.
+              tickets that need a real investigation, not another draft. Read{" "}
+              <Link href="/how-it-works" className="link-inline">
+                how a ticket moves through the loop
+              </Link>
+              .
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
               <Link

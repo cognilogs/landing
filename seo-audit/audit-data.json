@@ -1,0 +1,252 @@
+{
+  "summary": {
+    "health_score": 59,
+    "business_type": "B2B SaaS (early access)",
+    "url": "https://cognilogs.github.io/landing/",
+    "audited_at": "2026-10-25",
+    "top_findings": [
+      "No robots.txt (404 at both domain root and project path)",
+      "No XML sitemap at any conventional location",
+      "No canonical URL on any of the 11 pages",
+      "No og:image / twitter:image while using summary_large_image",
+      "Zero structured data (Organization, WebSite, SoftwareApplication all missing)",
+      "8 of 11 meta descriptions exceed the SERP snippet",
+      "Open Graph tags are identical on every page",
+      "No contextual internal links (nav and footer only)",
+      "Site is served from a github.io subpath, not cognilogs.com",
+      "No content surface beyond 11 marketing pages"
+    ],
+    "quick_wins": [
+      "Ship robots.ts and sitemap.ts (2 files, ~30 minutes)",
+      "Add self-referencing canonicals via a shared metadata helper",
+      "Generate a 1200x630 social image and wire og:image",
+      "Trim 8 meta descriptions to <=155 characters",
+      "Rewrite /features and /comparison titles",
+      "Add Organization + WebSite + SoftwareApplication JSON-LD"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 58,
+      "what_works": [
+        "HTTPS with HSTS and a valid certificate",
+        "Single-hop 301 for http->https and for missing trailing slash",
+        "Unknown URLs return a real 404",
+        "Static server-rendered HTML: 1565 words without JavaScript",
+        "Consistent, descriptive, slash-terminated URLs"
+      ],
+      "findings": [
+        {
+          "title": "robots.txt missing",
+          "severity": "Critical",
+          "description": "https://cognilogs.github.io/robots.txt and /landing/robots.txt both return 404. No crawl policy, no sitemap declaration, no AI-usage stance.",
+          "recommendation": "Add app/robots.ts returning allow-all rules plus the sitemap URL. Note that robots.txt is only honoured at the domain root, which GitHub Pages project sites cannot serve - resolve by moving to cognilogs.com."
+        },
+        {
+          "title": "No XML sitemap",
+          "severity": "Critical",
+          "description": "sitemap_discovery.py found no sitemap at /sitemap.xml, /sitemap_index.xml, /sitemap-index.xml or /wp-sitemap.xml.",
+          "recommendation": "Add app/sitemap.ts listing all 11 URLs with lastModified, changeFrequency and priority."
+        },
+        {
+          "title": "No canonical tags",
+          "severity": "Critical",
+          "description": "0 of 11 pages declare a canonical URL while the site is served from a github.io project subpath.",
+          "recommendation": "Add self-referencing absolute canonicals through one shared metadata helper."
+        },
+        {
+          "title": "Site not served from the brand domain",
+          "severity": "High",
+          "description": "cognilogs.com resolves (GoDaddy nameservers) but TLS fails with unrecognized name and it does not serve this site. The canonical home is cognilogs.github.io/landing/.",
+          "recommendation": "Point cognilogs.com at the deployment (CNAME + DNS) and drop the /landing base path."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 65,
+      "what_works": [
+        "11 unique titles and 11 unique single H1s with clean H1->H2 nesting",
+        "Keyword-bearing homepage and docs titles",
+        "Descriptive, hyphenated URLs"
+      ],
+      "findings": [
+        {
+          "title": "Meta descriptions overrun on 8 of 11 pages",
+          "severity": "High",
+          "description": "Lengths: /use-cases 249, /features 209, /comparison 195, /pricing 183, /docs 182, /waitlist 182, /how-it-works 172, / 170.",
+          "recommendation": "Trim each to <=155 characters, front-loading the differentiating clause."
+        },
+        {
+          "title": "Two titles underperform",
+          "severity": "High",
+          "description": "/features is 'Product | cognilogs' (19 chars, no keyword). /comparison is 81 chars and truncates before the competitor names.",
+          "recommendation": "Rewrite both to <=60 characters with the primary keyword first."
+        },
+        {
+          "title": "Open Graph identical on every page, no image",
+          "severity": "High",
+          "description": "og:title and og:description on inner pages are byte-identical to the homepage because Next.js shallowly overwrites nested metadata. og:image and twitter:image are absent while twitter:card is summary_large_image.",
+          "recommendation": "Define per-page openGraph/twitter blocks through the shared helper and generate a 1200x630 social image."
+        },
+        {
+          "title": "Internal linking limited to nav and footer",
+          "severity": "Medium",
+          "description": "11 unique internal links on the homepage, all from navigation and footer, with generic anchor text. No body copy links to /features, /comparison or /docs.",
+          "recommendation": "Add 3-5 contextual in-body links per page with descriptive anchor text."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 10,
+      "what_works": [],
+      "findings": [
+        {
+          "title": "Zero structured data",
+          "severity": "High",
+          "description": "0 JSON-LD blocks, 0 microdata, 0 RDFa across all pages.",
+          "recommendation": "Add Organization + WebSite + SoftwareApplication sitewide and BreadcrumbList on inner pages. Do not add FAQPage: Google retired FAQ rich results for all sites on 7 May 2026."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 72,
+      "what_works": [
+        "Specific, evidence-led copy naming real thresholds and constraints",
+        "Sourced competitor comparison page",
+        "No thin pages; lowest is 630 words"
+      ],
+      "findings": [
+        {
+          "title": "No informational content surface",
+          "severity": "Medium",
+          "description": "11 marketing pages and no blog, glossary or query-shaped pages. The site can only win brand queries today.",
+          "recommendation": "Publish 6-8 pages targeting informational and comparison intent, linked from /docs and the footer."
+        },
+        {
+          "title": "No author or freshness signals",
+          "severity": "Medium",
+          "description": "No bylines, no named founders, no publication or update dates, no sameAs links.",
+          "recommendation": "Name the team on /about with sameAs links and add datePublished/dateModified to content pages."
+        },
+        {
+          "title": "No llms.txt",
+          "severity": "Low",
+          "description": "Absent. Google Search ignores llms.txt per its own guidance.",
+          "recommendation": "Optional: add /llms.txt with an H1, a summary block and Markdown links for non-Google agents."
+        }
+      ]
+    },
+    {
+      "name": "Performance (lab CWV)",
+      "score": 78,
+      "what_works": [
+        "LCP 1.98 s and CLS 0.006 on emulated mid-range Android",
+        "TTFB 380 ms",
+        "Self-hosted fonts with font-display: swap"
+      ],
+      "findings": [
+        {
+          "title": "TBT above the good threshold",
+          "severity": "Medium",
+          "description": "269 ms total blocking time across 4 long tasks from 10 JS chunks plus framer-motion hydration.",
+          "recommendation": "Defer non-critical client components and split the heaviest chunks; target TBT < 200 ms."
+        },
+        {
+          "title": "245 KB of HTML per page",
+          "severity": "Low",
+          "description": "99 inline SVG icons on the homepage are duplicated through nav, footer and sections on every page.",
+          "recommendation": "Share icon definitions rather than inlining them per instance."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 55,
+      "what_works": [
+        "Server-rendered: 1565 words available without JavaScript",
+        "Definition-style opening and a comparison table",
+        "Explicit thresholds and intervals that are quotable"
+      ],
+      "findings": [
+        {
+          "title": "No entity scaffolding",
+          "severity": "High",
+          "description": "No schema, no sameAs, no author or date signals; nothing for an LLM to attach the brand to.",
+          "recommendation": "Ship the entity schema first; entity presence is the highest-leverage GEO fix available on-site."
+        },
+        {
+          "title": "No off-site brand presence",
+          "severity": "Medium",
+          "description": "No Reddit, YouTube, LinkedIn or Wikipedia presence found; brand mentions correlate more strongly with AI citation than backlinks.",
+          "recommendation": "Treat as a distribution programme, not a code change."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 50,
+      "what_works": [
+        "No content images to optimise; all icons are labelled or aria-hidden"
+      ],
+      "findings": [
+        {
+          "title": "No social preview image",
+          "severity": "High",
+          "description": "No og:image or twitter:image exists anywhere on the site.",
+          "recommendation": "Design a 1200x630 image in the existing visual language and reference it from the root metadata."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Same day",
+        "items": [
+          "Add app/robots.ts",
+          "Add app/sitemap.ts",
+          "Add canonicals to all 11 pages",
+          "Create and wire the 1200x630 social image"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "Week 1",
+        "items": [
+          "Per-page Open Graph and Twitter metadata",
+          "Trim 8 meta descriptions",
+          "Rewrite two titles",
+          "Add Organization, WebSite, SoftwareApplication and BreadcrumbList JSON-LD",
+          "Add contextual internal links"
+        ]
+      },
+      {
+        "name": "Phase 3: Domain and Authority",
+        "timeframe": "Weeks 2-4",
+        "items": [
+          "Serve the site at cognilogs.com and drop the /landing base path",
+          "Name the team on /about with sameAs links",
+          "Publish 6-8 query-shaped content pages"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring and Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Search Console and Bing Webmaster setup with sitemap submission",
+          "Re-run the audit with Google API keys for CrUX and GSC field data",
+          "Capture an SEO drift baseline"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}

@@ -11,16 +11,20 @@ import {
   ShieldCheck,
   Timer,
 } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
 import ButtonLink from "@/components/ui/ButtonLink";
 import FAQ from "@/components/ui/FAQ";
 import PricingCalculator from "@/components/ui/PricingCalculator";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Pricing | cognilogs",
   description:
-    "Early customers can get a ticket analyzed for as low as ₹10 with cognilogs local deployment. Pricing follows analyzed tickets, not seats. Model and infrastructure costs stay with you.",
-};
+    "Early customers pay as low as ₹10 per analyzed ticket, not per seat. Model and infrastructure costs stay with you.",
+  path: "/pricing/",
+});
 
 const included = [
   {
@@ -81,6 +85,7 @@ const pricingFaq = [
 export default function PricingPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/pricing/", "Pricing")} />
       <section className="pb-14 pt-12 sm:pb-20 sm:pt-16">
         <div className="shell">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-14">

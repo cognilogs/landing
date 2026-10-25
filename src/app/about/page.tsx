@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check, Minus, Sparkles } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
 import ButtonLink from "@/components/ui/ButtonLink";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About | cognilogs",
   description:
-    "cognilogs started with a migration ticket that needed six systems and a day of reconstruction. We built a local-first support agent to do the work behind the reply.",
-};
+    "cognilogs started with a migration ticket that needed six systems and a day of reconstruction. We built the agent that does that work.",
+  path: "/about/",
+});
 
 const loopSteps = [
   { label: "Intake", meta: "Any ticketing system", tone: "bg-accent-soft" },
@@ -54,6 +58,7 @@ const principles = [
 export default function AboutPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/about/", "About")} />
       <section className="pb-16 pt-12 sm:pb-24 sm:pt-16">
         <div className="shell">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-14">

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 import {
   ArrowRight,
   Check,
@@ -25,11 +28,12 @@ import {
   SlaTrackerSection,
 } from "@/components/sections/CapabilitySections";
 
-export const metadata: Metadata = {
-  title: "Product | cognilogs",
+export const metadata: Metadata = pageMetadata({
+  title: "Support automation product | cognilogs",
   description:
-    "cognilogs handles queries, issues, and feature enablement in one local-first support loop. It checks audit logs, code, databases, and observability tools, drafts RCAs for review, and watches child-ticket SLAs.",
-};
+    "Queries, issues, and feature enablement in one local-first loop: audit logs, code, database checks, RCA drafts, and child-ticket SLAs.",
+  path: "/features/",
+});
 
 const indexItems = [
   { title: "Poll and sanitize", body: "Any ticketing system, on your interval.", dot: "bg-accent" },
@@ -87,7 +91,11 @@ function RequestTypesSection() {
             </h2>
             <p className="lede md:justify-self-end">
               Most tools pick one lane. cognilogs reads the request and chooses
-              the path that can actually finish it.
+              the path that can actually finish it. See{" "}
+              <Link href="/how-it-works" className="link-inline">
+                how the three paths run end to end
+              </Link>
+              .
             </p>
           </div>
         </ScrollReveal>
@@ -165,7 +173,11 @@ function ConnectionsSection() {
                 <p className="mt-2 text-[13px] leading-6 text-muted">
                   Run any local model your infrastructure can serve. Stronger
                   models produce better work; the evidence and approval rules
-                  stay the same.
+                  stay the same. The{" "}
+                  <Link href="/docs" className="link-inline">
+                    deployment guide
+                  </Link>{" "}
+                  lists what runs where.
                 </p>
               </div>
             </div>
@@ -231,6 +243,7 @@ function ConnectionsSection() {
 export default function FeaturesPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/features/", "Product")} />
       <section className="pb-16 pt-12 sm:pb-20 sm:pt-16">
         <div className="shell">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-14">

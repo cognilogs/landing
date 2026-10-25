@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
 import ButtonLink from "@/components/ui/ButtonLink";
 import { BrandMark, evidenceBrands, modelBrands, ticketingBrands } from "@/components/ui/BrandLogos";
 import {
@@ -13,12 +14,15 @@ import {
   Timer,
   UserRound,
 } from "lucide-react";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Deployment and operations guide | cognilogs",
   description:
-    "How cognilogs runs inside your network: any ticketing system, any local model, audit logs, feature enablement, RCA review, SLA notifications, and the operating rules behind the loop.",
-};
+    "How cognilogs runs inside your network: ticketing, local models, audit logs, feature enablement, RCA review, and SLA notifications.",
+  path: "/docs/",
+});
 
 const sidebarLinks = [
   { href: "#overview", label: "Overview" },
@@ -83,6 +87,7 @@ function Callout({
 export default function DocsPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/docs/", "Docs")} />
       <div className="shell pb-20 pt-10 sm:pt-14">
         <div className="grid gap-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
           <aside className="hidden lg:block">

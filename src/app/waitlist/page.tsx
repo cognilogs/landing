@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { Check, Minus } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
 import FAQ from "@/components/ui/FAQ";
 import WaitlistForm from "@/components/ui/WaitlistForm";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Early access | cognilogs",
   description:
-    "Join the early-access list for cognilogs, the local-first support agent for any ticketing system. Local deployment, any local model, and design-partner spots opening in small groups.",
-};
+    "Join the early-access list for the local-first support agent for any ticketing system. Design-partner spots open in small groups.",
+  path: "/waitlist/",
+});
 
 const faqItems = [
   {
@@ -79,6 +83,7 @@ const notYet = [
 export default function WaitlistPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/waitlist/", "Early access")} />
       <section className="pb-16 pt-10 sm:pb-20 sm:pt-14">
         <div className="shell">
           <div className="rounded-[32px] bg-accent px-6 py-10 text-accent-ink sm:px-10 sm:py-12 lg:px-12 lg:py-14">

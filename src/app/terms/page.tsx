@@ -3,12 +3,16 @@ import LegalShell, {
   LegalList,
   LegalSection,
 } from "@/components/layout/LegalShell";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms of Service | cognilogs",
   description:
     "The terms that apply to the cognilogs website and early-access preview, including local deployments for ticketing support automation.",
-};
+  path: "/terms/",
+});
 
 export default function TermsPage() {
   return (
@@ -19,6 +23,7 @@ export default function TermsPage() {
       updated="October 2026"
       summary="cognilogs is an early-access product, not a production service with a promised uptime. Use it lawfully, keep a person responsible for automated output, and review the evidence behind a reply. Local deployments run on infrastructure your organization controls."
     >
+      <JsonLd data={breadcrumb("/terms/", "Terms of Service")} />
       <LegalSection title="Acceptance">
         <p>
           These terms apply to this website and to the cognilogs early-access

@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Info } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 import ButtonLink from "@/components/ui/ButtonLink";
 import UseCasesSection from "@/components/sections/UseCasesSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Use cases | cognilogs",
   description:
-    "Examples of where cognilogs fits: SSO and provisioning failures, payment reconciliation, enterprise migrations, access requests, and order or fulfillment mismatches. These are examples, not a fixed scope; each deployment is mapped to your workflows.",
-};
+    "Where cognilogs fits: SSO and provisioning failures, payment reconciliation, migrations, access requests, and fulfillment mismatches.",
+  path: "/use-cases/",
+});
 
 export default function UseCasesPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/use-cases/", "Use cases")} />
       <section className="pb-8 pt-12 sm:pt-16">
         <div className="shell">
           <div className="max-w-[780px]">

@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 import { ArrowRight, Check, Clock3, Cpu } from "lucide-react";
 import ButtonLink from "@/components/ui/ButtonLink";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "How it works | cognilogs",
   description:
-    "How cognilogs polls any ticketing system, classifies the request, investigates with logs, code, and databases, gates confidence, drafts RCAs, and watches child-ticket SLAs.",
-};
+    "How cognilogs polls your ticketing system, classifies intent, investigates with logs and code, gates confidence, and watches child SLAs.",
+  path: "/how-it-works/",
+});
 
 export default function HowItWorksPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/how-it-works/", "How it works")} />
       <section className="pb-8 pt-12 sm:pt-16">
         <div className="shell">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">

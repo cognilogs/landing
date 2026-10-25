@@ -10,16 +10,20 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import JsonLd from "@/components/seo/JsonLd";
 import ButtonLink from "@/components/ui/ButtonLink";
 import { BrandMark, ticketingBrands } from "@/components/ui/BrandLogos";
 import { LogoMark } from "@/components/ui/Logo";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Compare | cognilogs vs Zendesk AI, Freshdesk Freddy, Intercom Fin, and Agentforce",
+export const metadata: Metadata = pageMetadata({
+  title: "Compare cognilogs vs Zendesk AI, Fin, Agentforce",
   description:
-    "A sourced comparison of cognilogs, Zendesk AI, Freshdesk Freddy, Intercom Fin, and Salesforce Agentforce across deployment, investigation, actions, RCA, audit trails, SLAs, and published pricing.",
-};
+    "A sourced comparison of cognilogs, Zendesk AI, Freshdesk Freddy, Intercom Fin, and Agentforce on deployment, investigation, and audit.",
+  path: "/comparison/",
+});
 
 type VendorId =
   | "zendesk"
@@ -565,6 +569,7 @@ function CompareCell({
 export default function ComparisonPage() {
   return (
     <div>
+      <JsonLd data={breadcrumb("/comparison/", "Compare")} />
       <section className="pb-12 pt-12 sm:pb-16 sm:pt-16">
         <div className="shell">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">

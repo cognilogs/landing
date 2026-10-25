@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".opencode/**",
     ".taste-skill/**",
+    // Local agent tooling (claude-seo skill checkout)
+    ".tools/**",
   ]),
 ]);
 

@@ -34,7 +34,17 @@ export default function DeploymentSection({
           <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-end">
             <div>
               <h2 className="display-2 max-w-[650px]">{content.heading}</h2>
-              <p className="lede measure mt-5">{content.lede}</p>
+              <p className="lede measure mt-5">
+                {content.lede}{" "}
+                <Link href="/docs" className="link-inline">
+                  The deployment and operations guide
+                </Link>{" "}
+                covers what runs where, and the{" "}
+                <Link href="/comparison" className="link-inline">
+                  vendor comparison
+                </Link>{" "}
+                shows how that differs from cloud support AI.
+              </p>
             </div>
             <div className="flex flex-wrap gap-2 md:justify-self-end">
               <span className="rounded-full bg-surface px-3 py-1.5 text-[12px] font-medium text-ink">

@@ -3,12 +3,16 @@ import LegalShell, {
   LegalList,
   LegalSection,
 } from "@/components/layout/LegalShell";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumb } from "@/lib/schema";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy | cognilogs",
   description:
     "How cognilogs handles waitlist information and data during local deployments and the ticketing support-automation preview.",
-};
+  path: "/privacy/",
+});
 
 export default function PrivacyPage() {
   return (
@@ -19,6 +23,7 @@ export default function PrivacyPage() {
       updated="October 2026"
       summary="We collect the email you give us for early access, use it to review your request, and do not sell it. For local deployments, ticket content stays in the environment your organization controls, subject to the deployment terms we agree with you."
     >
+      <JsonLd data={breadcrumb("/privacy/", "Privacy Policy")} />
       <LegalSection title="Scope">
         <p>
           This policy explains how cognilogs handles personal information on

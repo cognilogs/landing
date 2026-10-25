@@ -45,3 +45,6 @@ next-env.d.ts
 design-system/
 .playwright-cli/
 .taste-skill/
+
+# local agent tooling
+.tools/
