@@ -145,9 +145,9 @@ export default function TermsPage() {
 
       <LegalSection title="Fees">
         <p>
-          Early customers can get a ticket resolved for as low as ₹10. The final
+          Early customers can get a ticket analyzed for as low as ₹10. The final
           price depends on the local model, infrastructure, volume, and depth of
-          each resolution. Any fees will be described in a separate order or
+          each analysis. Any fees will be described in a separate order or
           agreement before they apply. You are responsible for your own costs of
           running a local deployment, including infrastructure, internet, model
           usage, and third-party subscriptions.

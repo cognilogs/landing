@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import ButtonLink from "@/components/ui/ButtonLink";
 import UseCasesSection from "@/components/sections/UseCasesSection";
 
 export const metadata: Metadata = {
   title: "Use cases | cognilogs",
   description:
-    "Where cognilogs fits: SSO and provisioning failures, payment reconciliation, enterprise migrations, access requests, and order or fulfillment mismatches.",
+    "Examples of where cognilogs fits: SSO and provisioning failures, payment reconciliation, enterprise migrations, access requests, and order or fulfillment mismatches. These are examples, not a fixed scope; each deployment is mapped to your workflows.",
 };
 
 export default function UseCasesPage() {
@@ -28,6 +28,15 @@ export default function UseCasesPage() {
               flag, and a customer promise. Those are the tickets cognilogs is
               built for.
             </p>
+            <div className="mt-6 flex items-start gap-3 rounded-2xl border border-line/80 bg-surface p-4 text-[13px] leading-6 text-muted">
+              <Info className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" />
+              <p>
+                These are a few examples, not a fixed menu. The exact use cases
+                we deploy depend on your ticket patterns, systems, permissions,
+                and approval rules. We map the real work with you before a
+                pilot.
+              </p>
+            </div>
           </div>
         </div>
       </section>

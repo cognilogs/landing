@@ -38,7 +38,7 @@ const faqItems = [
   {
     question: "What does it cost?",
     answer:
-      "Early customers can get a ticket resolved for as low as ₹10. The final price depends on the local model, infrastructure, and depth of each resolution. You own the model and infrastructure costs.",
+      "Early customers can get a ticket analyzed for as low as ₹10. The final price depends on the local model, infrastructure, and depth of each analysis. You own the model and infrastructure costs.",
   },
   {
     question: "What do you need from us?",

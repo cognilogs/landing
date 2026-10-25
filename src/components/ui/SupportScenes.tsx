@@ -93,16 +93,11 @@ function Tag({
 }
 
 export function IntakeScene() {
-  const prefersReduced = useReducedMotion();
-
   return (
     <SceneShell label="A ticket from any ticketing system is classified into a query, an issue, or a feature request, with a loop back to the customer when information is missing.">
       <DotField id="intake-dots" />
 
-      <motion.g
-        animate={prefersReduced ? undefined : { y: [0, -6, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      >
+      <g>
         <rect
           x="34"
           y="84"
@@ -158,7 +153,7 @@ export function IntakeScene() {
         <text x="78" y="224" fontSize="9.5" fill={faint}>
           Northwind · finance
         </text>
-      </motion.g>
+      </g>
 
       <text x="318" y="151" textAnchor="middle" fontSize="11" fill={muted}>
         Understands the request
@@ -221,7 +216,7 @@ export function IntakeScene() {
         <rect
           x="416"
           y="58"
-          width="118"
+          width="126"
           height="66"
           rx="14"
           fill="#FFFFFF"
@@ -234,10 +229,10 @@ export function IntakeScene() {
           strokeWidth="1.4"
           strokeLinecap="round"
         />
-        <text x="454" y="79" fontSize="13" fontWeight="600" fill={ink}>
+        <text x="452" y="79" fontSize="13" fontWeight="600" fill={ink}>
           Query
         </text>
-        <text x="454" y="94" fontSize="9.5" fill={muted}>
+        <text x="452" y="94" fontSize="9.5" fill={muted}>
           Answer from docs
         </text>
       </g>
@@ -246,7 +241,7 @@ export function IntakeScene() {
         <rect
           x="416"
           y="176"
-          width="118"
+          width="126"
           height="66"
           rx="14"
           fill="#FFFFFF"
@@ -260,10 +255,10 @@ export function IntakeScene() {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <text x="454" y="197" fontSize="13" fontWeight="600" fill={ink}>
+        <text x="452" y="197" fontSize="13" fontWeight="600" fill={ink}>
           Issue
         </text>
-        <text x="454" y="212" fontSize="9.5" fill={muted}>
+        <text x="452" y="212" fontSize="9.5" fill={muted}>
           Investigate and fix
         </text>
       </g>
@@ -272,7 +267,7 @@ export function IntakeScene() {
         <rect
           x="416"
           y="294"
-          width="118"
+          width="126"
           height="66"
           rx="14"
           fill="#FFFFFF"
@@ -285,10 +280,10 @@ export function IntakeScene() {
           strokeWidth="1.3"
           strokeLinecap="round"
         />
-        <text x="454" y="315" fontSize="13" fontWeight="600" fill={ink}>
+        <text x="452" y="315" fontSize="13" fontWeight="600" fill={ink}>
           Feature
         </text>
-        <text x="454" y="330" fontSize="9.5" fill={muted}>
+        <text x="452" y="330" fontSize="9.5" fill={muted}>
           Enable + approval
         </text>
       </g>
@@ -319,14 +314,14 @@ export function IntakeScene() {
         <text x="76" y="311" fontSize="12.5" fontWeight="600" fill="#9A3412">
           Need one more detail
         </text>
-        <text x="54" y="339" fontSize="11" fill={muted}>
+        <text x="76" y="339" fontSize="11" fill={muted}>
           Asked which cohort
         </text>
-        <text x="54" y="357" fontSize="11" fill={muted}>
+        <text x="76" y="357" fontSize="11" fill={muted}>
           was in the rollout.
         </text>
         <Tag
-          x={54}
+          x={76}
           y={365}
           w={112}
           label="Awaiting customer"
@@ -431,11 +426,14 @@ export function ResolutionScene() {
         <text x="422" y="69" fontSize="13" fontWeight="600" fill={ink}>
           Codebase
         </text>
-        <text x="422" y="84" fontSize="9.5" fill={muted}>
-          metadata.publish · v8.4
+        <text x="516" y="69" textAnchor="end" fontSize="9.5" fill={faint}>
+          v8.4
         </text>
-        <rect x="396" y="100" width="80" height="20" rx="10" fill="#F2EDFC" />
-        <text x="436" y="114" textAnchor="middle" fontSize="9" fill="#6D43B5">
+        <text x="422" y="84" fontSize="9.5" fill={muted}>
+          metadata.publish
+        </text>
+        <rect x="422" y="100" width="80" height="20" rx="10" fill="#F2EDFC" />
+        <text x="462" y="114" textAnchor="middle" fontSize="9" fill="#6D43B5">
           read-only
         </text>
       </g>
@@ -737,25 +735,6 @@ export function SlaScene() {
         />
       </g>
 
-      <path
-        className="scene-line"
-        d="M280 292C280 310 244 316 216 328"
-        stroke="#F97316"
-        strokeWidth="1.5"
-      />
-      <path
-        className="scene-line scene-line-slow"
-        d="M280 292v36"
-        stroke="#E7A531"
-        strokeWidth="1.5"
-      />
-      <path
-        className="scene-line"
-        d="M280 292C280 310 316 316 344 328"
-        stroke="#D94B52"
-        strokeWidth="1.5"
-      />
-
       <g>
         <rect
           x="34"
@@ -839,6 +818,28 @@ export function SlaScene() {
           3 notifications
         </text>
       </g>
+
+      <path
+        className="scene-line"
+        d="M280 292C280 312 190 314 113 334"
+        stroke="#F97316"
+        strokeWidth="1.5"
+      />
+      <path
+        className="scene-line scene-line-slow"
+        d="M280 292C280 313 283 315 283 334"
+        stroke="#E7A531"
+        strokeWidth="1.5"
+      />
+      <path
+        className="scene-line"
+        d="M280 292C280 312 370 314 453 334"
+        stroke="#D94B52"
+        strokeWidth="1.5"
+      />
+      <circle cx="113" cy="334" r="3" fill="#F97316" />
+      <circle cx="283" cy="334" r="3" fill="#E7A531" />
+      <circle cx="453" cy="334" r="3" fill="#D94B52" />
 
       <text x="280" y="425" textAnchor="middle" fontSize="9.5" fill={faint}>
         The loop stays open until the work is done

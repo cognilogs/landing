@@ -11,6 +11,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import ButtonLink from "@/components/ui/ButtonLink";
+import { BrandMark, ticketingBrands } from "@/components/ui/BrandLogos";
+import { LogoMark } from "@/components/ui/Logo";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
@@ -47,8 +49,6 @@ type TableGroup = {
 const vendors: {
   id: VendorId;
   name: string;
-  mark: string;
-  markClass: string;
   headerNote: string;
   bestFor: string;
   tags: string[];
@@ -56,8 +56,6 @@ const vendors: {
   {
     id: "zendesk",
     name: "Zendesk AI",
-    mark: "Z",
-    markClass: "bg-[#03363d]/10 text-[#03363d]",
     headerNote: "Cloud · Zendesk-native",
     bestFor:
       "Teams already standardized on Zendesk that want native omnichannel AI and the largest app marketplace.",
@@ -66,8 +64,6 @@ const vendors: {
   {
     id: "freshworks",
     name: "Freshdesk Freddy",
-    mark: "F",
-    markClass: "bg-green-soft text-green-strong",
     headerNote: "Cloud · Freshworks-native",
     bestFor:
       "Value-focused teams on Freshworks that want native parent-child ticketing and session-priced AI.",
@@ -76,8 +72,6 @@ const vendors: {
   {
     id: "intercom",
     name: "Intercom Fin",
-    mark: "I",
-    markClass: "bg-blue-soft text-blue-strong",
     headerNote: "Cloud · Helpdesk-agnostic",
     bestFor:
       "Teams that want a strong AI agent layer on an existing helpdesk without a migration.",
@@ -86,8 +80,6 @@ const vendors: {
   {
     id: "salesforce",
     name: "Salesforce Agentforce",
-    mark: "S",
-    markClass: "bg-cyan-soft text-[#0e7f97]",
     headerNote: "Cloud · Salesforce-native",
     bestFor:
       "Salesforce-native enterprises that need custom actions across CRM, Data Cloud, and MuleSoft.",
@@ -96,14 +88,34 @@ const vendors: {
   {
     id: "cognilogs",
     name: "cognilogs",
-    mark: "C",
-    markClass: "bg-accent text-accent-ink",
     headerNote: "Local · Any ticketing system",
     bestFor:
       "Local-first teams whose tickets need code, log, and data investigation before a reply.",
     tags: ["Local", "Any ticketing system", "Early access"],
   },
 ];
+
+const vendorBrandNames: Record<
+  Exclude<VendorId, "cognilogs">,
+  "Zendesk" | "Freshdesk" | "Intercom" | "Salesforce"
+> = {
+  zendesk: "Zendesk",
+  freshworks: "Freshdesk",
+  intercom: "Intercom",
+  salesforce: "Salesforce",
+};
+
+function VendorLogo({ id }: { id: VendorId }) {
+  if (id === "cognilogs") {
+    return <LogoMark className="h-6 w-6" />;
+  }
+
+  const brand = ticketingBrands.find(
+    (item) => item.name === vendorBrandNames[id],
+  );
+
+  return brand ? <BrandMark brand={brand} className="h-5 w-5" /> : null;
+}
 
 const tableGroups: TableGroup[] = [
   {
@@ -408,7 +420,7 @@ const tableGroups: TableGroup[] = [
             text: "$2 per conversation or Flex Credits. Service Cloud licenses separate.",
           },
           cognilogs: {
-            text: "₹10 per resolved ticket floor (early access). Model and infrastructure paid by you.",
+            text: "₹10 per analyzed ticket floor (early access). Model and infrastructure paid by you.",
           },
         },
       },
@@ -621,9 +633,10 @@ export default function ComparisonPage() {
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span
-                      className={`grid h-9 w-9 place-items-center rounded-xl text-[12px] font-semibold ${vendor.markClass}`}
+                      aria-hidden="true"
+                      className="grid h-9 w-9 place-items-center rounded-xl border border-line/70 bg-surface"
                     >
-                      {vendor.mark}
+                      <VendorLogo id={vendor.id} />
                     </span>
                     {vendor.id === "cognilogs" ? (
                       <span className="rounded-full bg-accent px-2 py-0.5 text-[9px] font-medium text-accent-ink">
@@ -716,9 +729,10 @@ export default function ComparisonPage() {
                       >
                         <div className="flex items-center gap-2">
                           <span
-                            className={`grid h-7 w-7 place-items-center rounded-lg text-[10px] font-semibold ${vendor.markClass}`}
+                            aria-hidden="true"
+                            className="grid h-7 w-7 place-items-center rounded-lg border border-line/70 bg-surface"
                           >
-                            {vendor.mark}
+                            <VendorLogo id={vendor.id} />
                           </span>
                           <span className="text-[12px] font-semibold leading-4 text-ink">
                             {vendor.name}

@@ -19,7 +19,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 export const metadata: Metadata = {
   title: "Pricing | cognilogs",
   description:
-    "Early customers can get a ticket resolved for as low as ₹10 with cognilogs local deployment. Pricing follows resolved work, not seats. Model and infrastructure costs stay with you.",
+    "Early customers can get a ticket analyzed for as low as ₹10 with cognilogs local deployment. Pricing follows analyzed tickets, not seats. Model and infrastructure costs stay with you.",
 };
 
 const included = [
@@ -59,12 +59,12 @@ const pricingFaq = [
   {
     question: "What does ₹10 cover?",
     answer:
-      "It is the early-access floor for a resolved ticket. It covers the support loop: polling, classification, investigation, reply, escalation, and SLA watch. Model and infrastructure costs are separate.",
+      "It is the early-access floor for an analyzed ticket. It covers the support loop: polling, classification, investigation, reply, escalation, and SLA watch. Model and infrastructure costs are separate.",
   },
   {
-    question: "Why is it per resolved ticket?",
+    question: "Why is it per analyzed ticket?",
     answer:
-      "You pay for work that actually reaches a resolution. We agree on what counts as resolved before the pilot, including how a human handoff or a child ticket is treated.",
+      "You pay for the analysis work on a ticket, not for seats. We agree on what counts as analyzed before the pilot, including how human handoffs and child tickets are treated.",
   },
   {
     question: "What changes the price?",
@@ -72,9 +72,9 @@ const pricingFaq = [
       "The model you run, the size of your infrastructure, the number of systems a ticket touches, and the depth of the investigation. A simple query and a multi-system incident do not cost the same to run.",
   },
   {
-    question: "How is a resolved ticket counted?",
+    question: "How is an analyzed ticket counted?",
     answer:
-      "We agree on the definition before the pilot, including how human handoffs and child tickets are treated. The early-access price is stated per resolved ticket.",
+      "We agree on the definition before the pilot, including how human handoffs and child tickets are treated. The early-access price is stated per analyzed ticket.",
   },
 ];
 
@@ -90,11 +90,11 @@ export default function PricingPage() {
                 Pricing for local deployment
               </p>
               <h1 className="display-1 mt-5 max-w-[760px]">
-                Pay for the work that closes.
+                Pay for the tickets we analyze.
               </h1>
               <p className="lede measure mt-5">
-                Early customers can get a ticket resolved for as low as ₹10.
-                You run the model and the infrastructure. We price the loop that
+                Early customers can get a ticket analyzed for as low as ₹10. You
+                run the model and the infrastructure. We price the loop that
                 does the work.
               </p>
               <div className="mt-6 flex flex-wrap gap-2 text-[12px] text-muted">
@@ -121,13 +121,12 @@ export default function PricingPage() {
                     ₹10
                   </span>
                   <span className="text-[14px] text-accent-ink/70">
-                    / resolved ticket
+                    / analyzed ticket
                   </span>
                 </div>
                 <p className="mt-3 text-[13px] leading-6 text-accent-ink/80">
                   Starting floor for early customers. The final price depends on
-                  the model, infrastructure, volume, and depth of each
-                  resolution.
+                  the model, infrastructure, volume, and depth of each analysis.
                 </p>
                 <div className="mt-5 flex flex-col gap-2">
                   <ButtonLink href="/waitlist" variant="secondary" size="md" withArrow>
@@ -223,8 +222,8 @@ export default function PricingPage() {
               <h2 className="display-2 max-w-[360px]">How the pilot works.</h2>
               <p className="mt-5 max-w-[360px] text-[16px] leading-7 text-muted-strong">
                 Start with one queue and one tough ticket. We scope the loop,
-                agree on the definition of resolved, and measure the work before
-                a wider rollout.
+                agree on what counts as analyzed, and measure the work before a
+                wider rollout.
               </p>
               <Link
                 href="/how-it-works"
@@ -249,6 +248,42 @@ export default function PricingPage() {
                     <p className="mt-2 text-[13px] leading-6 text-muted">{body}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-5 rounded-[24px] border border-line/70 bg-surface p-5 sm:p-6 lg:grid-cols-2">
+            <div className="flex gap-3">
+              <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent-soft text-accent-strong">
+                <Timer className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="text-[13px] font-semibold text-ink">
+                  Integration is a project, not a switch.
+                </p>
+                <p className="mt-1.5 text-[12.5px] leading-6 text-muted">
+                  Connecting the data across your organization is real work. A
+                  complete integration will realistically take longer than a
+                  couple of days. The timeline depends on the systems the loop
+                  touches, who grants access, and how quickly your team can
+                  review the deployment.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-green-soft text-green-strong">
+                <ShieldCheck className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="text-[13px] font-semibold text-ink">
+                  We work through it with you.
+                </p>
+                <p className="mt-1.5 text-[12.5px] leading-6 text-muted">
+                  We work with you throughout the integration and deployment:
+                  scoping, access, validation, and rollout. Your team stays in
+                  control of the infrastructure, credentials, and retention
+                  policy; you do not have to wire the loop up alone.
+                </p>
               </div>
             </div>
           </div>

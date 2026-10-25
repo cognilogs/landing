@@ -28,7 +28,7 @@ export default function PricingCalculator() {
         <div>
           <div className="flex items-baseline justify-between gap-3">
             <label htmlFor="tickets-per-month" className="text-[12px] text-muted">
-              Resolved tickets per month
+              Analyzed tickets per month
             </label>
             <span className="text-[18px] font-semibold tracking-[-0.03em] text-ink">
               {tickets.toLocaleString("en-IN")}
@@ -73,7 +73,7 @@ export default function PricingCalculator() {
       <div className="mt-5 grid gap-2 sm:grid-cols-2">
         <div className="flex items-center gap-2 rounded-xl bg-paper px-3 py-2.5 text-[11px] text-muted">
           <Ticket className="h-3.5 w-3.5 shrink-0 text-accent-strong" />
-          Charged around resolved tickets, not raw ticket volume.
+          Priced per analyzed ticket, not per agent seat.
         </div>
         <div className="flex items-center gap-2 rounded-xl bg-paper px-3 py-2.5 text-[11px] text-muted">
           <Cpu className="h-3.5 w-3.5 shrink-0 text-accent-strong" />
