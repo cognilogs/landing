@@ -218,10 +218,6 @@ summary {
     display: none !important;
   }
 
-  .marquee-control {
-    display: none !important;
-  }
-
   .orb,
   .scene-line {
     animation: none !important;
@@ -291,9 +287,9 @@ summary {
 }
 
 .footer-watermark {
-  color: #fff1e7;
-  -webkit-text-stroke: 1.5px rgba(249, 115, 22, 0.75);
-  text-stroke: 1.5px rgba(249, 115, 22, 0.75);
+  color: #ffffff;
+  -webkit-text-stroke: 2px var(--accent);
+  text-stroke: 2px var(--accent);
 }
 
 .squiggle {
@@ -328,17 +324,13 @@ summary {
   );
 }
 
-.marquee.is-paused .marquee-track {
-  animation-play-state: paused;
-}
-
 .marquee-track {
   display: flex;
   width: max-content;
   animation: marquee 34s linear infinite;
 }
 
-.marquee:hover .marquee-track,
+.marquee:has(.marquee-tile:hover) .marquee-track,
 .marquee:focus-within .marquee-track {
   animation-play-state: paused;
 }
@@ -482,37 +474,31 @@ summary {
   width: 24px;
   height: 24px;
   margin-top: 2px;
-  border: 6px solid var(--accent);
+  border: 0;
   border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  background: transparent;
+  box-shadow: none;
 }
 
 .threshold-range::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border: 6px solid var(--accent);
+  width: 24px;
+  height: 24px;
+  border: 0;
   border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14);
-}
-
-.threshold-range:hover::-webkit-slider-thumb,
-.threshold-range:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 7px rgba(249, 115, 22, 0.2);
+  background: transparent;
+  box-shadow: none;
 }
 
 .threshold-range:focus-visible {
   outline: none;
 }
 
-.threshold-range:focus-visible::-webkit-slider-thumb {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
+.threshold-range:hover + .threshold-thumb,
+.threshold-range:active + .threshold-thumb {
+  box-shadow: 0 0 0 7px rgba(249, 115, 22, 0.2);
 }
 
-.threshold-range:focus-visible::-moz-range-thumb {
+.threshold-range:focus-visible + .threshold-thumb {
   outline: 2px solid #ffffff;
   outline-offset: 3px;
 }

@@ -105,7 +105,7 @@ export default function Footer() {
       </div>
 
       <div aria-hidden="true" className="select-none overflow-hidden px-2">
-        <p className="footer-watermark translate-y-[16%] text-[22vw] font-semibold leading-[0.7] tracking-[-0.085em]">
+        <p className="footer-watermark block w-full translate-y-[16%] text-center text-[22vw] font-semibold leading-[0.7] tracking-[-0.085em]">
           cognilogs
         </p>
       </div>

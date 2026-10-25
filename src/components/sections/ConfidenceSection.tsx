@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -17,9 +16,12 @@ const EVIDENCE_SCORE = 0.92;
 
 export default function ConfidenceSection() {
   const [threshold, setThreshold] = useState(0.85);
-  const prefersReduced = useReducedMotion();
   const autoReply = EVIDENCE_SCORE >= threshold;
-  const fill = ((threshold - 0.5) / (0.99 - 0.5)) * 100;
+  // The native range thumb travels between half a thumb-width and the width
+  // minus half a thumb, not across the full track. Match that inset so the
+  // fill line and the visible thumb meet exactly.
+  const ratio = (threshold - 0.5) / (0.99 - 0.5);
+  const thumbPosition = `calc(${(ratio * 100).toFixed(3)}% + ${(12 - 24 * ratio).toFixed(3)}px)`;
 
   return (
     <section
@@ -112,16 +114,11 @@ export default function ConfidenceSection() {
                 <label htmlFor="confidence-threshold" className="sr-only">
                   Review threshold
                 </label>
-                <div className="relative">
+                <div className="relative h-7">
                   <div className="absolute left-0 right-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-white/10" />
-                  <motion.div
-                    className="absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-accent"
-                    animate={{ width: `${fill}%` }}
-                    transition={
-                      prefersReduced
-                        ? { duration: 0 }
-                        : { type: "spring", stiffness: 140, damping: 22 }
-                    }
+                  <div
+                    className="absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-accent transition-[width] duration-150 ease-out"
+                    style={{ width: thumbPosition }}
                   />
                   <input
                     id="confidence-threshold"
@@ -137,6 +134,11 @@ export default function ConfidenceSection() {
                       autoReply ? "This run would auto-reply." : "This run would go to human review."
                     }`}
                     className="threshold-range relative z-10"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="threshold-thumb pointer-events-none absolute top-1/2 z-20 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-accent bg-white shadow-[0_0_0_4px_rgba(249,115,22,0.16)] transition-[left] duration-150 ease-out"
+                    style={{ left: thumbPosition }}
                   />
                 </div>
                 <div className="mt-1 flex items-center justify-between text-[11px] text-white/55">

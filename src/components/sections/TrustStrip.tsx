@@ -1,13 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Pause, Play } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { BrandRail } from "@/components/ui/BrandLogos";
 
 export default function TrustStrip() {
-  const [paused, setPaused] = useState(false);
-
   return (
     <section aria-label="Ticketing and tooling support" className="py-10 sm:py-14">
       <div className="shell">
@@ -23,7 +18,7 @@ export default function TrustStrip() {
             </p>
           </div>
 
-          <div className={`marquee min-w-0 flex-1 ${paused ? "is-paused" : ""}`}>
+          <div className="marquee min-w-0 flex-1">
             <div className="marquee-track">
               <BrandRail />
               <BrandRail hidden />
@@ -41,20 +36,6 @@ export default function TrustStrip() {
                 <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
               </Link>
             </p>
-            <button
-              type="button"
-              onClick={() => setPaused((value) => !value)}
-              aria-pressed={paused}
-              aria-label={paused ? "Play tool ticker" : "Pause tool ticker"}
-              className="marquee-control mt-2 inline-flex items-center gap-1 text-[13px] font-medium text-muted transition-colors hover:text-ink motion-reduce:hidden"
-            >
-              {paused ? (
-                <Play aria-hidden="true" className="h-3 w-3" />
-              ) : (
-                <Pause aria-hidden="true" className="h-3 w-3" />
-              )}
-              {paused ? "Play" : "Pause"}
-            </button>
           </div>
         </div>
       </div>

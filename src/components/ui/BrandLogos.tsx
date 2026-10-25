@@ -152,7 +152,11 @@ export function BrandRail({ hidden = false }: { hidden?: boolean }) {
   return (
     <div className="marquee-copy" aria-hidden={hidden || undefined}>
       {[...ticketingBrands, ...evidenceBrands].map((brand) => (
-        <BrandTile key={`${brand.group}-${brand.name}`} brand={brand} />
+        <BrandTile
+          key={`${brand.group}-${brand.name}`}
+          brand={brand}
+          className="marquee-tile"
+        />
       ))}
     </div>
   );

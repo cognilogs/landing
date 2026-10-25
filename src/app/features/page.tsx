@@ -145,15 +145,29 @@ function ConnectionsSection() {
               already trusts.
             </p>
             <div className="mt-6 rounded-[20px] bg-surface p-4">
-              <p className="inline-flex items-center gap-2 text-[11px] font-medium text-muted">
-                <ShieldCheck className="h-4 w-4 text-accent-strong" />
-                Local deployment
+              <p className="flex items-baseline gap-2">
+                <span className="text-[34px] font-semibold leading-none tracking-[-0.05em] text-ink">
+                  1,500<span className="text-accent">+</span>
+                </span>
+                <span className="text-[12px] font-medium text-muted">
+                  integrations
+                </span>
               </p>
               <p className="mt-2 text-[13px] leading-6 text-muted">
-                Run any local model your infrastructure can serve. Stronger
-                models produce better work; the evidence and approval rules stay
-                the same.
+                Available today, and the agent can connect with any app in your
+                stack through APIs, webhooks, or the browser.
               </p>
+              <div className="mt-4 border-t border-line/70 pt-4">
+                <p className="inline-flex items-center gap-2 text-[11px] font-medium text-muted">
+                  <ShieldCheck className="h-4 w-4 text-accent-strong" />
+                  Local deployment
+                </p>
+                <p className="mt-2 text-[13px] leading-6 text-muted">
+                  Run any local model your infrastructure can serve. Stronger
+                  models produce better work; the evidence and approval rules
+                  stay the same.
+                </p>
+              </div>
             </div>
           </ScrollReveal>
 
