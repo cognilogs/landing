@@ -69,7 +69,7 @@ export default function WaitlistDialog({
                 : { opacity: 0, y: 12, scale: 0.985 }
             }
             transition={{ duration: prefersReduced ? 0 : 0.22 }}
-            className="relative w-full max-w-[520px] overflow-hidden rounded-[28px] border border-line bg-paper shadow-[0_32px_90px_-38px_rgba(10,10,11,0.55)]"
+            className="relative w-full max-w-[520px] overflow-hidden rounded-[28px] bg-paper shadow-[0_32px_90px_-38px_rgba(10,10,11,0.55)]"
           >
             <button
               ref={closeRef}
@@ -77,16 +77,16 @@ export default function WaitlistDialog({
               onClick={onClose}
               aria-label="Close waitlist"
               data-analytics="waitlist-dialog-close"
-              className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-white/80 text-ink transition-colors hover:bg-white"
+              className="absolute right-4 top-5 z-10 grid h-9 w-9 place-items-center rounded-full bg-white/[0.07] text-white/60 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
               <X className="h-4 w-4" />
             </button>
 
             <div className="bg-console px-5 pb-5 pt-6 text-white sm:px-7">
-              <div className="flex items-center gap-2.5">
-                <LogoMark className="h-7 w-7" />
+              <div className="flex items-center gap-2.5 pr-11">
+                <LogoMark className="h-7 w-7 shrink-0" />
                 <span className="text-[14px] font-medium">cognilogs</span>
-                <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 text-[10px] text-white/60">
+                <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-white/[0.06] px-2.5 py-1 text-[10px] text-white/60">
                   <span className="h-1.5 w-1.5 rounded-full bg-console-green" />
                   Early access
                 </span>
