@@ -61,6 +61,8 @@ NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 
 `NEXT_PUBLIC_*` values are inlined into the static bundle at build time. Changing either value requires a new deployment. If the key is missing or empty, analytics is a no-op and the site still builds and runs normally.
 
+If a value is not inlined, change its type from **Text** to **Secret** and redeploy. Cloudflare Pages has a known issue where plain-text dashboard variables are not passed to the build when the repository contains a `wrangler.jsonc` or `wrangler.toml` with `pages_build_output_dir`. This repository intentionally does not commit one.
+
 ### Custom event IDs
 
 The global click capture already records every link and button. For stable, human-readable IDs on specific controls, add a `data-analytics` attribute:
@@ -99,10 +101,10 @@ If the custom domain is not connected yet, set `NEXT_PUBLIC_SITE_URL` to the pro
 
 ```sh
 npm run build
-npx wrangler pages deploy out --project-name cognilogs
+npx wrangler pages deploy out --project-name landing
 ```
 
-The `wrangler.jsonc` file also points Pages at `./out` for local `wrangler pages` commands. If you use a different Pages project name, update `name` in `wrangler.jsonc`.
+The Pages project is named `landing`. Do not commit a `wrangler.jsonc` or `wrangler.toml` with `pages_build_output_dir`: Cloudflare treats that file as the project's configuration source of truth and stops passing plain-text dashboard variables to the build step.
 
 ### Custom domain
 
