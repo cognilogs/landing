@@ -56,12 +56,14 @@ The `wrangler.jsonc` file also points Pages at `./out` for local `wrangler pages
 2. Add `cognilogs.com` and wait for it to become active.
 3. If the domain is on Cloudflare DNS, the required records are created automatically. If it is not, move the nameservers to Cloudflare first. Cloudflare Pages custom domains and apex records work best with Cloudflare DNS.
 4. Enable **Always Use HTTPS** in SSL/TLS → Edge Certificates.
-5. Add a proxied `A` record for `www`:
+5. If you do not already have a `www` record, add a proxied `A` record:
    - **Type:** `A`
    - **Name:** `www`
    - **IPv4 address:** `192.0.2.1`
    - **Proxy status:** Proxied
    - `192.0.2.1` is Cloudflare's placeholder address for redirect-only hostnames. It does not point to a server.
+
+   If `www` already exists as a proxied `CNAME` to `cognilogs.com`, keep it. Do not add the placeholder `A` record. The redirect rule runs before the request reaches Pages, so the CNAME target does not matter for a redirect-only setup.
 6. Create a **Redirect Rule** in the `cognilogs.com` zone:
    - Go to **Rules** → **Overview** → **Create rule** → **Redirect Rule**.
    - **Wildcard pattern:** `https://www.cognilogs.com/*`
