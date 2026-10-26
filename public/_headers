@@ -1,0 +1,18 @@
+# Cloudflare Pages response headers.
+#
+# `public/` is copied into the static export, so this file lands at out/_headers.
+# There is intentionally no X-Robots-Tag or bot-blocking header here. The site
+# allows every crawler in src/app/robots.ts.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Next.js fingerprints these filenames, so they can be cached for a year.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/og.png
+  Cache-Control: public, max-age=86400

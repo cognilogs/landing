@@ -4,8 +4,7 @@ import type { Metadata } from "next";
  * Canonical origin for the marketing site.
  *
  * Override with NEXT_PUBLIC_SITE_URL when the site is served from a different
- * origin or path (for example the GitHub Pages project URL
- * `https://cognilogs.github.io/landing`). No trailing slash.
+ * origin (for example a Cloudflare Pages preview URL). No trailing slash.
  */
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://cognilogs.com"

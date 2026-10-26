@@ -83,7 +83,7 @@ Constraints and undecided facts:
 - No customer count, benchmark, or production deployment claim has been verified.
 - Early customers can get a ticket resolved for as low as ₹10. Final pricing depends on model, infrastructure, volume, and resolution depth.
 - The public site is open for early access; the existing Google Sheets waitlist form is the current conversion mechanism.
-- The waitlist and legal pages exist at `/waitlist`, `/privacy`, and `/terms`. Local builds serve from the domain root. The GitHub Pages project build uses `/landing` as its base path.
+- The waitlist and legal pages exist at `/waitlist`, `/privacy`, and `/terms`. The static build serves from the domain root.
 
 ## Brand Commitments
 
