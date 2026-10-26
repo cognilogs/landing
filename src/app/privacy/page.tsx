@@ -21,7 +21,7 @@ export default function PrivacyPage() {
       title="Privacy Policy"
       description="What we collect, why we collect it, and how to reach us about it."
       updated="October 2026"
-      summary="We collect the email you give us for early access, use it to review your request, and do not sell it. For local deployments, ticket content stays in the environment your organization controls, subject to the deployment terms we agree with you."
+      summary="We collect the email you give us for early access, use it to review your request, and do not sell it. We also use first-party product analytics to understand which pages and actions are useful. For local deployments, ticket content stays in the environment your organization controls, subject to the deployment terms we agree with you."
     >
       <JsonLd data={breadcrumb("/privacy/", "Privacy Policy")} />
       <LegalSection title="Scope">
@@ -45,12 +45,13 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection title="What we collect">
-        <p>We collect information in three ways.</p>
+        <p>We collect information in four ways.</p>
         <LegalList
           items={[
             "Waitlist information. When you request early access, we receive the email address you submit and the page or source that referred you.",
             "Preview and deployment information. If your organization joins a local pilot, we may receive configuration details, contact information for your team, and support requests you choose to share. We ask for the access needed to set up and support the workflows you agree to test.",
             "Technical and communications data. Our hosting and email providers may process basic request logs, such as an IP address and the time of a request. We also keep the emails you send us about the preview.",
+            "Product analytics. We use PostHog to record page views, clicks on links and buttons, the page you are on, the page that referred you, and basic device and browser information. We do not send the email you type into the waitlist form to PostHog, and we do not use analytics for advertising or cross-site tracking.",
           ]}
         />
         <p>
@@ -65,6 +66,7 @@ export default function PrivacyPage() {
             "To review early-access requests and decide whether a team is a good fit.",
             "To contact you about the preview, onboarding, and the workflows you want to test.",
             "To set up and support the local deployment, including troubleshooting and security reviews.",
+            "To understand how visitors use the site and improve its content and navigation.",
             "To debug problems, improve the product, and keep the service secure.",
             "To comply with applicable law and enforce our agreements.",
           ]}
@@ -106,7 +108,9 @@ export default function PrivacyPage() {
           environment. We keep the limited deployment and support information we
           receive for the period described in the onboarding terms we agree with
           your organization. When that period ends, we delete or de-identify the
-          data unless the law requires us to keep it.
+          data unless the law requires us to keep it. We keep product analytics
+          for as long as needed to understand site usage and improve the site,
+          then delete or aggregate it.
         </p>
       </LegalSection>
 
@@ -150,20 +154,43 @@ export default function PrivacyPage() {
 
       <LegalSection title="Cookies and analytics">
         <p>
-          This site does not use advertising cookies. Our hosting provider may
-          process basic technical logs to deliver the site and protect it from
-          abuse. If we add product analytics later, we will update this page and
-          describe the choice available to you.
+          This site uses PostHog for product analytics. PostHog stores a
+          first-party identifier in a cookie and browser storage so we can tell
+          one visit from another and understand which pages and actions are
+          useful. The data includes the pages you view, the links and buttons
+          you click, the referring page, and basic device and browser
+          information.
+        </p>
+        <p>
+          We do not use advertising cookies, sell analytics data, or track you
+          across other websites. PostHog processes this data on our behalf under
+          its{" "}
+          <a
+            href="https://posthog.com/privacy"
+            className="font-medium text-ink underline decoration-line-strong underline-offset-2 transition-colors hover:text-accent-strong"
+          >
+            privacy policy
+          </a>
+          . You can block analytics with your browser&apos;s tracking protection
+          or a content blocker and the site will continue to work. To ask us to
+          delete analytics data, email{" "}
+          <a
+            href="mailto:team@cognilogs.com"
+            className="font-medium text-ink underline decoration-line-strong underline-offset-2 transition-colors hover:text-accent-strong"
+          >
+            team@cognilogs.com
+          </a>
+          .
         </p>
       </LegalSection>
 
       <LegalSection title="International processing">
         <p>
-          Our website and waitlist providers may process information in countries
-          other than the one where you live. A local deployment is designed to
-          keep ticket data in the environment your organization chooses. Where
-          required, we use appropriate safeguards for transfers we control and
-          require providers to protect the information.
+          Our website, analytics, and waitlist providers may process information
+          in countries other than the one where you live. A local deployment is
+          designed to keep ticket data in the environment your organization
+          chooses. Where required, we use appropriate safeguards for transfers
+          we control and require providers to protect the information.
         </p>
       </LegalSection>
 

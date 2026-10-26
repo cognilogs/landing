@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { captureEvent } from "@/lib/analytics";
 
 const SHEETS_WEBHOOK_URL =
   "https://script.google.com/macros/s/AKfycbwPOWaIFazVXrHnlL7a-KPb0bMBkxx5IcsV06E9Gg3F7JoFE57omc0Bt5-McHMC1gWO/exec";
@@ -30,9 +31,15 @@ export default function WaitlistForm({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!email) return;
+    if (!email || loading) return;
     setLoading(true);
     setError("");
+
+    captureEvent("waitlist_signup_started", {
+      source,
+      form_id: idPrefix,
+      page_path: window.location.pathname,
+    });
 
     try {
       const params = new URLSearchParams({
@@ -51,9 +58,19 @@ export default function WaitlistForm({
       }
 
       setSubmitted(true);
+      captureEvent("waitlist_signup", {
+        source,
+        form_id: idPrefix,
+        page_path: window.location.pathname,
+      });
       onSuccess?.();
     } catch {
       setError("Something went wrong. Please try again.");
+      captureEvent("waitlist_signup_failed", {
+        source,
+        form_id: idPrefix,
+        page_path: window.location.pathname,
+      });
     } finally {
       setLoading(false);
     }
@@ -108,6 +125,9 @@ export default function WaitlistForm({
         <button
           type="submit"
           disabled={loading}
+          data-analytics="waitlist-submit"
+          data-analytics-source={source}
+          data-analytics-label={buttonLabel}
           className={`group inline-flex h-[50px] shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-6 text-[14px] font-medium text-white transition-colors hover:bg-ink-soft disabled:cursor-wait disabled:opacity-60 ${
             compact ? "w-full" : "sm:h-[52px]"
           }`}

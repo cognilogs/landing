@@ -16,7 +16,11 @@ export default function FAQ({ items }: FAQProps) {
           name="cognilogs-faq"
           className="group overflow-hidden rounded-[18px] bg-surface transition-colors duration-200 open:bg-accent-soft"
         >
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-6 px-5 py-5 sm:px-6">
+          <summary
+            data-analytics="faq-toggle"
+            data-analytics-label={item.question}
+            className="flex cursor-pointer list-none items-center justify-between gap-6 px-5 py-5 sm:px-6"
+          >
             <span className="text-[15px] font-medium leading-6 text-ink sm:text-[16px]">
               {item.question}
             </span>

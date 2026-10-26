@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import PostHogAnalytics from "@/components/analytics/PostHogAnalytics";
 import Layout from "@/components/layout/Layout";
 import JsonLd from "@/components/seo/JsonLd";
 import { siteGraph } from "@/lib/schema";
@@ -64,6 +65,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
         <JsonLd data={siteStructuredData} />
+        <PostHogAnalytics />
         <noscript>
           <style>{`[data-scroll-reveal] { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>

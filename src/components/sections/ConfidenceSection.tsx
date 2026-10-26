@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -11,17 +11,45 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
+import { captureEvent } from "@/lib/analytics";
 
 const EVIDENCE_SCORE = 0.92;
 
+const RANGE_KEYS = new Set([
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+  "Home",
+  "End",
+  "PageUp",
+  "PageDown",
+]);
+
 export default function ConfidenceSection() {
   const [threshold, setThreshold] = useState(0.85);
+  const lastTracked = useRef(threshold);
   const autoReply = EVIDENCE_SCORE >= threshold;
   // The native range thumb travels between half a thumb-width and the width
   // minus half a thumb, not across the full track. Match that inset so the
   // fill line and the visible thumb meet exactly.
   const ratio = (threshold - 0.5) / (0.99 - 0.5);
   const thumbPosition = `calc(${(ratio * 100).toFixed(3)}% + ${(12 - 24 * ratio).toFixed(3)}px)`;
+
+  const trackThreshold = () => {
+    if (lastTracked.current === threshold) return;
+    lastTracked.current = threshold;
+
+    captureEvent("confidence_threshold_changed", {
+      threshold: Number(threshold.toFixed(2)),
+      auto_reply: autoReply,
+      page_path: window.location.pathname,
+    });
+  };
+
+  const onRangeKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (RANGE_KEYS.has(event.key)) trackThreshold();
+  };
 
   return (
     <section
@@ -130,6 +158,8 @@ export default function ConfidenceSection() {
                     onChange={(event) =>
                       setThreshold(Number(event.target.value))
                     }
+                    onPointerUp={trackThreshold}
+                    onKeyUp={onRangeKeyUp}
                     aria-valuetext={`${threshold.toFixed(2)} confidence threshold. ${
                       autoReply ? "This run would auto-reply." : "This run would go to human review."
                     }`}

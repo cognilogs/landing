@@ -19,6 +19,58 @@ npm run build
 
 Next.js writes the static site to `out/`. There is no Node server at runtime.
 
+## Analytics (PostHog)
+
+The site uses PostHog for client-side product analytics. It tracks:
+
+- `$pageview` on the initial load and on every client-side route change
+- `link_clicked` for every link, with the link text, destination, section, and page
+- `button_clicked` for every button, menu toggle, FAQ disclosure, and `role="button"` control
+- `waitlist_dialog_opened` when the early-access dialog opens
+- `waitlist_signup_started`, `waitlist_signup`, and `waitlist_signup_failed` around the waitlist form
+- `pricing_estimate_changed` and `confidence_threshold_changed` when those sliders are released
+
+No email address or other form value is sent to PostHog. The tracking code lives in `src/components/analytics/PostHogAnalytics.tsx` and `src/lib/analytics.ts`, and is mounted once in `src/app/layout.tsx`.
+
+### Configure it
+
+1. Create a PostHog project at [posthog.com](https://posthog.com) or open an existing one.
+2. In the project, open **Settings** → **Project** → **Project API key**. Copy the `phc_...` key. This key is public and safe to ship in client-side code. Do not use a personal API key.
+3. Copy `.env.example` to `.env.local` and fill in the key:
+
+   ```sh
+   cp .env.example .env.local
+   ```
+
+   ```text
+   NEXT_PUBLIC_POSTHOG_KEY=phc_your_project_key
+   NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+   ```
+
+   Use `https://eu.i.posthog.com` if the PostHog project is in the EU region.
+4. Restart the dev server. Open the site and check **Activity** → **Live events** in PostHog. Click through a few pages and buttons; the events should appear within a few seconds.
+
+### Cloudflare Pages
+
+Add both variables under **Settings** → **Environment variables** for **Production** and **Preview**:
+
+```text
+NEXT_PUBLIC_POSTHOG_KEY=phc_your_project_key
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
+`NEXT_PUBLIC_*` values are inlined into the static bundle at build time. Changing either value requires a new deployment. If the key is missing or empty, analytics is a no-op and the site still builds and runs normally.
+
+### Custom event IDs
+
+The global click capture already records every link and button. For stable, human-readable IDs on specific controls, add a `data-analytics` attribute:
+
+```tsx
+<button data-analytics="hero-waitlist">Join the waitlist</button>
+```
+
+The event will include `analytics_id: "hero-waitlist"`. You can also add `data-analytics-label` to override the captured text, and `data-analytics-source` to record where the control lives.
+
 ## Deploy to Cloudflare Pages
 
 ### Git integration (recommended)
@@ -35,6 +87,8 @@ Next.js writes the static site to `out/`. There is no Node server at runtime.
 5. Add these environment variables for Production and Preview:
    - `NODE_VERSION` = `22` (optional; `.nvmrc` already pins Node 22)
    - `NEXT_PUBLIC_SITE_URL` = `https://cognilogs.com`
+   - `NEXT_PUBLIC_POSTHOG_KEY` = your PostHog project API key (`phc_...`)
+   - `NEXT_PUBLIC_POSTHOG_HOST` = `https://us.i.posthog.com` (or the EU host)
 6. Deploy.
 
 Every push to `main` deploys production. Pull requests get preview deployments.

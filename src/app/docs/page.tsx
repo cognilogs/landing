@@ -147,7 +147,11 @@ export default function DocsPage() {
 
             <div className="mt-6 lg:hidden">
               <details className="rounded-[18px] bg-surface p-4">
-                <summary className="cursor-pointer text-[13px] font-medium text-ink">
+                <summary
+                  data-analytics="docs-toc-toggle"
+                  data-analytics-label="On this page"
+                  className="cursor-pointer text-[13px] font-medium text-ink"
+                >
                   On this page
                 </summary>
                 <nav aria-label="Guide sections" className="mt-3 grid gap-1">

@@ -66,6 +66,7 @@ export default function Nav() {
           <button
             type="button"
             onClick={openWaitlist}
+            data-analytics="nav-banner-waitlist"
             className="group inline-flex shrink-0 items-center gap-1 font-medium text-white transition-colors hover:text-accent"
           >
             Join the waitlist
@@ -111,6 +112,7 @@ export default function Nav() {
             <div className="flex items-center gap-1.5">
               <a
                 href="mailto:team@cognilogs.com"
+                data-analytics="nav-email"
                 className="hidden rounded-full px-3 py-2 text-[13px] text-muted transition-colors hover:bg-surface hover:text-ink xl:block"
               >
                 team@cognilogs.com
@@ -118,6 +120,7 @@ export default function Nav() {
               <button
                 type="button"
                 onClick={openWaitlist}
+                data-analytics="nav-waitlist"
                 className="group hidden h-9 items-center gap-2 rounded-full bg-accent px-4 text-[13px] font-medium text-accent-ink transition-colors hover:bg-[#fb8a3d] sm:inline-flex"
               >
                 Join waitlist
@@ -132,6 +135,7 @@ export default function Nav() {
                 aria-expanded={open}
                 aria-controls="mobile-navigation"
                 onClick={() => setOpen((current) => !current)}
+                data-analytics="nav-mobile-menu"
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-surface-muted lg:hidden"
               >
                 {open ? (
@@ -176,6 +180,7 @@ export default function Nav() {
                 <button
                   type="button"
                   onClick={openWaitlist}
+                  data-analytics="nav-mobile-waitlist"
                   className="mt-3 inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent px-5 text-[14px] font-medium text-accent-ink"
                 >
                   Join the waitlist

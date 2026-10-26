@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, Clock3, Sparkles, X } from "lucide-react";
 import WaitlistForm from "@/components/ui/WaitlistForm";
 import { LogoMark } from "@/components/ui/Logo";
+import { captureEvent } from "@/lib/analytics";
 
 export default function WaitlistDialog({
   open,
@@ -14,7 +15,17 @@ export default function WaitlistDialog({
   onClose: () => void;
 }) {
   const closeRef = useRef<HTMLButtonElement | null>(null);
+  const wasOpen = useRef(false);
   const prefersReduced = useReducedMotion();
+
+  useEffect(() => {
+    if (open && !wasOpen.current) {
+      captureEvent("waitlist_dialog_opened", {
+        page_path: window.location.pathname,
+      });
+    }
+    wasOpen.current = open;
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -65,6 +76,7 @@ export default function WaitlistDialog({
               type="button"
               onClick={onClose}
               aria-label="Close waitlist"
+              data-analytics="waitlist-dialog-close"
               className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-white/80 text-ink transition-colors hover:bg-white"
             >
               <X className="h-4 w-4" />

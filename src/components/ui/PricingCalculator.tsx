@@ -1,16 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRight, Calculator, Cpu, Ticket } from "lucide-react";
+import { captureEvent } from "@/lib/analytics";
 
 const FLOOR = 10;
 
+const RANGE_KEYS = new Set([
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+  "Home",
+  "End",
+  "PageUp",
+  "PageDown",
+]);
+
 export default function PricingCalculator() {
   const [tickets, setTickets] = useState(500);
+  const lastTracked = useRef(tickets);
   const estimate = tickets * FLOOR;
   const ratio = (tickets - 100) / (5000 - 100);
   // Match the range thumb's inset so the fill ends exactly at the circle.
   const thumbPosition = `calc(${(ratio * 100).toFixed(3)}% + ${(12 - 24 * ratio).toFixed(3)}px)`;
+
+  const trackEstimate = () => {
+    if (lastTracked.current === tickets) return;
+    lastTracked.current = tickets;
+
+    captureEvent("pricing_estimate_changed", {
+      tickets_per_month: tickets,
+      estimated_floor_inr: estimate,
+      page_path: window.location.pathname,
+    });
+  };
+
+  const onRangeKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (RANGE_KEYS.has(event.key)) trackEstimate();
+  };
 
   return (
     <div data-ui className="rounded-[26px] bg-surface p-5 sm:p-6">
@@ -48,6 +76,8 @@ export default function PricingCalculator() {
               step="100"
               value={tickets}
               onChange={(event) => setTickets(Number(event.target.value))}
+              onPointerUp={trackEstimate}
+              onKeyUp={onRangeKeyUp}
               className="threshold-range relative z-10 w-full"
             />
             <span
