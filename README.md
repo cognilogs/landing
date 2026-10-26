@@ -70,9 +70,10 @@ The site intentionally allows every crawler:
 
 To keep it that way in Cloudflare:
 
+- Open **Security** → **Settings** → **Bot traffic** → **Configure AI bot policies** and set **Search**, **Agent**, and **Training** to **Allow (do not block)**.
 - Turn **off** Bot Fight Mode and Super Bot Fight Mode.
-- Turn **off** **Block AI bots**.
-- Do **not** enable AI Crawl Control or Managed robots.txt.
+- Turn **off** Bot Preference Sync and Managed robots.txt.
+- Do **not** enable AI Crawl Control or the legacy **Block AI bots** rule.
 - Set **Security Level** to **Essentially Off** if you truly want every bot, including scrapers, to pass.
 - Do not enable **Under Attack Mode** or a WAF rule that challenges crawlers.
 - If **Browser Integrity Check** is on, turn it off.
