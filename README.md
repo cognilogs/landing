@@ -53,12 +53,28 @@ The `wrangler.jsonc` file also points Pages at `./out` for local `wrangler pages
 ### Custom domain
 
 1. In the Pages project, open **Custom domains** → **Set up a domain**.
-2. Add `cognilogs.com`.
-3. If the domain is on Cloudflare DNS, the required records are created automatically.
-4. Add a **Redirect Rule** in the `cognilogs.com` zone to send `www.cognilogs.com/*` to `https://cognilogs.com/:splat` with a `301`.
-5. Enable **Always Use HTTPS** in SSL/TLS → Edge Certificates.
+2. Add `cognilogs.com` and wait for it to become active.
+3. If the domain is on Cloudflare DNS, the required records are created automatically. If it is not, move the nameservers to Cloudflare first. Cloudflare Pages custom domains and apex records work best with Cloudflare DNS.
+4. Enable **Always Use HTTPS** in SSL/TLS → Edge Certificates.
+5. Add a proxied `A` record for `www`:
+   - **Type:** `A`
+   - **Name:** `www`
+   - **IPv4 address:** `192.0.2.1`
+   - **Proxy status:** Proxied
+   - `192.0.2.1` is Cloudflare's placeholder address for redirect-only hostnames. It does not point to a server.
+6. Create a **Redirect Rule** in the `cognilogs.com` zone:
+   - Go to **Rules** → **Overview** → **Create rule** → **Redirect Rule**.
+   - **Wildcard pattern:** `https://www.cognilogs.com/*`
+   - **Target URL:** `https://cognilogs.com/${1}`
+   - **Status code:** `301`
+   - **Preserve query string:** enabled
+7. Deploy the rule and test both the root and a subpath:
+   ```sh
+   curl -I https://www.cognilogs.com/
+   curl -I https://www.cognilogs.com/pricing/
+   ```
 
-If the domain is not on Cloudflare DNS, move the nameservers to Cloudflare first. Cloudflare Pages custom domains and apex records work best with Cloudflare DNS.
+`www` is a redirect to the apex, not a second copy of the site. Keep `NEXT_PUBLIC_SITE_URL` set to `https://cognilogs.com` so canonicals and the sitemap stay on one host.
 
 ### Bot access
 
